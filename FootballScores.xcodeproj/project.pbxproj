@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		90E7C2872586B46D00E84F5B /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E7C2862586B46D00E84F5B /* AppView.swift */; };
+		90E7C2942586B64C00E84F5B /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E7C2932586B64C00E84F5B /* Game.swift */; };
+		90E7C2992586B65B00E84F5B /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E7C2982586B65B00E84F5B /* League.swift */; };
+		90E7C29E2586B66A00E84F5B /* Club.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E7C29D2586B66A00E84F5B /* Club.swift */; };
 		90F2807D2576E35000EFE936 /* FootballScoresApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F2807C2576E35000EFE936 /* FootballScoresApp.swift */; };
 		90F2807F2576E35000EFE936 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F2807E2576E35000EFE936 /* ContentView.swift */; };
 		90F280812576E35100EFE936 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90F280802576E35100EFE936 /* Assets.xcassets */; };
@@ -33,6 +37,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		90E7C2862586B46D00E84F5B /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		90E7C2932586B64C00E84F5B /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		90E7C2982586B65B00E84F5B /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
+		90E7C29D2586B66A00E84F5B /* Club.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Club.swift; sourceTree = "<group>"; };
 		90F280792576E35000EFE936 /* FootballScores.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FootballScores.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90F2807C2576E35000EFE936 /* FootballScoresApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootballScoresApp.swift; sourceTree = "<group>"; };
 		90F2807E2576E35000EFE936 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -95,11 +103,10 @@
 		90F2807B2576E35000EFE936 /* FootballScores */ = {
 			isa = PBXGroup;
 			children = (
-				90F2807C2576E35000EFE936 /* FootballScoresApp.swift */,
-				90F2807E2576E35000EFE936 /* ContentView.swift */,
-				90F280802576E35100EFE936 /* Assets.xcassets */,
-				90F280852576E35100EFE936 /* Info.plist */,
-				90F280822576E35100EFE936 /* Preview Content */,
+				90F280AB2576E37100EFE936 /* UI */,
+				90F280AA2576E36900EFE936 /* Model */,
+				90F280AC2576E37D00EFE936 /* Resources */,
+				90F280AD2576E38600EFE936 /* Supporting Files */,
 			);
 			path = FootballScores;
 			sourceTree = "<group>";
@@ -128,6 +135,43 @@
 				90F2809B2576E35100EFE936 /* Info.plist */,
 			);
 			path = FootballScoresUITests;
+			sourceTree = "<group>";
+		};
+		90F280AA2576E36900EFE936 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				90E7C2932586B64C00E84F5B /* Game.swift */,
+				90E7C2982586B65B00E84F5B /* League.swift */,
+				90E7C29D2586B66A00E84F5B /* Club.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		90F280AB2576E37100EFE936 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				90F2807C2576E35000EFE936 /* FootballScoresApp.swift */,
+				90F2807E2576E35000EFE936 /* ContentView.swift */,
+				90E7C2862586B46D00E84F5B /* AppView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		90F280AC2576E37D00EFE936 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				90F280802576E35100EFE936 /* Assets.xcassets */,
+				90F280822576E35100EFE936 /* Preview Content */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		90F280AD2576E38600EFE936 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				90F280852576E35100EFE936 /* Info.plist */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,7 +304,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				90F2807F2576E35000EFE936 /* ContentView.swift in Sources */,
+				90E7C29E2586B66A00E84F5B /* Club.swift in Sources */,
 				90F2807D2576E35000EFE936 /* FootballScoresApp.swift in Sources */,
+				90E7C2872586B46D00E84F5B /* AppView.swift in Sources */,
+				90E7C2992586B65B00E84F5B /* League.swift in Sources */,
+				90E7C2942586B64C00E84F5B /* Game.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,10 +466,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"FootballScores/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"FootballScores/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 2PC5P89XNC;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = FootballScores/Info.plist;
+				INFOPLIST_FILE = "FootballScores/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -440,10 +488,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"FootballScores/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"FootballScores/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 2PC5P89XNC;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = FootballScores/Info.plist;
+				INFOPLIST_FILE = "FootballScores/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
