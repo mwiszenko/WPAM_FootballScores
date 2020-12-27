@@ -9,9 +9,16 @@ import SwiftUI
 
 @main
 struct FootballScoresApp: App {
+    @StateObject private var modelData = ModelData()
+
     var body: some Scene {
         WindowGroup {
             AppView()
+                .environmentObject(modelData)
+                .onAppear(perform: {
+                    modelData.loadLeagues()
+                    modelData.loadFixtures()
+                })
         }
     }
 }

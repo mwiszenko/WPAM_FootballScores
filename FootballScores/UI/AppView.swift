@@ -10,16 +10,28 @@ import SwiftUI
 struct AppView: View {
     var body: some View {
         TabView {
-            ContentView()
+            FixturesView()
                 .tabItem {
-                    Image(systemName: "list.dash")
-                    Text("Menu")
+                    Image(systemName: "list.bullet")
+                    Text("Matches")
                 }
 
-            ContentView()
+            LeaguesView()
                 .tabItem {
-                    Image(systemName: "square.and.pencil")
-                    Text("Order")
+                    Image(systemName: "note")
+                    Text("Leagues")
+                }
+
+            FavouritesView()
+                .tabItem {
+                    Image(systemName: "star.fill")
+                    Text("Favourites")
+                }
+
+            SettingsView()
+                .tabItem {
+                    Image(systemName: "gearshape.fill")
+                    Text("Settings")
                 }
         }
     }
@@ -28,5 +40,7 @@ struct AppView: View {
 struct AppView_Previews: PreviewProvider {
     static var previews: some View {
         AppView()
+            .colorScheme(.dark)
+            .environmentObject(ModelData())
     }
 }
