@@ -16,7 +16,10 @@ struct FixtureDetailView: View {
     }
 
     var body: some View {
-        Text(fixture.referee)
+        VStack {
+            Text("\(fixture.id)")
+            Text(fixture.homeTeam.logo)
+        }
     }
 }
 

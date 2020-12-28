@@ -7,9 +7,8 @@
 
 import Foundation
 
-struct Venue: Hashable, Codable, Identifiable {
+struct Venue: Decodable {
     
-    let id: Int
-    let name: String
-    let city: String
+    let name: String?
+    let city: String?
 }

@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct FixtureStatus: Hashable, Codable {
+struct FixtureStatus: Decodable {
     
     let long: String
     let short: String
-    let elapsed: Int
+    let elapsed: Int?
 }

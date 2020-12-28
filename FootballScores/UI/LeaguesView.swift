@@ -26,6 +26,7 @@ struct LeaguesView: View {
 struct LeaguesView_Previews: PreviewProvider {
     static var previews: some View {
         LeaguesView()
+            .colorScheme(.dark)
             .environmentObject(ModelData())
     }
 }

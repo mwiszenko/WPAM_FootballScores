@@ -12,5 +12,5 @@ struct Team: Hashable, Codable, Identifiable {
     let id: Int
     let name: String
     let logo: String
-    let winner: Bool
+    let winner: Bool?
 }

@@ -15,10 +15,10 @@ struct FootballScoresApp: App {
         WindowGroup {
             AppView()
                 .environmentObject(modelData)
-                .onAppear(perform: {
-                    modelData.loadLeagues()
-                    modelData.loadFixtures()
-                })
+//                .onAppear(perform: {
+//                    modelData.loadLeagues()
+//                    modelData.loadFixtures()
+//                })
         }
     }
 }

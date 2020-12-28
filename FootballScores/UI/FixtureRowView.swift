@@ -12,7 +12,23 @@ struct FixtureRowView: View {
 
     var body: some View {
         HStack {
-            Text(fixture.referee)
+            Text(fixture.homeTeam.name)
+            Spacer()
+            RemoteImage(url: fixture.homeTeam.logo)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+            Spacer()
+            if fixture.homeGoals != nil && fixture.awayGoals != nil {
+                Text("\(fixture.homeGoals ?? 0) - \(fixture.homeGoals ?? 0)")
+            } else {
+                Text(fixture.date.addingTimeInterval(600), style: .time)
+            }
+            Spacer()
+            RemoteImage(url: fixture.awayTeam.logo)
+                        .aspectRatio(contentMode: .fit)
+                .frame(width: 30, height: 30)
+            Spacer()
+            Text(fixture.awayTeam.name)
         }
     }
 }

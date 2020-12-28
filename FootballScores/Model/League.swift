@@ -15,7 +15,7 @@ struct League: Hashable, Identifiable {
     
     let id: Int
     let name: String
-    let logo: URL
+    let logo: String
     let country: String
     
     enum CodingKeys: String, CodingKey {
@@ -41,7 +41,7 @@ extension League: Decodable {
         let league = try values.nestedContainer(keyedBy: LeagueKeys.self, forKey: .league)
         id = try league.decode(Int.self, forKey: .id)
         name = try league.decode(String.self, forKey: .name)
-        logo = try league.decode(URL.self, forKey: .logo)
+        logo = try league.decode(String.self, forKey: .logo)
         
         let country = try values.nestedContainer(keyedBy: CountryKeys.self, forKey: .country)
         self.country = try country.decode(String.self, forKey: .country)

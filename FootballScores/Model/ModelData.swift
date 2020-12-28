@@ -11,6 +11,11 @@ import Combine
 final class ModelData: ObservableObject {
     @Published var fixtures: [Fixture] = [Fixture]()
     @Published var leagues: [League] = [League]()
+    @Published var fixturesDict: [FixtureLeague: [Fixture]] = [FixtureLeague: [Fixture]]()
+    
+    init() {
+        loadData()
+    }
     
     func loadLeagues() {
         guard let url = URL(string: "https://v3.football.api-sports.io/leagues") else {
@@ -22,6 +27,12 @@ final class ModelData: ObservableObject {
 
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else { return }
+            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
+                                                                in: .userDomainMask).first {
+                let pathWithFileName = documentDirectory.appendingPathComponent("leagues").appendingPathExtension("json")
+                print(pathWithFileName)
+                try! data.write(to: pathWithFileName)
+            }
                 let leaguesResponse = try! JSONDecoder().decode(LeaguesResponse.self, from: data)
                 DispatchQueue.main.async {
                     self.leagues = leaguesResponse.response
@@ -30,7 +41,7 @@ final class ModelData: ObservableObject {
     }
     
     func loadFixtures() {
-        guard let url = URL(string: "https://v3.football.api-sports.io/fixtures") else {
+        guard let url = URL(string: "https://v3.football.api-sports.io/fixtures?date=2020-12-28") else {
             print("Your API end point is Invalid")
             return
         }
@@ -39,10 +50,42 @@ final class ModelData: ObservableObject {
 
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else { return }
-                let fixturesResponse = try! JSONDecoder().decode(FixturesResponse.self, from: data)
+            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
+                                                                in: .userDomainMask).first {
+                let pathWithFileName = documentDirectory.appendingPathComponent("fixtures").appendingPathExtension("json")
+                print(pathWithFileName)
+                try! data.write(to: pathWithFileName)
+            }
+            let fixturesResponse = try! JSONDecoder().decode(FixturesResponse.self, from: data)
                 DispatchQueue.main.async {
                     self.fixtures = fixturesResponse.response
                 }
         }.resume()
+    }
+    
+    func loadData() {
+        if let url = Bundle.main.url(forResource: "fixtures", withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                let fixturesResponse = try decoder.decode(FixturesResponse.self, from: data)
+                self.fixtures = fixturesResponse.response
+                self.fixturesDict = Dictionary(grouping: fixtures, by: \.league)
+                print(fixturesDict)
+            } catch {
+                print("error:\(error)")
+            }
+        }
+        
+        if let url = Bundle.main.url(forResource: "leagues", withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                let leaguesResponse = try decoder.decode(LeaguesResponse.self, from: data)
+                self.leagues = leaguesResponse.response
+            } catch {
+                print("error:\(error)")
+            }
+        }
     }
 }

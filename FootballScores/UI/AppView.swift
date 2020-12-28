@@ -13,7 +13,7 @@ struct AppView: View {
             FixturesView()
                 .tabItem {
                     Image(systemName: "list.bullet")
-                    Text("Matches")
+                    Text("Fixtures")
                 }
 
             LeaguesView()

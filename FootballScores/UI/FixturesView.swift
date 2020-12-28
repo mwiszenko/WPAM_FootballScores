@@ -9,18 +9,19 @@ import SwiftUI
 
 struct FixturesView: View {
     @EnvironmentObject var modelData: ModelData
-    @State private var showFavoritesOnly = false
 
     var body: some View {
         NavigationView {
             List {
-                Toggle(isOn: $showFavoritesOnly) {
-                    Text("Favorites only")
-                }
-                
-                ForEach(modelData.fixtures) { fixture in
-                    NavigationLink(destination: FixtureDetailView(fixture: fixture)) {
-                        FixtureRowView(fixture: fixture)
+                ForEach(modelData.fixturesDict.sorted { (first, second) -> Bool in
+                    return first.key.name > second.key.name
+                }, id: \.key) { key, value in
+                    Section(header: Text(key.name)) {
+                        ForEach(value) { fixture in
+                            NavigationLink(destination: FixtureDetailView(fixture: fixture)) {
+                                FixtureRowView(fixture: fixture)
+                            }
+                        }
                     }
                 }
             }
@@ -32,6 +33,7 @@ struct FixturesView: View {
 struct FixturesView_Previews: PreviewProvider {
     static var previews: some View {
         FixturesView()
+            .colorScheme(.dark)
             .environmentObject(ModelData())
     }
 }
