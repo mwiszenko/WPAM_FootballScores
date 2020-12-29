@@ -42,5 +42,6 @@ struct AppView_Previews: PreviewProvider {
         AppView()
             .colorScheme(.dark)
             .environmentObject(ModelData())
+            .environmentObject(Favourites())
     }
 }

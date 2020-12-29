@@ -9,14 +9,15 @@ import SwiftUI
 
 struct FixturesView: View {
     @EnvironmentObject var modelData: ModelData
+    @EnvironmentObject var favourites: Favourites
 
     var body: some View {
         NavigationView {
             List {
                 ForEach(modelData.fixturesDict.sorted { (first, second) -> Bool in
-                    return first.key.name > second.key.name
+                    return first.key.country < second.key.country
                 }, id: \.key) { key, value in
-                    Section(header: Text(key.name)) {
+                    Section(header: Text(key.country + " - " + key.name)) {
                         ForEach(value) { fixture in
                             NavigationLink(destination: FixtureDetailView(fixture: fixture)) {
                                 FixtureRowView(fixture: fixture)
@@ -26,6 +27,7 @@ struct FixturesView: View {
                 }
             }
             .navigationTitle("Fixtures")
+            .listStyle(InsetGroupedListStyle())
         }
     }
 }
@@ -35,5 +37,6 @@ struct FixturesView_Previews: PreviewProvider {
         FixturesView()
             .colorScheme(.dark)
             .environmentObject(ModelData())
+            .environmentObject(Favourites())
     }
 }

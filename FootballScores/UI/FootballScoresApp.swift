@@ -10,11 +10,14 @@ import SwiftUI
 @main
 struct FootballScoresApp: App {
     @StateObject private var modelData = ModelData()
+    @StateObject private var favourites = Favourites()
+
 
     var body: some Scene {
         WindowGroup {
             AppView()
                 .environmentObject(modelData)
+                .environmentObject(favourites)
 //                .onAppear(perform: {
 //                    modelData.loadLeagues()
 //                    modelData.loadFixtures()

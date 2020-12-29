@@ -12,6 +12,8 @@ final class ModelData: ObservableObject {
     @Published var fixtures: [Fixture] = [Fixture]()
     @Published var leagues: [League] = [League]()
     @Published var fixturesDict: [FixtureLeague: [Fixture]] = [FixtureLeague: [Fixture]]()
+    @Published var leaguesDict: [String: [League]] = [String: [League]]()
+
     
     init() {
         loadData()
@@ -71,7 +73,6 @@ final class ModelData: ObservableObject {
                 let fixturesResponse = try decoder.decode(FixturesResponse.self, from: data)
                 self.fixtures = fixturesResponse.response
                 self.fixturesDict = Dictionary(grouping: fixtures, by: \.league)
-                print(fixturesDict)
             } catch {
                 print("error:\(error)")
             }
@@ -83,6 +84,7 @@ final class ModelData: ObservableObject {
                 let decoder = JSONDecoder()
                 let leaguesResponse = try decoder.decode(LeaguesResponse.self, from: data)
                 self.leagues = leaguesResponse.response
+                self.leaguesDict = Dictionary(grouping: leagues, by: \.country)
             } catch {
                 print("error:\(error)")
             }

@@ -17,6 +17,7 @@ struct League: Hashable, Identifiable {
     let name: String
     let logo: String
     let country: String
+    let flag: String?
     
     enum CodingKeys: String, CodingKey {
         case league
@@ -31,6 +32,7 @@ struct League: Hashable, Identifiable {
     
     enum CountryKeys: String, CodingKey {
         case country = "name"
+        case flag
     }
 }
 
@@ -45,5 +47,6 @@ extension League: Decodable {
         
         let country = try values.nestedContainer(keyedBy: CountryKeys.self, forKey: .country)
         self.country = try country.decode(String.self, forKey: .country)
+        flag = try country.decode(String?.self, forKey: .flag)
     }
 }

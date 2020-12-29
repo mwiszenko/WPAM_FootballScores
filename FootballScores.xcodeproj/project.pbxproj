@@ -10,6 +10,8 @@
 		90ADE8E0259A253D00796B47 /* leagues.json in Resources */ = {isa = PBXBuildFile; fileRef = 90ADE8DE259A253D00796B47 /* leagues.json */; };
 		90ADE8E1259A253D00796B47 /* fixtures.json in Resources */ = {isa = PBXBuildFile; fileRef = 90ADE8DF259A253D00796B47 /* fixtures.json */; };
 		90ADE8E6259A2A6C00796B47 /* RemoteImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90ADE8E5259A2A6C00796B47 /* RemoteImageView.swift */; };
+		90ADE8EE259B3F2700796B47 /* Favourites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90ADE8ED259B3F2700796B47 /* Favourites.swift */; };
+		90ADE8F3259B506600796B47 /* LeagueDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90ADE8F2259B506600796B47 /* LeagueDetailView.swift */; };
 		90DAAC0E25922999004CBC45 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DAAC0D25922999004CBC45 /* ModelData.swift */; };
 		90DAAC2D25922EB9004CBC45 /* FixtureRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DAAC2C25922EB9004CBC45 /* FixtureRowView.swift */; };
 		90DAAC3225922F76004CBC45 /* FixtureDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DAAC3125922F76004CBC45 /* FixtureDetailView.swift */; };
@@ -52,6 +54,8 @@
 		90ADE8DE259A253D00796B47 /* leagues.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = leagues.json; path = Assets.xcassets/leagues.json; sourceTree = "<group>"; };
 		90ADE8DF259A253D00796B47 /* fixtures.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = fixtures.json; path = Assets.xcassets/fixtures.json; sourceTree = "<group>"; };
 		90ADE8E5259A2A6C00796B47 /* RemoteImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageView.swift; sourceTree = "<group>"; };
+		90ADE8ED259B3F2700796B47 /* Favourites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favourites.swift; sourceTree = "<group>"; };
+		90ADE8F2259B506600796B47 /* LeagueDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueDetailView.swift; sourceTree = "<group>"; };
 		90DAAC0D25922999004CBC45 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		90DAAC2C25922EB9004CBC45 /* FixtureRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixtureRowView.swift; sourceTree = "<group>"; };
 		90DAAC3125922F76004CBC45 /* FixtureDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixtureDetailView.swift; sourceTree = "<group>"; };
@@ -178,6 +182,7 @@
 				90DAAC0D25922999004CBC45 /* ModelData.swift */,
 				90DAAC4225926364004CBC45 /* FixtureStatus.swift */,
 				90DAAC582598FF72004CBC45 /* Venue.swift */,
+				90ADE8ED259B3F2700796B47 /* Favourites.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -195,6 +200,7 @@
 				90DAAC3125922F76004CBC45 /* FixtureDetailView.swift */,
 				90DAAC532598CE86004CBC45 /* LeagueRowView.swift */,
 				90ADE8E5259A2A6C00796B47 /* RemoteImageView.swift */,
+				90ADE8F2259B506600796B47 /* LeagueDetailView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -353,11 +359,13 @@
 				90DAAC592598FF72004CBC45 /* Venue.swift in Sources */,
 				90E7C29E2586B66A00E84F5B /* Team.swift in Sources */,
 				90DAAC542598CE86004CBC45 /* LeagueRowView.swift in Sources */,
+				90ADE8F3259B506600796B47 /* LeagueDetailView.swift in Sources */,
 				90DAAC4325926364004CBC45 /* FixtureStatus.swift in Sources */,
 				90DAAC2D25922EB9004CBC45 /* FixtureRowView.swift in Sources */,
 				90E7C2B52586B8F500E84F5B /* SettingsView.swift in Sources */,
 				90F2807D2576E35000EFE936 /* FootballScoresApp.swift in Sources */,
 				90DAAC3225922F76004CBC45 /* FixtureDetailView.swift in Sources */,
+				90ADE8EE259B3F2700796B47 /* Favourites.swift in Sources */,
 				90E7C2872586B46D00E84F5B /* AppView.swift in Sources */,
 				90ADE8E6259A2A6C00796B47 /* RemoteImageView.swift in Sources */,
 				90E7C2B02586B8DF00E84F5B /* LeaguesView.swift in Sources */,
