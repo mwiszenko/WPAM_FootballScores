@@ -8,13 +8,37 @@
 import SwiftUI
 
 struct FavouritesView: View {
+    @EnvironmentObject var modelData: ModelData
+    @EnvironmentObject var favourites: Favourites
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            List {
+                ForEach(modelData.fixturesDict
+                            .filter { favourites.contains($0.key.id) }
+                            .sorted { (first, second) -> Bool in
+                                return first.key.country < second.key.country
+                            }, id: \.key) { key, value in
+                    Section(header: Text(key.country + " - " + key.name)) {
+                        ForEach(value) { fixture in
+                            NavigationLink(destination: FixtureDetailView(fixture: fixture)) {
+                                FixtureRowView(fixture: fixture)
+                            }
+                        }
+                    }
+                }
+            }
+            .navigationTitle("Favourites")
+            .listStyle(InsetGroupedListStyle())
+        }
     }
 }
 
 struct FavouritesView_Previews: PreviewProvider {
     static var previews: some View {
         FavouritesView()
+            .colorScheme(.dark)
+            .environmentObject(ModelData())
+            .environmentObject(Favourites())
     }
 }
