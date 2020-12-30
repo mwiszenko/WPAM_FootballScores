@@ -17,8 +17,8 @@ struct Fixture: Identifiable {
     let referee: String?
     let date: Date
     let venue: Venue
-    let homeTeam: Team
-    let awayTeam: Team
+    let homeTeam: FixtureTeam
+    let awayTeam: FixtureTeam
     let homeGoals: Int?
     let awayGoals: Int?
     let league: FixtureLeague
@@ -59,6 +59,27 @@ struct FixtureLeague: Decodable, Hashable {
     
 }
 
+struct Venue: Decodable {
+    
+    let name: String?
+    let city: String?
+}
+
+struct FixtureStatus: Decodable {
+    
+    let long: String
+    let short: String
+    let elapsed: Int?
+}
+
+struct FixtureTeam: Decodable {
+    
+    let id: Int
+    let name: String
+    let logo: String
+    let winner: Bool?
+}
+
 extension Fixture: Decodable {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -74,8 +95,8 @@ extension Fixture: Decodable {
         status = try fixture.decode(FixtureStatus.self, forKey: .status)
 
         let teams = try values.nestedContainer(keyedBy: TeamsKeys.self, forKey: .teams)
-        homeTeam = try teams.decode(Team.self, forKey: .home)
-        awayTeam = try teams.decode(Team.self, forKey: .away)
+        homeTeam = try teams.decode(FixtureTeam.self, forKey: .home)
+        awayTeam = try teams.decode(FixtureTeam.self, forKey: .away)
 
         let goals = try values.nestedContainer(keyedBy: GoalsKeys.self, forKey: .goals)
         homeGoals = try goals.decode(Int?.self, forKey: .home)

@@ -13,25 +13,31 @@ class Favourites: ObservableObject {
     private let saveKey = "Favourites"
 
     init() {
-        // load our saved data
+        if let data = UserDefaults.standard.data(forKey: saveKey) {
+            if let decoded = try? JSONDecoder().decode(Set<Int>.self, from: data) {
+                self.leagues = decoded
+                return
+            }
+        }
 
-        // still here? Use an empty array
         self.leagues = []
     }
 
-    // returns true if our set contains this resort
     func contains(_ id: Int) -> Bool {
         leagues.contains(id)
     }
+    
+    func isEmpty() -> Bool {
+        leagues.isEmpty
+    }
+    
 
-    // adds the resort to our set, updates all views, and saves the change
     func add(_ id: Int) {
         objectWillChange.send()
         leagues.insert(id)
         save()
     }
 
-    // removes the resort from our set, updates all views, and saves the change
     func remove(_ id: Int) {
         objectWillChange.send()
         leagues.remove(id)
@@ -39,6 +45,8 @@ class Favourites: ObservableObject {
     }
 
     func save() {
-        // write out our data
+        if let encoded = try? JSONEncoder().encode(leagues) {
+            UserDefaults.standard.set(encoded, forKey: saveKey)
+        }
     }
 }

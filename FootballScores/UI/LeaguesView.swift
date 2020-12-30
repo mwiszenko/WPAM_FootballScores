@@ -16,19 +16,39 @@ struct LeaguesView: View {
     var body: some View {
         NavigationView {
             List {
-                HStack {
-                    TextField("Search by country", text: $searchPhrase)
-                        .background(Color.clear)
-                    if searchPhrase == "" {
-                        Image(systemName: "magnifyingglass")
-                    } else {
-                        Button(action: {
-                            searchPhrase = ""
-                        }) {
-                            Image(systemName: "xmark.circle.fill")
+                Section(header: Text("Search by country")) {
+                    HStack {
+                        TextField("Enter search criteria...", text: $searchPhrase)
+                            .background(Color.clear)
+                        if searchPhrase == "" {
+                            Image(systemName: "magnifyingglass")
+                        } else {
+                            Button(action: {
+                                searchPhrase = ""
+                            }) {
+                                Image(systemName: "xmark.circle.fill")
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .foregroundColor(.primary)
                         }
-                        .buttonStyle(PlainButtonStyle())
-                        .foregroundColor(.primary)
+                    }
+                }
+                
+                if !favourites.isEmpty() {
+                    Section(header: Text("Favourites")) {
+                        ForEach(modelData.leaguesDict.sorted { (first, second) -> Bool in
+                            return first.key < second.key
+                        }, id: \.key) { key, value in
+                            ForEach(value.filter { favourites.contains($0.id) }) { league in
+                                NavigationLink(destination: LeagueDetailView(league: league)
+                                                .onAppear(perform: {
+                                                    modelData.loadStandings(id: league.id)
+                                                })
+                                ) {
+                                    LeagueRowView(league: league)
+                                }
+                            }
+                        }
                     }
                 }
                 
@@ -44,7 +64,11 @@ struct LeaguesView: View {
                 }, id: \.key) { key, value in
                     Section(header: Text(key)) {
                         ForEach(value) { league in
-                            NavigationLink(destination: LeagueDetailView(league: league)) {
+                            NavigationLink(destination: LeagueDetailView(league: league)
+//                                            .onAppear(perform: {
+//                                                modelData.loadStandings(id: league.id)
+//                                            })
+                            ) {
                                 LeagueRowView(league: league)
                             }
                         }

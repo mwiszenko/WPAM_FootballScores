@@ -11,14 +11,13 @@ struct FixtureRowView: View {
     var fixture: Fixture
 
     var body: some View {
+        VStack {
         HStack {
             Text(fixture.homeTeam.name)
             Spacer()
             RemoteImage(url: fixture.homeTeam.logo)
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 30, height: 30)
-//                .clipShape(Circle())
-//                .overlay(Circle().stroke(Color.gray, lineWidth: 4))
             Spacer()
             if fixture.homeGoals != nil && fixture.awayGoals != nil {
                 Text("\(fixture.homeGoals ?? 0) - \(fixture.homeGoals ?? 0)")
@@ -29,10 +28,9 @@ struct FixtureRowView: View {
             RemoteImage(url: fixture.awayTeam.logo)
                         .aspectRatio(contentMode: .fit)
                 .frame(width: 30, height: 30)
-//                .clipShape(Circle())
-//                .overlay(Circle().stroke(Color.gray, lineWidth: 4))
             Spacer()
             Text(fixture.awayTeam.name)
+        }
         }
     }
 }
