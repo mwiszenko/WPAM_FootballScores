@@ -22,12 +22,3 @@ struct FixtureDetailView: View {
         }
     }
 }
-
-struct FixtureDetailView_Previews: PreviewProvider {
-    static let modelData = ModelData()
-
-    static var previews: some View {
-        FixtureDetailView(fixture: modelData.fixtures[0])
-            .environmentObject(modelData)
-    }
-}

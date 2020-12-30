@@ -31,12 +31,3 @@ struct FixturesView: View {
         }
     }
 }
-
-struct FixturesView_Previews: PreviewProvider {
-    static var previews: some View {
-        FixturesView()
-            .colorScheme(.dark)
-            .environmentObject(ModelData())
-            .environmentObject(Favourites())
-    }
-}

@@ -34,11 +34,3 @@ struct FixtureRowView: View {
         }
     }
 }
-
-struct FixtureRowView_Previews: PreviewProvider {
-    static var fixtures = ModelData().fixtures
-    
-    static var previews: some View {
-        FixtureRowView(fixture: fixtures[0])
-    }
-}

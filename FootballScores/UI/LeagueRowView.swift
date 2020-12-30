@@ -31,12 +31,3 @@ struct LeagueRowView: View {
         }
     }
 }
-
-struct LeagueRowView_Previews: PreviewProvider {
-    static var leagues = ModelData().leagues
-
-    static var previews: some View {
-        LeagueRowView(league: leagues[0])
-            .environmentObject(Favourites())
-    }
-}
