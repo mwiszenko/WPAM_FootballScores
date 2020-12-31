@@ -35,21 +35,19 @@ struct TableRowView: View {
                 .frame(width: 20, height: 20)
             Text(row.team.name)
             if type == "ALL" {
-                TableRowStatsView(row: row.all)
+                stats(row: row.all)
             } else if type == "HOME" {
-                TableRowStatsView(row: row.home)
+                stats(row: row.home)
             } else if type == "AWAY" {
-                TableRowStatsView(row: row.away)
+                stats(row: row.away)
             }
         }
         .font(.system(size: 12))
     }
 }
 
-struct TableRowStatsView: View {
-    var row: StandingsStatistics
-    
-    var body: some View {
+extension TableRowView {
+    func stats(row: StandingsStatistics) -> some View {
         Group {
             Text("\(row.played)")
             Text("\(row.win)")

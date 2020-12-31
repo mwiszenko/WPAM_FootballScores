@@ -1,5 +1,5 @@
 //
-//  Club.swift
+//  Team.swift
 //  FootballScores
 //
 //  Created by Michal on 13/12/2020.

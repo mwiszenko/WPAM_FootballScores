@@ -27,6 +27,10 @@ class Favourites: ObservableObject {
         leagues.contains(id)
     }
     
+    func containsAny(_ ids: [Int]) -> Bool {
+        leagues.contains(where: ids.contains)
+    }
+    
     func isEmpty() -> Bool {
         leagues.isEmpty
     }

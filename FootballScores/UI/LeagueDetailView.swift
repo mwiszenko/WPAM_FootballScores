@@ -10,6 +10,11 @@ import SwiftUI
 struct LeagueDetailView: View {
     @EnvironmentObject var modelData: ModelData
     @EnvironmentObject var favourites: Favourites
+    
+    var standings: [Int: [Standings]] {
+        modelData.standingsDict
+            .filter { $0.key == league.id }
+    }
 
     var league: League
     
@@ -23,49 +28,52 @@ struct LeagueDetailView: View {
         GridItem(.fixed(15)),
         GridItem(.fixed(15)),
     ]
-
-    var fixtureIndex: Int {
-        modelData.leagues.firstIndex(where: { $0.id == league.id })!
-    }
     
     @State private var sliderValue: Int = 0
     private let sliderValues = ["ALL", "HOME", "AWAY"]
 
     var body: some View {
         VStack {
-            Button(action: {favourites.contains(league.id) ? favourites.remove(league.id) : favourites.add(league.id)}) {
-                if favourites.contains(league.id) {
-                    Image(systemName: "star.fill")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                } else {
-                    Image(systemName: "star")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                }
-            }
-            .offset(x: 150, y: -15)
-            .buttonStyle(PlainButtonStyle())
-            .foregroundColor(.yellow)
-            
             RemoteImage(url: league.logo)
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 100, height: 100)
-                
             
             Text(league.name)
             
-            Picker("Abc", selection: $sliderValue) {
-                ForEach(0 ..< sliderValues.count) { index in
-                    Text(self.sliderValues[index]).tag(index)
-                }
-            }
-            .pickerStyle(SegmentedPickerStyle())
-            .aspectRatio(contentMode: .fit)
+            typePicker
 
-            ForEach(modelData.standings) { standings in
-                List {
-                    ForEach(standings.table, id: \.self) { matrix in
+            tables
+        }
+        .background(Color(.systemGroupedBackground))
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {favourites.contains(league.id) ? favourites.remove(league.id) : favourites.add(league.id)}) {
+                    if favourites.contains(league.id) {
+                        Image(systemName: "star.fill")
+                            .imageScale(.large)
+                    } else {
+                        Image(systemName: "star")
+                            .imageScale(.large)
+                    }
+                }
+                .foregroundColor(.yellow)
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+extension LeagueDetailView {
+    
+    @ViewBuilder
+    var tables: some View {
+        ForEach(standings
+                    .sorted { (first, second) -> Bool in
+            return first.key < second.key
+        }, id: \.key) { key, value in
+            List {
+                ForEach(value) { matrix in
+                    ForEach(matrix.table, id: \.self) { abc in
                         Section {
                             LazyVGrid(columns: columns, alignment: .leading) {
                                 Group {
@@ -81,14 +89,24 @@ struct LeagueDetailView: View {
                                 .fixedSize(horizontal: true, vertical: false)
                             }
                             .font(.system(size: 10))
-                            ForEach(matrix, id: \.self) { row in
+                            ForEach(abc, id: \.self) { row in
                                 TableRowView(row: row, type: self.sliderValues[sliderValue])
                             }
                         }
                     }
                 }
-                .listStyle(InsetGroupedListStyle())
+            }
+            .listStyle(InsetGroupedListStyle())
+        }
+    }
+    
+    var typePicker: some View {
+        Picker("Abc", selection: $sliderValue) {
+            ForEach(0 ..< sliderValues.count) { index in
+                Text(self.sliderValues[index]).tag(index)
             }
         }
+        .pickerStyle(SegmentedPickerStyle())
+        .aspectRatio(contentMode: .fit)
     }
 }

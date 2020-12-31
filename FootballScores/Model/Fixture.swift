@@ -1,5 +1,5 @@
 //
-//  Match.swift
+//  Fixture.swift
 //  FootballScores
 //
 //  Created by Michal on 13/12/2020.
@@ -89,8 +89,10 @@ extension Fixture: Decodable {
         let fixture = try values.nestedContainer(keyedBy: FixtureKeys.self, forKey: .fixture)
         id = try fixture.decode(Int.self, forKey: .id)
         referee = try fixture.decode(String?.self, forKey: .referee)
+        
         let timestamp = try fixture.decode(TimeInterval.self, forKey: .timestamp)
         date = Date(timeIntervalSince1970: timestamp)
+        
         venue = try fixture.decode(Venue.self, forKey: .venue)
         status = try fixture.decode(FixtureStatus.self, forKey: .status)
 

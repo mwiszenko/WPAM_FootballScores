@@ -1,5 +1,5 @@
 //
-//  MatchesView.swift
+//  FixturesView.swift
 //  FootballScores
 //
 //  Created by Michal on 13/12/2020.
@@ -17,17 +17,23 @@ struct FixturesView: View {
                 ForEach(modelData.fixturesDict.sorted { (first, second) -> Bool in
                     return first.key.country < second.key.country
                 }, id: \.key) { key, value in
-                    Section(header: Text(key.country + " - " + key.name)) {
-                        ForEach(value) { fixture in
-                            NavigationLink(destination: FixtureDetailView(fixture: fixture)) {
-                                FixtureRowView(fixture: fixture)
-                            }
-                        }
-                    }
+                    leagueSection(key: key, value: value)
                 }
             }
             .navigationTitle("Fixtures")
             .listStyle(InsetGroupedListStyle())
+        }
+    }
+}
+
+private extension FixturesView {
+    func leagueSection(key: FixtureLeague, value: [Fixture]) -> some View {
+        return Section(header: Text(key.country + " - " + key.name)) {
+            ForEach(value) { fixture in
+                NavigationLink(destination: FixtureDetailView(fixture: fixture)) {
+                    FixtureRowView(fixture: fixture)
+                }
+            }
         }
     }
 }

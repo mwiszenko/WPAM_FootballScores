@@ -9,16 +9,73 @@ import Foundation
 import Combine
 
 final class ModelData: ObservableObject {
-    @Published var fixtures: [Fixture] = [Fixture]()
-    @Published var leagues: [League] = [League]()
-    @Published var standings: [Standings] = [Standings]()
-    @Published var fixturesDict: [FixtureLeague: [Fixture]] = [FixtureLeague: [Fixture]]()
-    @Published var leaguesDict: [String: [League]] = [String: [League]]()
+    typealias LeagueId = Int
+    typealias FixtureId = Int
+    typealias Country = String
+
+    @Published var fixtures: [Fixture] = []
+    @Published var fixturesDict: [FixtureLeague: [Fixture]] = [:]
+
+    @Published var leagues: [League] = []
+    @Published var leaguesDict: [Country: [League]] = [:]
+
+    @Published var standings: [Standings] = []
+    @Published var standingsDict: [LeagueId: [Standings]] = [:]
+    
+    @Published var statisticsDict: [FixtureId: [Statistics]] = [:]
+    
+    @Published var eventsDict: [FixtureId: [Event]] = [:]
 
     init() {
 //        loadFixtures()
 //        loadLeagues()
         loadData()
+    }
+    
+    func loadEvents(id: Int) {
+        guard let url = URL(string: "https://v3.football.api-sports.io/fixtures/events?fixture=" + String(id)) else {
+            print("Your API end point is Invalid")
+            return
+        }
+        var request = URLRequest(url: url)
+        request.addValue("3e6a491054c4f9a0fd77f7bfc7540225", forHTTPHeaderField: "x-rapidapi-key")
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else { return }
+            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
+                                                                in: .userDomainMask).first {
+                let pathWithFileName = documentDirectory.appendingPathComponent("events").appendingPathExtension("json")
+                try! data.write(to: pathWithFileName)
+                print(pathWithFileName)
+            }
+            let eventsResponse = try! JSONDecoder().decode(EventsResponse.self, from: data)
+            DispatchQueue.main.async {
+                self.eventsDict.updateValue(eventsResponse.response, forKey: id)
+            }
+        }.resume()
+    }
+    
+    func loadStatistics(id: Int) {
+        guard let url = URL(string: "https://v3.football.api-sports.io/fixtures/statistics?fixture=" + String(id)) else {
+            print("Your API end point is Invalid")
+            return
+        }
+        var request = URLRequest(url: url)
+        request.addValue("3e6a491054c4f9a0fd77f7bfc7540225", forHTTPHeaderField: "x-rapidapi-key")
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else { return }
+            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
+                                                                in: .userDomainMask).first {
+                let pathWithFileName = documentDirectory.appendingPathComponent("statistics").appendingPathExtension("json")
+                try! data.write(to: pathWithFileName)
+                print(pathWithFileName)
+            }
+            let statisticsResponse = try! JSONDecoder().decode(StatisticsResponse.self, from: data)
+            DispatchQueue.main.async {
+                self.statisticsDict.updateValue(statisticsResponse.response, forKey: id)
+            }
+        }.resume()
     }
     
     func loadStandings(id: Int) {
@@ -38,7 +95,8 @@ final class ModelData: ObservableObject {
             }
             let standingsResponse = try! JSONDecoder().decode(StandingsResponse.self, from: data)
             DispatchQueue.main.async {
-                self.standings = standingsResponse.response
+                self.standings.append(contentsOf: standingsResponse.response)
+                self.standingsDict = Dictionary(grouping: self.standings, by: \.id)
             }
         }.resume()
     }
@@ -119,7 +177,30 @@ final class ModelData: ObservableObject {
                 let data = try Data(contentsOf: url)
                 let decoder = JSONDecoder()
                 let standingsResponse = try decoder.decode(StandingsResponse.self, from: data)
-                self.standings = standingsResponse.response
+                self.standings.append(contentsOf: standingsResponse.response)
+                self.standingsDict = Dictionary(grouping: self.standings, by: \.id)
+            } catch {
+                print("error:\(error)")
+            }
+        }
+        
+        if let url = Bundle.main.url(forResource: "statistics", withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                let statisticsResponse = try! decoder.decode(StatisticsResponse.self, from: data)
+                self.statisticsDict.updateValue(statisticsResponse.response, forKey: 526699)
+            } catch {
+                print("error:\(error)")
+            }
+        }
+        
+        if let url = Bundle.main.url(forResource: "events", withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                let eventsResponse = try! decoder.decode(EventsResponse.self, from: data)
+                self.eventsDict.updateValue(eventsResponse.response, forKey: 526699)
             } catch {
                 print("error:\(error)")
             }
