@@ -12,7 +12,6 @@ struct FootballScoresApp: App {
     @StateObject private var modelData = ModelData()
     @StateObject private var favourites = Favourites()
 
-
     var body: some Scene {
         WindowGroup {
             AppView()

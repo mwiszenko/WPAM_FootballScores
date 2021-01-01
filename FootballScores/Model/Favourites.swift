@@ -8,13 +8,13 @@
 import Foundation
 
 class Favourites: ObservableObject {
-    private var leagues: Set<Int>
+    @Published var leagues: [Int]
 
     private let saveKey = "Favourites"
 
     init() {
         if let data = UserDefaults.standard.data(forKey: saveKey) {
-            if let decoded = try? JSONDecoder().decode(Set<Int>.self, from: data) {
+            if let decoded = try? JSONDecoder().decode([Int].self, from: data) {
                 self.leagues = decoded
                 return
             }
@@ -35,17 +35,25 @@ class Favourites: ObservableObject {
         leagues.isEmpty
     }
     
+    func move(source: IndexSet, destination: Int) {
+        leagues.move(fromOffsets: source, toOffset: destination)
+    }
+    
 
     func add(_ id: Int) {
-        objectWillChange.send()
-        leagues.insert(id)
-        save()
+        if (leagues.firstIndex(of: id) == nil) {
+            objectWillChange.send()
+            leagues.append(id)
+            save()
+        }
     }
 
     func remove(_ id: Int) {
-        objectWillChange.send()
-        leagues.remove(id)
-        save()
+        if let index = leagues.firstIndex(of: id) {
+            objectWillChange.send()
+            leagues.remove(at: index)
+            save()
+        }
     }
 
     func save() {

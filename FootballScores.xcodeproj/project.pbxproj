@@ -21,7 +21,6 @@
 		90DDCADA259E107400945FAE /* statistics.json in Resources */ = {isa = PBXBuildFile; fileRef = 90DDCAD9259E107400945FAE /* statistics.json */; };
 		90DDCAE2259E120B00945FAE /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DDCAE1259E120B00945FAE /* Events.swift */; };
 		90DDCAE7259E18CE00945FAE /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 90DDCAE6259E18CE00945FAE /* events.json */; };
-		90DDCAEC259E3BA400945FAE /* HardCodedOrdering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DDCAEB259E3BA400945FAE /* HardCodedOrdering.swift */; };
 		90E7C2872586B46D00E84F5B /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E7C2862586B46D00E84F5B /* AppView.swift */; };
 		90E7C2992586B65B00E84F5B /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E7C2982586B65B00E84F5B /* League.swift */; };
 		90E7C29E2586B66A00E84F5B /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E7C29D2586B66A00E84F5B /* Team.swift */; };
@@ -71,7 +70,6 @@
 		90DDCAD9259E107400945FAE /* statistics.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = statistics.json; path = FootballScores/Resources/statistics.json; sourceTree = SOURCE_ROOT; };
 		90DDCAE1259E120B00945FAE /* Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
 		90DDCAE6259E18CE00945FAE /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = events.json; path = Assets.xcassets/events.json; sourceTree = "<group>"; };
-		90DDCAEB259E3BA400945FAE /* HardCodedOrdering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardCodedOrdering.swift; sourceTree = "<group>"; };
 		90E7C2862586B46D00E84F5B /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		90E7C2982586B65B00E84F5B /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
 		90E7C29D2586B66A00E84F5B /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
@@ -196,7 +194,6 @@
 				90E7C2A52586B8AC00E84F5B /* Fixture.swift */,
 				90DAAC0D25922999004CBC45 /* ModelData.swift */,
 				90ADE8ED259B3F2700796B47 /* Favourites.swift */,
-				90DDCAEB259E3BA400945FAE /* HardCodedOrdering.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -384,7 +381,6 @@
 				90ADE905259BDF2000796B47 /* Standings.swift in Sources */,
 				90DAAC2D25922EB9004CBC45 /* FixtureRowView.swift in Sources */,
 				90E7C2B52586B8F500E84F5B /* SettingsView.swift in Sources */,
-				90DDCAEC259E3BA400945FAE /* HardCodedOrdering.swift in Sources */,
 				90FAEB3F259E09120094D984 /* Statistics.swift in Sources */,
 				90F2807D2576E35000EFE936 /* FootballScoresApp.swift in Sources */,
 				90FAEB32259CB8BE0094D984 /* TableRowView.swift in Sources */,

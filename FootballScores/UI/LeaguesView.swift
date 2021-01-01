@@ -31,9 +31,6 @@ struct LeaguesView: View {
                 return favourites.contains($0.id)
             }
         }
-            .sorted {
-                
-        }
     }
 
     var body: some View {
@@ -78,7 +75,10 @@ extension LeaguesView {
     var favouritesSection: some View {
         Section(header: Text("Favourites")) {
             EditButton()
-            ForEach(favouriteLeagues) { league in
+            ForEach(favouriteLeagues
+                        .sorted { (first, second) -> Bool in
+                            return favourites.leagues.firstIndex(of: first.id)! < favourites.leagues.firstIndex(of: second.id)!
+            }) { league in
                 NavigationLink(destination: LeagueDetailView(league: league)
 //                                                .onAppear(perform: {
 //                                                            if modelData.standingsDict[league.id] == nil {
@@ -89,8 +89,8 @@ extension LeaguesView {
                     LeagueRowView(league: league)
                 }
             }
-            .onMove {
-                print($0, $1)
+            .onMove { source, destination in
+                favourites.move(source: source, destination: destination)
             }
         }
     }

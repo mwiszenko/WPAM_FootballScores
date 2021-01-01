@@ -34,8 +34,8 @@ struct FavouritesView: View {
 extension FavouritesView {
     var fixtures: some View {
         ForEach(favouriteFixtures.sorted { (first, second) -> Bool in
-                        return first.key.country < second.key.country
-                    }, id: \.key) { key, value in
+            return favourites.leagues.firstIndex(of: first.key.id)! < favourites.leagues.firstIndex(of: second.key.id)!
+        }, id: \.key) { key, value in
             Section(header: Text(key.country + " - " + key.name)) {
                 ForEach(value) { fixture in
                     NavigationLink(destination: FixtureDetailView(fixture: fixture)) {
