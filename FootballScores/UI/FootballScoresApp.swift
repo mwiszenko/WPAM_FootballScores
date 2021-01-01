@@ -17,10 +17,10 @@ struct FootballScoresApp: App {
             AppView()
                 .environmentObject(modelData)
                 .environmentObject(favourites)
-//                .onAppear(perform: {
-//                    modelData.loadLeagues()
-//                    modelData.loadFixtures()
-//                })
+                .onAppear(perform: {
+                    modelData.loadLeagues()
+                    modelData.loadFixtures()
+                })
         }
     }
 }

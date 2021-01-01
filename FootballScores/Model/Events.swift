@@ -46,7 +46,7 @@ struct Event: Hashable, Decodable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
         type = try values.decode(String.self, forKey: .type)
-        detail = try values.decode(String.self, forKey: .type)
+        detail = try values.decode(String.self, forKey: .detail)
 
         let time = try values.nestedContainer(keyedBy: TimeKeys.self, forKey: .time)
         elapsed = try time.decode(Int.self, forKey: .elapsed)

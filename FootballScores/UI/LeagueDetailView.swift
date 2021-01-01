@@ -37,11 +37,10 @@ struct LeagueDetailView: View {
             RemoteImage(url: league.logo)
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 100, height: 100)
+                .padding()
             
             Text(league.name)
             
-            typePicker
-
             tables
         }
         .background(Color(.systemGroupedBackground))
@@ -71,6 +70,8 @@ extension LeagueDetailView {
                     .sorted { (first, second) -> Bool in
             return first.key < second.key
         }, id: \.key) { key, value in
+            typePicker
+            
             List {
                 ForEach(value) { matrix in
                     ForEach(matrix.table, id: \.self) { abc in

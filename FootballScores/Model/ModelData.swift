@@ -25,12 +25,19 @@ final class ModelData: ObservableObject {
     @Published var statisticsDict: [FixtureId: [Statistics]] = [:]
     
     @Published var eventsDict: [FixtureId: [Event]] = [:]
-
-    init() {
-//        loadFixtures()
-//        loadLeagues()
-        loadData()
-    }
+    
+    let season = 2020
+//    let date: String
+//
+//    init() {
+////        loadFixtures()
+////        loadLeagues()
+//        let lastWeekDate = Calendar.current.date(byAdding: .weekOfYear, value: -1, to: Date())!
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+//        dateFormatter.dateFormat = "yyyy-MM-dd"
+//        date = dateFormatter.string(from: lastWeekDate)
+//    }
     
     func loadEvents(id: Int) {
         guard let url = URL(string: "https://v3.football.api-sports.io/fixtures/events?fixture=" + String(id)) else {
@@ -79,7 +86,7 @@ final class ModelData: ObservableObject {
     }
     
     func loadStandings(id: Int) {
-        guard let url = URL(string: "https://v3.football.api-sports.io/standings?season=2020&league=" + String(id)) else {
+        guard let url = URL(string: "https://v3.football.api-sports.io/standings?season=" + String(season) + "&league=" + String(id)) else {
             print("Your API end point is Invalid")
             return
         }
@@ -125,7 +132,7 @@ final class ModelData: ObservableObject {
     }
     
     func loadFixtures() {
-        guard let url = URL(string: "https://v3.football.api-sports.io/fixtures?date=2020-12-28") else {
+        guard let url = URL(string: "https://v3.football.api-sports.io/fixtures?date=" + "2020-01-01") else {
             print("Your API end point is Invalid")
             return
         }

@@ -25,12 +25,9 @@ struct LeaguesView: View {
     
     var favouriteLeagues: [League] {
         modelData.leagues
-            .filter { if searchPhrase != "" {
-                return $0.country.localizedCaseInsensitiveContains(searchPhrase) && favourites.contains($0.id)
-            } else {
+            .filter {
                 return favourites.contains($0.id)
             }
-        }
     }
 
     var body: some View {
@@ -38,7 +35,7 @@ struct LeaguesView: View {
             List {
                 searchBar
                 
-                if !favouriteLeagues.isEmpty {
+                if !favouriteLeagues.isEmpty && searchPhrase == "" {
                     favouritesSection
                 }
                 
@@ -73,18 +70,18 @@ extension LeaguesView {
     }
     
     var favouritesSection: some View {
-        Section(header: Text("Favourites")) {
-            EditButton()
+        Section(header: EditButton().frame(maxWidth: .infinity, alignment: .trailing)
+                        .overlay(Text("Favourites"), alignment: .leading)) {
             ForEach(favouriteLeagues
                         .sorted { (first, second) -> Bool in
                             return favourites.leagues.firstIndex(of: first.id)! < favourites.leagues.firstIndex(of: second.id)!
             }) { league in
                 NavigationLink(destination: LeagueDetailView(league: league)
-//                                                .onAppear(perform: {
-//                                                            if modelData.standingsDict[league.id] == nil {
-//                                                                modelData.loadStandings(id: league.id)
-//                                                            }
-//                                                })
+                                                .onAppear(perform: {
+                                                            if modelData.standingsDict[league.id] == nil {
+                                                                modelData.loadStandings(id: league.id)
+                                                            }
+                                                })
                 ) {
                     LeagueRowView(league: league)
                 }
@@ -103,11 +100,11 @@ extension LeaguesView {
             Section(header: Text(key)) {
                 ForEach(value) { league in
                     NavigationLink(destination: LeagueDetailView(league: league)
-//                                                    .onAppear(perform: {
-//                                                        if modelData.standingsDict[league.id] == nil {
-//                                                            modelData.loadStandings(id: league.id)
-//                                                        }
-//                                                    })
+                                                    .onAppear(perform: {
+                                                        if modelData.standingsDict[league.id] == nil {
+                                                            modelData.loadStandings(id: league.id)
+                                                        }
+                                                    })
                     ) {
                         LeagueRowView(league: league)
                     }

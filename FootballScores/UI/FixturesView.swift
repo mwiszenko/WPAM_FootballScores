@@ -30,7 +30,13 @@ private extension FixturesView {
     func leagueSection(key: FixtureLeague, value: [Fixture]) -> some View {
         return Section(header: Text(key.country + " - " + key.name)) {
             ForEach(value) { fixture in
-                NavigationLink(destination: FixtureDetailView(fixture: fixture)) {
+                NavigationLink(destination: FixtureDetailView(fixture: fixture)
+                                                .onAppear(perform: {
+                                                            if modelData.eventsDict[fixture.id] == nil {
+                                                                modelData.loadEvents(id: fixture.id)
+                                                            }
+                                                })
+                ) {
                     FixtureRowView(fixture: fixture)
                 }
             }
