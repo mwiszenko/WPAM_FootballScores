@@ -8,31 +8,37 @@
 import SwiftUI
 
 struct AppView: View {
+    @State private var selection = 0
+
     var body: some View {
-        TabView {
+        TabView(selection: $selection) {
             FixturesView()
                 .tabItem {
-                    Image(systemName: "sportscourt")
+                    selection == 0 ? Image(systemName: "sportscourt.fill") : Image(systemName: "sportscourt")
                     Text("Fixtures")
                 }
+                .tag(0)
 
             LeaguesView()
                 .tabItem {
                     Image(systemName: "note")
                     Text("Leagues")
                 }
+                .tag(1)
 
             FavouritesView()
                 .tabItem {
-                    Image(systemName: "star.fill")
+                    selection == 2 ? Image(systemName: "star.fill") : Image(systemName: "star")
                     Text("Favourites")
                 }
+                .tag(2)
 
             SettingsView()
                 .tabItem {
-                    Image(systemName: "gearshape.fill")
+                    selection == 3 ? Image(systemName: "gearshape.fill") : Image(systemName: "gearshape")
                     Text("Settings")
                 }
+                .tag(3)
         }
     }
 }
