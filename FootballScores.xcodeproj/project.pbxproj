@@ -120,11 +120,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		908198202586C2F900FD03C1 /* Application */ = {
+		90E7424925A10E9200399248 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				90E7C2B42586B8F500E84F5B /* SettingsView.swift */,
 			);
-			path = Application;
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		90E7424A25A10E9E00399248 /* Leagues */ = {
+			isa = PBXGroup;
+			children = (
+				90FAEB31259CB8BE0094D984 /* TableRowView.swift */,
+				90E7C2AF2586B8DF00E84F5B /* LeaguesView.swift */,
+				90DAAC532598CE86004CBC45 /* LeagueRowView.swift */,
+				90ADE8F2259B506600796B47 /* LeagueDetailView.swift */,
+			);
+			path = Leagues;
+			sourceTree = "<group>";
+		};
+		90E7424B25A10EAF00399248 /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				90DAAC3125922F76004CBC45 /* FixtureDetailView.swift */,
+				90E7C2AA2586B8CA00E84F5B /* FixturesView.swift */,
+				90DAAC2C25922EB9004CBC45 /* FixtureRowView.swift */,
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		90E7424C25A10EBD00399248 /* Favourites */ = {
+			isa = PBXGroup;
+			children = (
+				90E7C2B92586B94D00E84F5B /* FavouritesView.swift */,
+			);
+			path = Favourites;
+			sourceTree = "<group>";
+		};
+		90E7424D25A10F0A00399248 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				90ADE8E5259A2A6C00796B47 /* RemoteImageView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		90F280702576E35000EFE936 = {
@@ -150,7 +188,6 @@
 		90F2807B2576E35000EFE936 /* FootballScores */ = {
 			isa = PBXGroup;
 			children = (
-				908198202586C2F900FD03C1 /* Application */,
 				90F280AB2576E37100EFE936 /* UI */,
 				90F280AA2576E36900EFE936 /* Model */,
 				90F280AC2576E37D00EFE936 /* Resources */,
@@ -205,17 +242,11 @@
 			children = (
 				90F2807C2576E35000EFE936 /* FootballScoresApp.swift */,
 				90E7C2862586B46D00E84F5B /* AppView.swift */,
-				90E7C2AA2586B8CA00E84F5B /* FixturesView.swift */,
-				90DAAC2C25922EB9004CBC45 /* FixtureRowView.swift */,
-				90E7424125A0A0B700399248 /* LaunchScreen.storyboard */,
-				90DAAC3125922F76004CBC45 /* FixtureDetailView.swift */,
-				90E7C2AF2586B8DF00E84F5B /* LeaguesView.swift */,
-				90DAAC532598CE86004CBC45 /* LeagueRowView.swift */,
-				90ADE8F2259B506600796B47 /* LeagueDetailView.swift */,
-				90FAEB31259CB8BE0094D984 /* TableRowView.swift */,
-				90E7C2B92586B94D00E84F5B /* FavouritesView.swift */,
-				90E7C2B42586B8F500E84F5B /* SettingsView.swift */,
-				90ADE8E5259A2A6C00796B47 /* RemoteImageView.swift */,
+				90E7424C25A10EBD00399248 /* Favourites */,
+				90E7424B25A10EAF00399248 /* Fixtures */,
+				90E7424A25A10E9E00399248 /* Leagues */,
+				90E7424925A10E9200399248 /* Settings */,
+				90E7424D25A10F0A00399248 /* Components */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -237,6 +268,7 @@
 		90F280AD2576E38600EFE936 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				90E7424125A0A0B700399248 /* LaunchScreen.storyboard */,
 				90F280852576E35100EFE936 /* Info.plist */,
 			);
 			path = "Supporting Files";
