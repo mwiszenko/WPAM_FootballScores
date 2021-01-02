@@ -12,7 +12,6 @@ struct LeaguesResponse: Decodable {
 }
 
 struct League: Hashable, Identifiable {
-    
     let id: Int
     let name: String
     let logo: String

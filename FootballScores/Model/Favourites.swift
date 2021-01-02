@@ -26,23 +26,22 @@ class Favourites: ObservableObject {
     func contains(_ id: Int) -> Bool {
         leagues.contains(id)
     }
-    
+
     func containsAny(_ ids: [Int]) -> Bool {
         leagues.contains(where: ids.contains)
     }
-    
+
     func isEmpty() -> Bool {
         leagues.isEmpty
     }
-    
+
     func move(source: IndexSet, destination: Int) {
         leagues.move(fromOffsets: source, toOffset: destination)
         save()
     }
-    
 
     func add(_ id: Int) {
-        if (leagues.firstIndex(of: id) == nil) {
+        if leagues.firstIndex(of: id) == nil {
             objectWillChange.send()
             leagues.append(id)
             save()

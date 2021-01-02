@@ -10,9 +10,9 @@ import SwiftUI
 struct FixturesView: View {
     @EnvironmentObject var modelData: ModelData
     @EnvironmentObject var favourites: Favourites
-    
+
     @State private var searchPhrase: String = ""
-    
+
     var searchedFixtures: [FixtureLeague: [Fixture]] {
         modelData.fixturesDict
             .filter { if searchPhrase != "" {
@@ -20,7 +20,7 @@ struct FixturesView: View {
             } else {
                 return true
             }
-        }
+            }
     }
 
     var body: some View {
@@ -29,12 +29,11 @@ struct FixturesView: View {
                 List {
                     searchBar
 
-                        ForEach(searchedFixtures.sorted { (first, second) -> Bool in
-                            return first.key.country < second.key.country
-                        }, id: \.key) { key, value in
-                            leagueSection(key: key, value: value)
-                        }
-
+                    ForEach(searchedFixtures.sorted { (first, second) -> Bool in
+                        first.key.country < second.key.country
+                    }, id: \.key) { key, value in
+                        leagueSection(key: key, value: value)
+                    }
                 }
                 .navigationTitle("Fixtures")
                 .listStyle(InsetGroupedListStyle())
@@ -65,19 +64,19 @@ private extension FixturesView {
             }
         }
     }
-    
+
     func leagueSection(key: FixtureLeague, value: [Fixture]) -> some View {
         return Section(header: Text(key.country + " - " + key.name)) {
             ForEach(value) { fixture in
                 NavigationLink(destination: FixtureDetailView(fixture: fixture)
-                                                .onAppear(perform: {
-                                                            if modelData.eventsDict[fixture.id] == nil {
-                                                                modelData.loadEvents(id: fixture.id)
-                                                            }
-                                                        if modelData.statisticsDict[fixture.id] == nil {
-                                                            modelData.loadStatistics(id: fixture.id)
-                                                        }
-                                                })
+                    .onAppear(perform: {
+                        if modelData.eventsDict[fixture.id] == nil {
+                            modelData.loadEvents(id: fixture.id)
+                        }
+                        if modelData.statisticsDict[fixture.id] == nil {
+                            modelData.loadStatistics(id: fixture.id)
+                        }
+                    })
                 ) {
                     FixtureRowView(fixture: fixture)
                 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct TableRowView: View {
     @EnvironmentObject var modelData: ModelData
     @EnvironmentObject var favourites: Favourites
-    
+
     var row: StandingsRow
     var type: String
 
@@ -26,7 +26,7 @@ struct TableRowView: View {
         GridItem(.fixed(15)),
         GridItem(.fixed(15)),
     ]
-    
+
     var body: some View {
         LazyVGrid(columns: columns, alignment: .leading) {
             Text("\(row.rank)")

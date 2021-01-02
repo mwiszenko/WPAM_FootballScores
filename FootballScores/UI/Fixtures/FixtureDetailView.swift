@@ -30,7 +30,7 @@ struct FixtureDetailView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            if !statistics.isEmpty && !events.isEmpty {
+            if !statistics.isEmpty, !events.isEmpty {
                 header
                     .padding()
                 
@@ -54,7 +54,6 @@ extension FixtureDetailView {
                 .frame(width: 100, height: 100)
             Spacer()
             VStack {
-
                 if fixture.homeGoals != nil && fixture.awayGoals != nil {
                     Text("\(fixture.homeGoals ?? 0) - \(fixture.awayGoals ?? 0)")
                 } else {
@@ -68,7 +67,6 @@ extension FixtureDetailView {
                     Text(fixture.status.short)
                         .font(.system(size: 12))
                 }
-
             }
 
             Spacer()

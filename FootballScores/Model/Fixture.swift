@@ -12,7 +12,6 @@ struct FixturesResponse: Decodable {
 }
 
 struct Fixture: Identifiable {
-    
     let id: Int
     let referee: String?
     let date: Date
@@ -51,29 +50,24 @@ struct Fixture: Identifiable {
 }
 
 struct FixtureLeague: Decodable, Hashable {
-    
     let id: Int
     let name: String
     let logo: String
     let country: String
-    
 }
 
 struct Venue: Decodable {
-    
     let name: String?
     let city: String?
 }
 
 struct FixtureStatus: Decodable {
-    
     let long: String
     let short: String
     let elapsed: Int?
 }
 
 struct FixtureTeam: Decodable {
-    
     let id: Int
     let name: String
     let logo: String

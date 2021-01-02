@@ -32,7 +32,7 @@ private extension FixtureRowView {
                 .frame(width: 20, height: 20)
         }
     }
-    
+
     var away: some View {
         HStack {
             RemoteImage(url: fixture.awayTeam.logo)
@@ -43,7 +43,7 @@ private extension FixtureRowView {
             Spacer()
         }
     }
-    
+
     @ViewBuilder
     var score: some View {
         if fixture.homeGoals != nil && fixture.awayGoals != nil {

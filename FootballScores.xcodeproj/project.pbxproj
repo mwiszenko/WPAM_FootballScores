@@ -242,9 +242,9 @@
 			children = (
 				90F2807C2576E35000EFE936 /* FootballScoresApp.swift */,
 				90E7C2862586B46D00E84F5B /* AppView.swift */,
-				90E7424C25A10EBD00399248 /* Favourites */,
 				90E7424B25A10EAF00399248 /* Fixtures */,
 				90E7424A25A10E9E00399248 /* Leagues */,
+				90E7424C25A10EBD00399248 /* Favourites */,
 				90E7424925A10E9200399248 /* Settings */,
 				90E7424D25A10F0A00399248 /* Components */,
 			);

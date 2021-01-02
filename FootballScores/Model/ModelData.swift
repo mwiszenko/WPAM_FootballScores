@@ -5,8 +5,8 @@
 //  Created by Michal on 22/12/2020.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 final class ModelData: ObservableObject {
     typealias LeagueId = Int
@@ -21,11 +21,11 @@ final class ModelData: ObservableObject {
 
     @Published var standings: [Standings] = []
     @Published var standingsDict: [LeagueId: [Standings]] = [:]
-    
+
     @Published var statisticsDict: [FixtureId: [Statistics]] = [:]
-    
+
     @Published var eventsDict: [FixtureId: [Event]] = [:]
-    
+
     let season = 2020
     let date: String
 
@@ -34,9 +34,9 @@ final class ModelData: ObservableObject {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        date = dateFormatter.string(from: todayDate)
+        self.date = dateFormatter.string(from: todayDate)
     }
-    
+
     func loadEvents(id: Int) {
         guard let url = URL(string: "https://v3.football.api-sports.io/fixtures/events?fixture=" + String(id)) else {
             print("Your API end point is Invalid")
@@ -45,7 +45,7 @@ final class ModelData: ObservableObject {
         var request = URLRequest(url: url)
         request.addValue("3e6a491054c4f9a0fd77f7bfc7540225", forHTTPHeaderField: "x-rapidapi-key")
 
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
 //            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
 //                                                                in: .userDomainMask).first {
@@ -59,7 +59,7 @@ final class ModelData: ObservableObject {
             }
         }.resume()
     }
-    
+
     func loadStatistics(id: Int) {
         guard let url = URL(string: "https://v3.football.api-sports.io/fixtures/statistics?fixture=" + String(id)) else {
             print("Your API end point is Invalid")
@@ -68,7 +68,7 @@ final class ModelData: ObservableObject {
         var request = URLRequest(url: url)
         request.addValue("3e6a491054c4f9a0fd77f7bfc7540225", forHTTPHeaderField: "x-rapidapi-key")
 
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
 //            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
 //                                                                in: .userDomainMask).first {
@@ -82,7 +82,7 @@ final class ModelData: ObservableObject {
             }
         }.resume()
     }
-    
+
     func loadStandings(id: Int) {
         guard let url = URL(string: "https://v3.football.api-sports.io/standings?season=" + String(season) + "&league=" + String(id)) else {
             print("Your API end point is Invalid")
@@ -91,7 +91,7 @@ final class ModelData: ObservableObject {
         var request = URLRequest(url: url)
         request.addValue("3e6a491054c4f9a0fd77f7bfc7540225", forHTTPHeaderField: "x-rapidapi-key")
 
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
 //            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
 //                                                                in: .userDomainMask).first {
@@ -114,7 +114,7 @@ final class ModelData: ObservableObject {
         var request = URLRequest(url: url)
         request.addValue("3e6a491054c4f9a0fd77f7bfc7540225", forHTTPHeaderField: "x-rapidapi-key")
 
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
 //            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
 //                                                                in: .userDomainMask).first {
@@ -128,7 +128,7 @@ final class ModelData: ObservableObject {
             }
         }.resume()
     }
-    
+
     func loadFixtures() {
         guard let url = URL(string: "https://v3.football.api-sports.io/fixtures?date=" + date) else {
             print("Your API end point is Invalid")
@@ -137,7 +137,7 @@ final class ModelData: ObservableObject {
         var request = URLRequest(url: url)
         request.addValue("3e6a491054c4f9a0fd77f7bfc7540225", forHTTPHeaderField: "x-rapidapi-key")
 
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
 //            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
 //                                                                in: .userDomainMask).first {
@@ -151,7 +151,7 @@ final class ModelData: ObservableObject {
             }
         }.resume()
     }
-    
+
     func loadData() {
         if let url = Bundle.main.url(forResource: "fixtures", withExtension: "json") {
             do {
@@ -159,7 +159,7 @@ final class ModelData: ObservableObject {
                 let decoder = JSONDecoder()
                 let fixturesResponse = try decoder.decode(FixturesResponse.self, from: data)
                 self.fixtures = fixturesResponse.response
-                self.fixturesDict = Dictionary(grouping: fixtures, by: \.league)
+                self.fixturesDict = Dictionary(grouping: self.fixtures, by: \.league)
             } catch {
                 print("error:\(error)")
             }
@@ -171,7 +171,7 @@ final class ModelData: ObservableObject {
                 let decoder = JSONDecoder()
                 let leaguesResponse = try decoder.decode(LeaguesResponse.self, from: data)
                 self.leagues = leaguesResponse.response
-                self.leaguesDict = Dictionary(grouping: leagues, by: \.country)
+                self.leaguesDict = Dictionary(grouping: self.leagues, by: \.country)
             } catch {
                 print("error:\(error)")
             }
@@ -188,7 +188,7 @@ final class ModelData: ObservableObject {
                 print("error:\(error)")
             }
         }
-        
+
         if let url = Bundle.main.url(forResource: "statistics", withExtension: "json") {
             do {
                 let data = try Data(contentsOf: url)
@@ -199,7 +199,7 @@ final class ModelData: ObservableObject {
                 print("error:\(error)")
             }
         }
-        
+
         if let url = Bundle.main.url(forResource: "events", withExtension: "json") {
             do {
                 let data = try Data(contentsOf: url)

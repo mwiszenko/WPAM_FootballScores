@@ -13,13 +13,13 @@ struct FavouritesView: View {
     
     var favouriteFixtures: [FixtureLeague: [Fixture]] {
         modelData.fixturesDict
-                    .filter { favourites.contains($0.key.id) }
+            .filter { favourites.contains($0.key.id) }
     }
     
     var favouriteLeagues: [League] {
         modelData.leagues
             .filter {
-                return favourites.contains($0.id)
+                favourites.contains($0.id)
             }
     }
     
@@ -28,7 +28,7 @@ struct FavouritesView: View {
             List {
                 if !favouriteLeagues.isEmpty {
                     leagues
-                }  else {
+                } else {
                     Section(header: Text("Leagues")) {
                         Text("No favourite leagues")
                     }
@@ -51,17 +51,17 @@ struct FavouritesView: View {
 extension FavouritesView {
     var leagues: some View {
         Section(header: EditButton().frame(maxWidth: .infinity, alignment: .trailing)
-                        .overlay(Text("Leagues"), alignment: .leading)) {
+            .overlay(Text("Leagues"), alignment: .leading)) {
             ForEach(favouriteLeagues
-                        .sorted { (first, second) -> Bool in
-                            return favourites.leagues.firstIndex(of: first.id)! < favourites.leagues.firstIndex(of: second.id)!
-            }) { league in
+                .sorted { (first, second) -> Bool in
+                    favourites.leagues.firstIndex(of: first.id)! < favourites.leagues.firstIndex(of: second.id)!
+                }) { league in
                 NavigationLink(destination: LeagueDetailView(league: league)
-                                                .onAppear(perform: {
-                                                            if modelData.standingsDict[league.id] == nil {
-                                                                modelData.loadStandings(id: league.id)
-                                                            }
-                                                })
+                    .onAppear(perform: {
+                        if modelData.standingsDict[league.id] == nil {
+                            modelData.loadStandings(id: league.id)
+                        }
+                    })
                 ) {
                     LeagueRowView(league: league)
                 }
@@ -74,19 +74,19 @@ extension FavouritesView {
     
     var fixtures: some View {
         ForEach(favouriteFixtures.sorted { (first, second) -> Bool in
-            return favourites.leagues.firstIndex(of: first.key.id)! < favourites.leagues.firstIndex(of: second.key.id)!
+            favourites.leagues.firstIndex(of: first.key.id)! < favourites.leagues.firstIndex(of: second.key.id)!
         }, id: \.key) { key, value in
             Section(header: Text(key.country + " - " + key.name)) {
                 ForEach(value) { fixture in
                     NavigationLink(destination: FixtureDetailView(fixture: fixture)
-                                    .onAppear(perform: {
-                                        if modelData.eventsDict[fixture.id] == nil {
-                                            modelData.loadEvents(id: fixture.id)
-                                        }
-                                    if modelData.statisticsDict[fixture.id] == nil {
-                                        modelData.loadStatistics(id: fixture.id)
-                                    }
-                                    })
+                        .onAppear(perform: {
+                            if modelData.eventsDict[fixture.id] == nil {
+                                modelData.loadEvents(id: fixture.id)
+                            }
+                            if modelData.statisticsDict[fixture.id] == nil {
+                                modelData.loadStatistics(id: fixture.id)
+                            }
+                        })
                     ) {
                         FixtureRowView(fixture: fixture)
                     }

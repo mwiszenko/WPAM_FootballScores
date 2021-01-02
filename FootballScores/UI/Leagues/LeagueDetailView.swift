@@ -50,7 +50,7 @@ struct LeagueDetailView: View {
         .background(Color(.systemGroupedBackground))
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {favourites.contains(league.id) ? favourites.remove(league.id) : favourites.add(league.id)}) {
+                Button(action: { favourites.contains(league.id) ? favourites.remove(league.id) : favourites.add(league.id) }) {
                     if favourites.contains(league.id) {
                         Image(systemName: "star.fill")
                             .imageScale(.large)
@@ -67,13 +67,12 @@ struct LeagueDetailView: View {
 }
 
 extension LeagueDetailView {
-    
     @ViewBuilder
     var tables: some View {
         ForEach(standings
-                    .sorted { (first, second) -> Bool in
-            return first.key < second.key
-        }, id: \.key) { key, value in
+            .sorted { (first, second) -> Bool in
+                first.key < second.key
+            }, id: \.key) { _, value in
             typePicker
             
             List {

@@ -12,7 +12,6 @@ struct StatisticsResponse: Decodable {
 }
 
 struct Statistics: Hashable {
-    
     let teamId: Int
     let teamName: String
     let teamLogo: String

@@ -19,7 +19,7 @@ struct Event: Hashable, Decodable {
     let playerName: String?
     let type: String
     let detail: String
-    
+
     enum CodingKeys: String, CodingKey {
         case time
         case team
@@ -27,24 +27,24 @@ struct Event: Hashable, Decodable {
         case type
         case detail
     }
-    
+
     enum TimeKeys: String, CodingKey {
         case elapsed
     }
-    
+
     enum TeamKeys: String, CodingKey {
         case teamId = "id"
         case teamName = "name"
         case teamLogo = "logo"
     }
-    
+
     enum PlayerKeys: String, CodingKey {
         case playerName = "name"
     }
-    
+
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        
+
         type = try values.decode(String.self, forKey: .type)
         detail = try values.decode(String.self, forKey: .detail)
 

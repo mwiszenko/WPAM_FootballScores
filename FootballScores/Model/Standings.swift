@@ -12,16 +12,15 @@ struct StandingsResponse: Decodable {
 }
 
 struct Standings: Identifiable {
-    
     var id: Int
-    
+
     let league: StandingsLeague
     let table: [[StandingsRow]]
-    
+
     enum CodingKeys: String, CodingKey {
         case league
     }
-    
+
     enum LeagueKeys: String, CodingKey {
         case table = "standings"
         case id
@@ -33,26 +32,22 @@ extension Standings: Decodable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
 
         league = try values.decode(StandingsLeague.self, forKey: .league)
-        
+
         let league = try values.nestedContainer(keyedBy: LeagueKeys.self, forKey: .league)
-        
+
         id = try league.decode(Int.self, forKey: .id)
         table = try league.decode([[StandingsRow]].self, forKey: .table)
     }
 }
 
-
 struct StandingsLeague: Identifiable, Decodable {
-
     let id: Int
     let name: String
     let logo: String
     let country: String
-
 }
 
 struct StandingsRow: Hashable, Decodable {
-
     let rank: Int
     let team: StandingsTeam
     let all: StandingsStatistics
@@ -61,21 +56,19 @@ struct StandingsRow: Hashable, Decodable {
 }
 
 struct StandingsTeam: Hashable, Decodable {
-
     let id: Int
     let name: String
     let logo: String
 }
 
 struct StandingsStatistics: Hashable {
-    
     let played: Int
     let win: Int
     let draw: Int
     let lose: Int
     let goalsFor: Int
     let goalsAgainst: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case played
         case win
@@ -83,7 +76,7 @@ struct StandingsStatistics: Hashable {
         case lose
         case goals
     }
-    
+
     enum GoalsKeys: String, CodingKey {
         case goalsFor = "against"
         case goalsAgainst = "for"
@@ -100,7 +93,7 @@ extension StandingsStatistics: Decodable {
         lose = try values.decode(Int.self, forKey: .lose)
 
         let goals = try values.nestedContainer(keyedBy: GoalsKeys.self, forKey: .goals)
-        
+
         goalsFor = try goals.decode(Int.self, forKey: .goalsFor)
         goalsAgainst = try goals.decode(Int.self, forKey: .goalsAgainst)
     }
