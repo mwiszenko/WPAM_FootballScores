@@ -37,6 +37,7 @@ class Favourites: ObservableObject {
     
     func move(source: IndexSet, destination: Int) {
         leagues.move(fromOffsets: source, toOffset: destination)
+        save()
     }
     
 

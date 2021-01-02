@@ -27,17 +27,15 @@ final class ModelData: ObservableObject {
     @Published var eventsDict: [FixtureId: [Event]] = [:]
     
     let season = 2020
-//    let date: String
-//
-//    init() {
-////        loadFixtures()
-////        loadLeagues()
-//        let lastWeekDate = Calendar.current.date(byAdding: .weekOfYear, value: -1, to: Date())!
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-//        date = dateFormatter.string(from: lastWeekDate)
-//    }
+    let date: String
+
+    init() {
+        let todayDate = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        date = dateFormatter.string(from: todayDate)
+    }
     
     func loadEvents(id: Int) {
         guard let url = URL(string: "https://v3.football.api-sports.io/fixtures/events?fixture=" + String(id)) else {
@@ -49,12 +47,12 @@ final class ModelData: ObservableObject {
 
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else { return }
-            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
-                                                                in: .userDomainMask).first {
-                let pathWithFileName = documentDirectory.appendingPathComponent("events").appendingPathExtension("json")
-                try! data.write(to: pathWithFileName)
-                print(pathWithFileName)
-            }
+//            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
+//                                                                in: .userDomainMask).first {
+//                let pathWithFileName = documentDirectory.appendingPathComponent("events").appendingPathExtension("json")
+//                try! data.write(to: pathWithFileName)
+//                print(pathWithFileName)
+//            }
             let eventsResponse = try! JSONDecoder().decode(EventsResponse.self, from: data)
             DispatchQueue.main.async {
                 self.eventsDict.updateValue(eventsResponse.response, forKey: id)
@@ -72,12 +70,12 @@ final class ModelData: ObservableObject {
 
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else { return }
-            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
-                                                                in: .userDomainMask).first {
-                let pathWithFileName = documentDirectory.appendingPathComponent("statistics").appendingPathExtension("json")
-                try! data.write(to: pathWithFileName)
-                print(pathWithFileName)
-            }
+//            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
+//                                                                in: .userDomainMask).first {
+//                let pathWithFileName = documentDirectory.appendingPathComponent("statistics").appendingPathExtension("json")
+//                try! data.write(to: pathWithFileName)
+//                print(pathWithFileName)
+//            }
             let statisticsResponse = try! JSONDecoder().decode(StatisticsResponse.self, from: data)
             DispatchQueue.main.async {
                 self.statisticsDict.updateValue(statisticsResponse.response, forKey: id)
@@ -95,11 +93,11 @@ final class ModelData: ObservableObject {
 
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else { return }
-            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
-                                                                in: .userDomainMask).first {
-                let pathWithFileName = documentDirectory.appendingPathComponent("standings").appendingPathExtension("json")
-                try! data.write(to: pathWithFileName)
-            }
+//            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
+//                                                                in: .userDomainMask).first {
+//                let pathWithFileName = documentDirectory.appendingPathComponent("standings").appendingPathExtension("json")
+//                try! data.write(to: pathWithFileName)
+//            }
             let standingsResponse = try! JSONDecoder().decode(StandingsResponse.self, from: data)
             DispatchQueue.main.async {
                 self.standings.append(contentsOf: standingsResponse.response)
@@ -118,11 +116,11 @@ final class ModelData: ObservableObject {
 
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else { return }
-            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
-                                                                in: .userDomainMask).first {
-                let pathWithFileName = documentDirectory.appendingPathComponent("leagues").appendingPathExtension("json")
-                try! data.write(to: pathWithFileName)
-            }
+//            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
+//                                                                in: .userDomainMask).first {
+//                let pathWithFileName = documentDirectory.appendingPathComponent("leagues").appendingPathExtension("json")
+//                try! data.write(to: pathWithFileName)
+//            }
             let leaguesResponse = try! JSONDecoder().decode(LeaguesResponse.self, from: data)
             DispatchQueue.main.async {
                 self.leagues = leaguesResponse.response
@@ -132,7 +130,7 @@ final class ModelData: ObservableObject {
     }
     
     func loadFixtures() {
-        guard let url = URL(string: "https://v3.football.api-sports.io/fixtures?date=" + "2020-01-01") else {
+        guard let url = URL(string: "https://v3.football.api-sports.io/fixtures?date=" + date) else {
             print("Your API end point is Invalid")
             return
         }
@@ -141,11 +139,11 @@ final class ModelData: ObservableObject {
 
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else { return }
-            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
-                                                                in: .userDomainMask).first {
-                let pathWithFileName = documentDirectory.appendingPathComponent("fixtures").appendingPathExtension("json")
-                try! data.write(to: pathWithFileName)
-            }
+//            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
+//                                                                in: .userDomainMask).first {
+//                let pathWithFileName = documentDirectory.appendingPathComponent("fixtures").appendingPathExtension("json")
+//                try! data.write(to: pathWithFileName)
+//            }
             let fixturesResponse = try! JSONDecoder().decode(FixturesResponse.self, from: data)
             DispatchQueue.main.async {
                 self.fixtures = fixturesResponse.response

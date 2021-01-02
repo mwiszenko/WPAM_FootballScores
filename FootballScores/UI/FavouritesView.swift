@@ -80,9 +80,12 @@ extension FavouritesView {
                 ForEach(value) { fixture in
                     NavigationLink(destination: FixtureDetailView(fixture: fixture)
                                     .onAppear(perform: {
-                                                if modelData.eventsDict[fixture.id] == nil {
-                                                    modelData.loadEvents(id: fixture.id)
-                                                }
+                                        if modelData.eventsDict[fixture.id] == nil {
+                                            modelData.loadEvents(id: fixture.id)
+                                        }
+                                    if modelData.statisticsDict[fixture.id] == nil {
+                                        modelData.loadStatistics(id: fixture.id)
+                                    }
                                     })
                     ) {
                         FixtureRowView(fixture: fixture)

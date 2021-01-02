@@ -19,6 +19,10 @@ struct FixtureDetailView: View {
         modelData.statisticsDict
             .filter { $0.key == fixture.id }
     }
+        
+    let showElapsed: [String] = ["1H", "2H", "ET"]
+    
+    let showStatus: [String] = ["NS", "FT", "HT", "AET", "PEN", "BT", "SUSP", "INT", "PST", "CANC", "ABD", "AWD", "WO"]
     
     let statisticTypes: [String] = ["SHOTS ON GOAL", "SHOTS"]
     
@@ -26,12 +30,16 @@ struct FixtureDetailView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            header
-                .padding()
-            
-            eventScroller
-            
-            statisticsTable
+            if !statistics.isEmpty && !events.isEmpty {
+                header
+                    .padding()
+                
+                eventScroller
+                
+                statisticsTable
+            } else {
+                ProgressView("Loading")
+            }
         }
         .background(Color(.systemGroupedBackground))
         .navigationBarTitleDisplayMode(.inline)
@@ -45,11 +53,24 @@ extension FixtureDetailView {
             RemoteImage(url: fixture.homeTeam.logo)
                 .frame(width: 100, height: 100)
             Spacer()
-            if fixture.homeGoals != nil && fixture.awayGoals != nil {
-                Text("\(fixture.homeGoals ?? 0) - \(fixture.homeGoals ?? 0)")
-            } else {
-                Text(fixture.date.addingTimeInterval(600), style: .time)
+            VStack {
+
+                if fixture.homeGoals != nil && fixture.awayGoals != nil {
+                    Text("\(fixture.homeGoals ?? 0) - \(fixture.awayGoals ?? 0)")
+                } else {
+                    Text(fixture.date.addingTimeInterval(600), style: .time)
+                }
+                    
+                if showElapsed.contains(fixture.status.short) {
+                    Text("\(fixture.status.elapsed ?? 0)" + "'")
+                        .font(.system(size: 12))
+                } else {
+                    Text(fixture.status.short)
+                        .font(.system(size: 12))
+                }
+
             }
+
             Spacer()
             RemoteImage(url: fixture.awayTeam.logo)
                 .frame(width: 100, height: 100)
@@ -59,8 +80,8 @@ extension FixtureDetailView {
     
     var eventScroller: some View {
         ForEach(events.sorted { (first, second) -> Bool in
-            return first.key < second.key
-        }, id: \.key) { key, value in
+            first.key < second.key
+        }, id: \.key) { _, value in
             if !value.isEmpty {
                 VStack {
                     Text("EVENTS")
@@ -68,8 +89,8 @@ extension FixtureDetailView {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.footnote)
                     
-                    HStack() {
-                        VStack() {
+                    HStack {
+                        VStack {
                             RemoteImage(url: fixture.homeTeam.logo)
                                 .frame(width: 40, height: 40)
                             Spacer()
@@ -81,25 +102,9 @@ extension FixtureDetailView {
                             HStack(spacing: 10) {
                                 ForEach(value, id: \.self) { event in
                                     if fixture.homeTeam.id == event.teamId {
-                                        VStack {
-                                            Group {
-                                                Text(event.detail)
-                                                Text(event.playerName)
-                                                Text("\(event.elapsed)")
-                                            }
-                                            .font(.caption)
-                                            Spacer()
-                                        }
+                                        homeEvent(event: event)
                                     } else if fixture.awayTeam.id == event.teamId {
-                                        VStack {
-                                            Spacer()
-                                            Group {
-                                                Text("\(event.elapsed)")
-                                                Text(event.playerName)
-                                                Text(event.detail)
-                                            }
-                                            .font(.caption)
-                                        }
+                                        awayEvent(event: event)
                                     }
                                 }
                             }
@@ -118,12 +123,12 @@ extension FixtureDetailView {
     var statisticsTable: some View {
         HStack {
             ForEach(statistics.sorted { (first, second) -> Bool in
-                return first.key < second.key
-            }, id: \.key) { key, value in
+                first.key < second.key
+            }, id: \.key) { _, value in
                 if value.count == 2 {
                     List {
                         ForEach(value[0].stats, id: \.self) { stat in
-                            if let index = value[1].stats.firstIndex(where: {$0.type == stat.type}) {
+                            if let index = value[1].stats.firstIndex(where: { $0.type == stat.type }) {
                                 Section(header: Text(stat.type)) {
                                     HStack {
                                         Spacer()
@@ -141,6 +146,30 @@ extension FixtureDetailView {
                     .listStyle(InsetGroupedListStyle())
                 }
             }
+        }
+    }
+    
+    func awayEvent(event: Event) -> some View {
+        VStack {
+            Spacer()
+            Group {
+                Text("\(event.elapsed)")
+                Text(event.playerName ?? "-")
+                Text(event.detail)
+            }
+            .font(.caption)
+        }
+    }
+    
+    func homeEvent(event: Event) -> some View {
+        VStack {
+            Group {
+                Text(event.detail)
+                Text(event.playerName ?? "-")
+                Text("\(event.elapsed)")
+            }
+            .font(.caption)
+            Spacer()
         }
     }
 }

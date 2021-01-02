@@ -34,14 +34,18 @@ struct LeagueDetailView: View {
 
     var body: some View {
         VStack {
-            RemoteImage(url: league.logo)
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 100, height: 100)
-                .padding()
-            
-            Text(league.name)
-            
-            tables
+            if !standings.isEmpty {
+                RemoteImage(url: league.logo)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 100, height: 100)
+                    .padding()
+                
+                Text(league.name)
+                
+                tables
+            } else {
+                ProgressView("Loading")
+            }
         }
         .background(Color(.systemGroupedBackground))
         .toolbar {

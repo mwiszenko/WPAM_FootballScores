@@ -16,7 +16,7 @@ struct Event: Hashable, Decodable {
     let teamName: String
     let teamLogo: String
     let elapsed: Int
-    let playerName: String
+    let playerName: String?
     let type: String
     let detail: String
     
@@ -57,6 +57,6 @@ struct Event: Hashable, Decodable {
         teamLogo = try team.decode(String.self, forKey: .teamLogo)
 
         let player = try values.nestedContainer(keyedBy: PlayerKeys.self, forKey: .player)
-        playerName = try player.decode(String.self, forKey: .playerName)
+        playerName = try player.decode(String?.self, forKey: .playerName)
     }
 }
