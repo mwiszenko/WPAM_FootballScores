@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		90120C6225A20FC7002F0972 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DAAC0D25922999004CBC45 /* ModelData.swift */; };
+		90120C6725A20FCE002F0972 /* Standings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90ADE904259BDF2000796B47 /* Standings.swift */; };
+		90120C6C25A20FD2002F0972 /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E7C2982586B65B00E84F5B /* League.swift */; };
+		90120C7125A20FD5002F0972 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E7C29D2586B66A00E84F5B /* Team.swift */; };
+		90120C7625A20FE1002F0972 /* Fixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E7C2A52586B8AC00E84F5B /* Fixture.swift */; };
+		90120C7B25A20FE3002F0972 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DDCAE1259E120B00945FAE /* Events.swift */; };
+		90120C8025A20FE6002F0972 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FAEB3E259E09120094D984 /* Statistics.swift */; };
 		90ADE8E0259A253D00796B47 /* leagues.json in Resources */ = {isa = PBXBuildFile; fileRef = 90ADE8DE259A253D00796B47 /* leagues.json */; };
 		90ADE8E1259A253D00796B47 /* fixtures.json in Resources */ = {isa = PBXBuildFile; fileRef = 90ADE8DF259A253D00796B47 /* fixtures.json */; };
 		90ADE8E6259A2A6C00796B47 /* RemoteImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90ADE8E5259A2A6C00796B47 /* RemoteImageView.swift */; };
@@ -21,6 +28,12 @@
 		90DDCADA259E107400945FAE /* statistics.json in Resources */ = {isa = PBXBuildFile; fileRef = 90DDCAD9259E107400945FAE /* statistics.json */; };
 		90DDCAE2259E120B00945FAE /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DDCAE1259E120B00945FAE /* Events.swift */; };
 		90DDCAE7259E18CE00945FAE /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 90DDCAE6259E18CE00945FAE /* events.json */; };
+		90E1E6EE25A20EA50096F55F /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E1E6ED25A20EA50096F55F /* WidgetKit.framework */; };
+		90E1E6F025A20EA50096F55F /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E1E6EF25A20EA50096F55F /* SwiftUI.framework */; };
+		90E1E6F325A20EA50096F55F /* LeagueWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E1E6F225A20EA50096F55F /* LeagueWidget.swift */; };
+		90E1E6F625A20EA90096F55F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90E1E6F525A20EA90096F55F /* Assets.xcassets */; };
+		90E1E6F825A20EA90096F55F /* LeagueWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 90E1E6F425A20EA50096F55F /* LeagueWidget.intentdefinition */; };
+		90E1E6FC25A20EA90096F55F /* LeagueWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 90E1E6EB25A20EA50096F55F /* LeagueWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		90E7424225A0A0B700399248 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90E7424125A0A0B700399248 /* LaunchScreen.storyboard */; };
 		90E7C2872586B46D00E84F5B /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E7C2862586B46D00E84F5B /* AppView.swift */; };
 		90E7C2992586B65B00E84F5B /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E7C2982586B65B00E84F5B /* League.swift */; };
@@ -40,6 +53,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		90E1E6FA25A20EA90096F55F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 90F280712576E35000EFE936 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 90E1E6EA25A20EA50096F55F;
+			remoteInfo = LeagueWidgetExtension;
+		};
 		90F2808B2576E35100EFE936 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 90F280712576E35000EFE936 /* Project object */;
@@ -56,6 +76,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		90E1E6FD25A20EA90096F55F /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				90E1E6FC25A20EA90096F55F /* LeagueWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		90ADE8DE259A253D00796B47 /* leagues.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = leagues.json; path = Assets.xcassets/leagues.json; sourceTree = "<group>"; };
 		90ADE8DF259A253D00796B47 /* fixtures.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = fixtures.json; path = Assets.xcassets/fixtures.json; sourceTree = "<group>"; };
@@ -71,6 +105,13 @@
 		90DDCAD9259E107400945FAE /* statistics.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = statistics.json; path = FootballScores/Resources/statistics.json; sourceTree = SOURCE_ROOT; };
 		90DDCAE1259E120B00945FAE /* Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
 		90DDCAE6259E18CE00945FAE /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = events.json; path = Assets.xcassets/events.json; sourceTree = "<group>"; };
+		90E1E6EB25A20EA50096F55F /* LeagueWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = LeagueWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		90E1E6ED25A20EA50096F55F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		90E1E6EF25A20EA50096F55F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		90E1E6F225A20EA50096F55F /* LeagueWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueWidget.swift; sourceTree = "<group>"; };
+		90E1E6F425A20EA50096F55F /* LeagueWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = LeagueWidget.intentdefinition; sourceTree = "<group>"; };
+		90E1E6F525A20EA90096F55F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		90E1E6F725A20EA90096F55F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		90E7424125A0A0B700399248 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		90E7C2862586B46D00E84F5B /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		90E7C2982586B65B00E84F5B /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
@@ -96,6 +137,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		90E1E6E825A20EA50096F55F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90E1E6F025A20EA50096F55F /* SwiftUI.framework in Frameworks */,
+				90E1E6EE25A20EA50096F55F /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		90F280762576E35000EFE936 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -120,6 +170,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		90E1E6EC25A20EA50096F55F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				90E1E6ED25A20EA50096F55F /* WidgetKit.framework */,
+				90E1E6EF25A20EA50096F55F /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		90E1E6F125A20EA50096F55F /* LeagueWidget */ = {
+			isa = PBXGroup;
+			children = (
+				90E1E6F225A20EA50096F55F /* LeagueWidget.swift */,
+				90E1E6F425A20EA50096F55F /* LeagueWidget.intentdefinition */,
+				90E1E6F525A20EA90096F55F /* Assets.xcassets */,
+				90E1E6F725A20EA90096F55F /* Info.plist */,
+			);
+			path = LeagueWidget;
+			sourceTree = "<group>";
+		};
 		90E7424925A10E9200399248 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +241,8 @@
 				90F2807B2576E35000EFE936 /* FootballScores */,
 				90F2808D2576E35100EFE936 /* FootballScoresTests */,
 				90F280982576E35100EFE936 /* FootballScoresUITests */,
+				90E1E6F125A20EA50096F55F /* LeagueWidget */,
+				90E1E6EC25A20EA50096F55F /* Frameworks */,
 				90F2807A2576E35000EFE936 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -181,6 +253,7 @@
 				90F280792576E35000EFE936 /* FootballScores.app */,
 				90F2808A2576E35100EFE936 /* FootballScoresTests.xctest */,
 				90F280952576E35100EFE936 /* FootballScoresUITests.xctest */,
+				90E1E6EB25A20EA50096F55F /* LeagueWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -277,6 +350,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		90E1E6EA25A20EA50096F55F /* LeagueWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 90E1E70025A20EA90096F55F /* Build configuration list for PBXNativeTarget "LeagueWidgetExtension" */;
+			buildPhases = (
+				90E1E6E725A20EA50096F55F /* Sources */,
+				90E1E6E825A20EA50096F55F /* Frameworks */,
+				90E1E6E925A20EA50096F55F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LeagueWidgetExtension;
+			productName = LeagueWidgetExtension;
+			productReference = 90E1E6EB25A20EA50096F55F /* LeagueWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		90F280782576E35000EFE936 /* FootballScores */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 90F2809E2576E35100EFE936 /* Build configuration list for PBXNativeTarget "FootballScores" */;
@@ -284,10 +374,12 @@
 				90F280752576E35000EFE936 /* Sources */,
 				90F280762576E35000EFE936 /* Frameworks */,
 				90F280772576E35000EFE936 /* Resources */,
+				90E1E6FD25A20EA90096F55F /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				90E1E6FB25A20EA90096F55F /* PBXTargetDependency */,
 			);
 			name = FootballScores;
 			productName = FootballScores;
@@ -339,6 +431,9 @@
 				LastSwiftUpdateCheck = 1220;
 				LastUpgradeCheck = 1220;
 				TargetAttributes = {
+					90E1E6EA25A20EA50096F55F = {
+						CreatedOnToolsVersion = 12.2;
+					};
 					90F280782576E35000EFE936 = {
 						CreatedOnToolsVersion = 12.2;
 					};
@@ -368,11 +463,20 @@
 				90F280782576E35000EFE936 /* FootballScores */,
 				90F280892576E35100EFE936 /* FootballScoresTests */,
 				90F280942576E35100EFE936 /* FootballScoresUITests */,
+				90E1E6EA25A20EA50096F55F /* LeagueWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		90E1E6E925A20EA50096F55F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90E1E6F625A20EA90096F55F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		90F280772576E35000EFE936 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -405,6 +509,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		90E1E6E725A20EA50096F55F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90120C7125A20FD5002F0972 /* Team.swift in Sources */,
+				90120C8025A20FE6002F0972 /* Statistics.swift in Sources */,
+				90E1E6F325A20EA50096F55F /* LeagueWidget.swift in Sources */,
+				90120C6725A20FCE002F0972 /* Standings.swift in Sources */,
+				90E1E6F825A20EA90096F55F /* LeagueWidget.intentdefinition in Sources */,
+				90120C7B25A20FE3002F0972 /* Events.swift in Sources */,
+				90120C7625A20FE1002F0972 /* Fixture.swift in Sources */,
+				90120C6C25A20FD2002F0972 /* League.swift in Sources */,
+				90120C6225A20FC7002F0972 /* ModelData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		90F280752576E35000EFE936 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -451,6 +571,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		90E1E6FB25A20EA90096F55F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 90E1E6EA25A20EA50096F55F /* LeagueWidgetExtension */;
+			targetProxy = 90E1E6FA25A20EA90096F55F /* PBXContainerItemProxy */;
+		};
 		90F2808C2576E35100EFE936 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 90F280782576E35000EFE936 /* FootballScores */;
@@ -464,6 +589,48 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		90E1E6FE25A20EA90096F55F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2PC5P89XNC;
+				INFOPLIST_FILE = LeagueWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mwiszenko.FootballScores.LeagueWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		90E1E6FF25A20EA90096F55F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2PC5P89XNC;
+				INFOPLIST_FILE = LeagueWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mwiszenko.FootballScores.LeagueWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		90F2809C2576E35100EFE936 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -583,6 +750,7 @@
 		90F2809F2576E35100EFE936 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -605,6 +773,7 @@
 		90F280A02576E35100EFE936 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -711,6 +880,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		90E1E70025A20EA90096F55F /* Build configuration list for PBXNativeTarget "LeagueWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				90E1E6FE25A20EA90096F55F /* Debug */,
+				90E1E6FF25A20EA90096F55F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		90F280742576E35000EFE936 /* Build configuration list for PBXProject "FootballScores" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

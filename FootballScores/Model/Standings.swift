@@ -49,6 +49,7 @@ struct StandingsLeague: Identifiable, Decodable {
 
 struct StandingsRow: Hashable, Decodable {
     let rank: Int
+    let points: Int
     let team: StandingsTeam
     let all: StandingsStatistics
     let home: StandingsStatistics

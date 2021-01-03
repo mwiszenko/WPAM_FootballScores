@@ -36,6 +36,23 @@ final class ModelData: ObservableObject {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         self.date = dateFormatter.string(from: todayDate)
     }
+    
+    func fetchStandings(id: Int, completion: @escaping (([Standings]) -> Void)) {
+        guard let url = URL(string: "https://v3.football.api-sports.io/standings?season=" + String(season) + "&league=" + String(id)) else {
+            print("Your API end point is Invalid")
+            return
+        }
+        var request = URLRequest(url: url)
+        request.addValue("3e6a491054c4f9a0fd77f7bfc7540225", forHTTPHeaderField: "x-rapidapi-key")
+
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data else { return }
+            let standingsResponse = try! JSONDecoder().decode(StandingsResponse.self, from: data)
+            DispatchQueue.main.async {
+                completion(standingsResponse.response)
+            }
+        }.resume()
+    }
 
     func loadEvents(id: Int) {
         guard let url = URL(string: "https://v3.football.api-sports.io/fixtures/events?fixture=" + String(id)) else {
