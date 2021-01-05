@@ -15,7 +15,6 @@ struct LeagueRowView: View {
     var body: some View {
         HStack {
             RemoteImage(url: self.league.logo)
-                .aspectRatio(contentMode: .fit)
                 .frame(width: 30, height: 30)
             Text(self.league.name)
             Spacer()

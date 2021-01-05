@@ -19,7 +19,7 @@ final class ModelData: ObservableObject {
     @Published var leagues: [League] = []
     @Published var leaguesDict: [Country: [League]] = [:]
 
-    @Published var standings: [Standings] = []
+//    @Published var standings: [Standings] = []
     @Published var standingsDict: [LeagueId: [Standings]] = [:]
 
     @Published var statisticsDict: [FixtureId: [Statistics]] = [:]
@@ -117,8 +117,7 @@ final class ModelData: ObservableObject {
 //            }
             let standingsResponse = try! JSONDecoder().decode(StandingsResponse.self, from: data)
             DispatchQueue.main.async {
-                self.standings.append(contentsOf: standingsResponse.response)
-                self.standingsDict = Dictionary(grouping: self.standings, by: \.id)
+                self.standingsDict.updateValue(standingsResponse.response, forKey: id)
             }
         }.resume()
     }
@@ -169,63 +168,63 @@ final class ModelData: ObservableObject {
         }.resume()
     }
 
-    func loadData() {
-        if let url = Bundle.main.url(forResource: "fixtures", withExtension: "json") {
-            do {
-                let data = try Data(contentsOf: url)
-                let decoder = JSONDecoder()
-                let fixturesResponse = try decoder.decode(FixturesResponse.self, from: data)
-                self.fixtures = fixturesResponse.response
-                self.fixturesDict = Dictionary(grouping: self.fixtures, by: \.league)
-            } catch {
-                print("error:\(error)")
-            }
-        }
-
-        if let url = Bundle.main.url(forResource: "leagues", withExtension: "json") {
-            do {
-                let data = try Data(contentsOf: url)
-                let decoder = JSONDecoder()
-                let leaguesResponse = try decoder.decode(LeaguesResponse.self, from: data)
-                self.leagues = leaguesResponse.response
-                self.leaguesDict = Dictionary(grouping: self.leagues, by: \.country)
-            } catch {
-                print("error:\(error)")
-            }
-        }
-
-        if let url = Bundle.main.url(forResource: "standings", withExtension: "json") {
-            do {
-                let data = try Data(contentsOf: url)
-                let decoder = JSONDecoder()
-                let standingsResponse = try decoder.decode(StandingsResponse.self, from: data)
-                self.standings.append(contentsOf: standingsResponse.response)
-                self.standingsDict = Dictionary(grouping: self.standings, by: \.id)
-            } catch {
-                print("error:\(error)")
-            }
-        }
-
-        if let url = Bundle.main.url(forResource: "statistics", withExtension: "json") {
-            do {
-                let data = try Data(contentsOf: url)
-                let decoder = JSONDecoder()
-                let statisticsResponse = try! decoder.decode(StatisticsResponse.self, from: data)
-                self.statisticsDict.updateValue(statisticsResponse.response, forKey: 526699)
-            } catch {
-                print("error:\(error)")
-            }
-        }
-
-        if let url = Bundle.main.url(forResource: "events", withExtension: "json") {
-            do {
-                let data = try Data(contentsOf: url)
-                let decoder = JSONDecoder()
-                let eventsResponse = try! decoder.decode(EventsResponse.self, from: data)
-                self.eventsDict.updateValue(eventsResponse.response, forKey: 526699)
-            } catch {
-                print("error:\(error)")
-            }
-        }
-    }
+//    func loadData() {
+//        if let url = Bundle.main.url(forResource: "fixtures", withExtension: "json") {
+//            do {
+//                let data = try Data(contentsOf: url)
+//                let decoder = JSONDecoder()
+//                let fixturesResponse = try decoder.decode(FixturesResponse.self, from: data)
+//                self.fixtures = fixturesResponse.response
+//                self.fixturesDict = Dictionary(grouping: self.fixtures, by: \.league)
+//            } catch {
+//                print("error:\(error)")
+//            }
+//        }
+//
+//        if let url = Bundle.main.url(forResource: "leagues", withExtension: "json") {
+//            do {
+//                let data = try Data(contentsOf: url)
+//                let decoder = JSONDecoder()
+//                let leaguesResponse = try decoder.decode(LeaguesResponse.self, from: data)
+//                self.leagues = leaguesResponse.response
+//                self.leaguesDict = Dictionary(grouping: self.leagues, by: \.country)
+//            } catch {
+//                print("error:\(error)")
+//            }
+//        }
+//
+//        if let url = Bundle.main.url(forResource: "standings", withExtension: "json") {
+//            do {
+//                let data = try Data(contentsOf: url)
+//                let decoder = JSONDecoder()
+//                let standingsResponse = try decoder.decode(StandingsResponse.self, from: data)
+//                self.standings.append(contentsOf: standingsResponse.response)
+//                self.standingsDict = Dictionary(grouping: self.standings, by: \.id)
+//            } catch {
+//                print("error:\(error)")
+//            }
+//        }
+//
+//        if let url = Bundle.main.url(forResource: "statistics", withExtension: "json") {
+//            do {
+//                let data = try Data(contentsOf: url)
+//                let decoder = JSONDecoder()
+//                let statisticsResponse = try! decoder.decode(StatisticsResponse.self, from: data)
+//                self.statisticsDict.updateValue(statisticsResponse.response, forKey: 526699)
+//            } catch {
+//                print("error:\(error)")
+//            }
+//        }
+//
+//        if let url = Bundle.main.url(forResource: "events", withExtension: "json") {
+//            do {
+//                let data = try Data(contentsOf: url)
+//                let decoder = JSONDecoder()
+//                let eventsResponse = try! decoder.decode(EventsResponse.self, from: data)
+//                self.eventsDict.updateValue(eventsResponse.response, forKey: 526699)
+//            } catch {
+//                print("error:\(error)")
+//            }
+//        }
+//    }
 }

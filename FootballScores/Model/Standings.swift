@@ -79,8 +79,8 @@ struct StandingsStatistics: Hashable {
     }
 
     enum GoalsKeys: String, CodingKey {
-        case goalsFor = "against"
-        case goalsAgainst = "for"
+        case goalsFor = "for"
+        case goalsAgainst = "against"
     }
 }
 

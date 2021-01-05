@@ -36,7 +36,6 @@ struct LeagueDetailView: View {
         VStack {
             if !standings.isEmpty {
                 RemoteImage(url: league.logo)
-                    .aspectRatio(contentMode: .fit)
                     .frame(width: 100, height: 100)
                     .padding()
                 
@@ -59,7 +58,14 @@ struct LeagueDetailView: View {
                             .imageScale(.large)
                     }
                 }
-                .foregroundColor(.yellow)
+                .foregroundColor(.accentColor)
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: { modelData.loadStandings(id: league.id) }) {
+                    Image(systemName: "arrow.clockwise")
+                        .imageScale(.large)
+                }
+                .foregroundColor(.accentColor)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -92,7 +98,7 @@ extension LeagueDetailView {
                                 }
                                 .fixedSize(horizontal: true, vertical: false)
                             }
-                            .font(.system(size: 10))
+                            .font(.footnote)
                             ForEach(abc, id: \.self) { row in
                                 TableRowView(row: row, type: self.sliderValues[sliderValue])
                             }

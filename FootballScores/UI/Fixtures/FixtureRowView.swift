@@ -10,6 +10,10 @@ import SwiftUI
 struct FixtureRowView: View {
     var fixture: Fixture
 
+    let showElapsed: [String] = ["1H", "2H", "ET"]
+
+    let showStatus: [String] = ["NS", "FT", "HT", "AET", "PEN", "BT", "SUSP", "INT", "PST", "CANC", "ABD", "AWD", "WO"]
+
     var body: some View {
         HStack {
             home
@@ -26,19 +30,19 @@ private extension FixtureRowView {
         HStack {
             Spacer()
             Text(fixture.homeTeam.name)
-                .font(.system(size: 12))
+                .font(.footnote)
                 .multilineTextAlignment(.trailing)
             RemoteImage(url: fixture.homeTeam.logo)
-                .frame(width: 20, height: 20)
+                .frame(width: 25, height: 25)
         }
     }
 
     var away: some View {
         HStack {
             RemoteImage(url: fixture.awayTeam.logo)
-                .frame(width: 20, height: 20)
+                .frame(width: 25, height: 25)
             Text(fixture.awayTeam.name)
-                .font(.system(size: 12))
+                .font(.footnote)
                 .multilineTextAlignment(.leading)
             Spacer()
         }
@@ -46,12 +50,24 @@ private extension FixtureRowView {
 
     @ViewBuilder
     var score: some View {
-        if fixture.homeGoals != nil && fixture.awayGoals != nil {
-            Text("\(fixture.homeGoals ?? 0) - \(fixture.homeGoals ?? 0)")
-                .font(.system(size: 12))
-        } else {
-            Text(fixture.date.addingTimeInterval(600), style: .time)
-                .font(.system(size: 12))
+        VStack {
+            if fixture.homeGoals != nil && fixture.awayGoals != nil {
+                Text("10 - 10")
+                    .hidden()
+                    .overlay(Text("\(fixture.homeGoals ?? 0) - \(fixture.awayGoals ?? 0)"))
+            } else {
+                Text(fixture.date.addingTimeInterval(600), style: .time)
+            }
+
+            if showElapsed.contains(fixture.status.short) {
+                Text("10 - 10")
+                    .hidden()
+                    .overlay(Text("\(fixture.status.elapsed ?? 0)" + "'")
+                        .foregroundColor(.green))
+            } else {
+                Text(fixture.status.short)
+            }
         }
+        .font(.footnote)
     }
 }

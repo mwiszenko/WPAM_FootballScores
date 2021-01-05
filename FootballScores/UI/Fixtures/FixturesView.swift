@@ -24,21 +24,23 @@ struct FixturesView: View {
     }
 
     var body: some View {
-        NavigationView {
-            if !modelData.fixtures.isEmpty {
-                List {
-                    searchBar
+        VStack {
+            NavigationView {
+                if !modelData.fixtures.isEmpty {
+                    List {
+                        searchBar
 
-                    ForEach(searchedFixtures.sorted { (first, second) -> Bool in
-                        first.key.country < second.key.country
-                    }, id: \.key) { key, value in
-                        leagueSection(key: key, value: value)
+                        ForEach(searchedFixtures.sorted { (first, second) -> Bool in
+                            first.key.country < second.key.country
+                        }, id: \.key) { key, value in
+                            leagueSection(key: key, value: value)
+                        }
                     }
+                    .navigationTitle("Fixtures")
+                    .listStyle(InsetGroupedListStyle())
+                } else {
+                    ProgressView("Loading")
                 }
-                .navigationTitle("Fixtures")
-                .listStyle(InsetGroupedListStyle())
-            } else {
-                ProgressView("Loading")
             }
         }
     }

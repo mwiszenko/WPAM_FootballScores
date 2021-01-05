@@ -11,6 +11,8 @@ import WidgetKit
 
 struct Provider: IntentTimelineProvider {
     var data = ModelData()
+    
+    let leagueIndex = 39
 
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date(), standings: [], configuration: ConfigurationIntent())
@@ -22,14 +24,12 @@ struct Provider: IntentTimelineProvider {
     }
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> ()) {
-        data.fetchStandings(id: 39) { standings in
+        data.fetchStandings(id: leagueIndex) { standings in
             let entry = SimpleEntry(date: Date(), standings: standings, configuration: configuration)
 
             let expiryDate = Calendar
-                .current.date(byAdding: .day, value: 1,
-                              to: Date()) ?? Date()
-            let timeline = Timeline(entries: [entry],
-                                    policy: .after(expiryDate))
+                .current.date(byAdding: .day, value: 1, to: Date()) ?? Date()
+            let timeline = Timeline(entries: [entry], policy: .after(expiryDate))
             completion(timeline)
         }
     }
@@ -69,7 +69,7 @@ struct Provider: IntentTimelineProvider {
             case .systemMedium:
                 fullTable(prefix: 3)
             case .systemLarge:
-                fullTable(prefix: 7)
+                fullTable(prefix: 10)
             @unknown default:
                 Text("Unsupported widget family")
             }
@@ -88,17 +88,20 @@ struct Provider: IntentTimelineProvider {
                         ForEach(abc.prefix(3), id: \.self) { row in
                             LazyVGrid(columns: crippledColumns, alignment: .leading) {
                                 HStack {
-                                    Text("\(row.rank)")
+                                    Text("3")
+                                        .hidden()
+                                        .overlay(Text("\(row.rank)"))
+                                    Image(uiImage: UIImage(data: try! Data(contentsOf: URL(string: row.team.logo)!))!)
+                                        .imageScale(.small)
                                     Text("\(row.team.name)")
                                         .multilineTextAlignment(.leading)
-//                                        Image(uiImage: UIImage(data: try! Data(contentsOf: URL(fileURLWithPath: row.team.logo))) ?? UIImage(imageLiteralResourceName: "note"))
                                 }
                                 Text("\(row.all.played)")
                                 Text("\(row.points)")
                             }
                         }
                     }
-                    .font(.system(size: 10))
+                    .font(.footnote)
                 }
             }
             .padding()
@@ -122,10 +125,13 @@ struct Provider: IntentTimelineProvider {
                         ForEach(abc.prefix(prefix), id: \.self) { row in
                             LazyVGrid(columns: fullColumns, alignment: .leading) {
                                 HStack {
-                                    Text("\(row.rank)")
+                                    Text("20")
+                                        .hidden()
+                                        .overlay(Text("\(row.rank)"))
+                                    Image(uiImage: UIImage(data: try! Data(contentsOf: URL(string: row.team.logo)!))!)
+                                        .imageScale(.small)
                                     Text("\(row.team.name)")
                                         .multilineTextAlignment(.leading)
-//                                        Image(uiImage: UIImage(data: try! Data(contentsOf: URL(fileURLWithPath: row.team.logo))) ?? UIImage(imageLiteralResourceName: "note"))
                                 }
                                 Text("\(row.all.played)")
                                 Text("\(row.all.win)")
@@ -137,7 +143,7 @@ struct Provider: IntentTimelineProvider {
                             }
                         }
                     }
-                    .font(.system(size: 10))
+                    .font(.footnote)
                 }
             }
             .padding()

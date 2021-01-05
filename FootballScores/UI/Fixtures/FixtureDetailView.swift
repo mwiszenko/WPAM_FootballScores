@@ -23,9 +23,7 @@ struct FixtureDetailView: View {
     let showElapsed: [String] = ["1H", "2H", "ET"]
     
     let showStatus: [String] = ["NS", "FT", "HT", "AET", "PEN", "BT", "SUSP", "INT", "PST", "CANC", "ABD", "AWD", "WO"]
-    
-    let statisticTypes: [String] = ["SHOTS ON GOAL", "SHOTS"]
-    
+        
     var fixture: Fixture
 
     var body: some View {
@@ -62,12 +60,12 @@ extension FixtureDetailView {
                     
                 if showElapsed.contains(fixture.status.short) {
                     Text("\(fixture.status.elapsed ?? 0)" + "'")
-                        .font(.system(size: 12))
+                        .foregroundColor(.green)
                 } else {
                     Text(fixture.status.short)
-                        .font(.system(size: 12))
                 }
             }
+            .font(.largeTitle)
 
             Spacer()
             RemoteImage(url: fixture.awayTeam.logo)
