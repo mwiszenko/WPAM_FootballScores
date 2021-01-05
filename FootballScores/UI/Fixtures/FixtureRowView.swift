@@ -23,7 +23,7 @@ struct FixtureRowView: View {
     }
 }
 
-// MARK: -
+// MARK: - Team name and logo
 
 private extension FixtureRowView {
     var home: some View {
@@ -47,7 +47,11 @@ private extension FixtureRowView {
             Spacer()
         }
     }
+}
 
+// MARK: - Score and date
+
+private extension FixtureRowView {
     @ViewBuilder
     var score: some View {
         VStack {

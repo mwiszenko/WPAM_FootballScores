@@ -46,6 +46,8 @@ struct FixturesView: View {
     }
 }
 
+// MARK: - Search bar
+
 private extension FixturesView {
     var searchBar: some View {
         Section(header: Text("Search by league or country")) {
@@ -66,7 +68,11 @@ private extension FixturesView {
             }
         }
     }
+}
 
+// MARK: - League section with fixtures as rows
+
+private extension FixturesView {
     func leagueSection(key: FixtureLeague, value: [Fixture]) -> some View {
         return Section(header: Text(key.country + " - " + key.name)) {
             ForEach(value) { fixture in

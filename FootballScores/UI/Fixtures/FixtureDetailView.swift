@@ -9,21 +9,10 @@ import SwiftUI
 
 struct FixtureDetailView: View {
     @EnvironmentObject var modelData: ModelData
-    
-    var events: [Int: [Event]] {
-        modelData.eventsDict
-            .filter { $0.key == fixture.id }
-    }
-    
-    var statistics: [Int: [Statistics]] {
-        modelData.statisticsDict
-            .filter { $0.key == fixture.id }
-    }
-        
+
     let showElapsed: [String] = ["1H", "2H", "ET"]
-    
     let showStatus: [String] = ["NS", "FT", "HT", "AET", "PEN", "BT", "SUSP", "INT", "PST", "CANC", "ABD", "AWD", "WO"]
-        
+
     var fixture: Fixture
 
     var body: some View {
@@ -31,9 +20,9 @@ struct FixtureDetailView: View {
             if !statistics.isEmpty, !events.isEmpty {
                 header
                     .padding()
-                
+
                 eventScroller
-                
+
                 statisticsTable
             } else {
                 ProgressView("Loading")
@@ -43,6 +32,8 @@ struct FixtureDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 }
+
+// MARK: - Header
 
 extension FixtureDetailView {
     var header: some View {
@@ -57,7 +48,7 @@ extension FixtureDetailView {
                 } else {
                     Text(fixture.date.addingTimeInterval(600), style: .time)
                 }
-                    
+
                 if showElapsed.contains(fixture.status.short) {
                     Text("\(fixture.status.elapsed ?? 0)" + "'")
                         .foregroundColor(.green)
@@ -73,7 +64,16 @@ extension FixtureDetailView {
             Spacer()
         }
     }
-    
+}
+
+// MARK: - Events
+
+extension FixtureDetailView {
+    var events: [Int: [Event]] {
+        modelData.eventsDict
+            .filter { $0.key == fixture.id }
+    }
+
     var eventScroller: some View {
         ForEach(events.sorted { (first, second) -> Bool in
             first.key < second.key
@@ -84,7 +84,7 @@ extension FixtureDetailView {
                         .foregroundColor(.secondary)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.footnote)
-                    
+
                     HStack {
                         VStack {
                             RemoteImage(url: fixture.homeTeam.logo)
@@ -115,7 +115,40 @@ extension FixtureDetailView {
             }
         }
     }
-    
+
+    func awayEvent(event: Event) -> some View {
+        VStack {
+            Spacer()
+            Group {
+                Text("\(event.elapsed)")
+                Text(event.playerName ?? "-")
+                Text(event.detail)
+            }
+            .font(.caption)
+        }
+    }
+
+    func homeEvent(event: Event) -> some View {
+        VStack {
+            Group {
+                Text(event.detail)
+                Text(event.playerName ?? "-")
+                Text("\(event.elapsed)")
+            }
+            .font(.caption)
+            Spacer()
+        }
+    }
+}
+
+// MARK: - Statistics
+
+extension FixtureDetailView {
+    var statistics: [Int: [Statistics]] {
+        modelData.statisticsDict
+            .filter { $0.key == fixture.id }
+    }
+
     var statisticsTable: some View {
         HStack {
             ForEach(statistics.sorted { (first, second) -> Bool in
@@ -142,30 +175,6 @@ extension FixtureDetailView {
                     .listStyle(InsetGroupedListStyle())
                 }
             }
-        }
-    }
-    
-    func awayEvent(event: Event) -> some View {
-        VStack {
-            Spacer()
-            Group {
-                Text("\(event.elapsed)")
-                Text(event.playerName ?? "-")
-                Text(event.detail)
-            }
-            .font(.caption)
-        }
-    }
-    
-    func homeEvent(event: Event) -> some View {
-        VStack {
-            Group {
-                Text(event.detail)
-                Text(event.playerName ?? "-")
-                Text("\(event.elapsed)")
-            }
-            .font(.caption)
-            Spacer()
         }
     }
 }
