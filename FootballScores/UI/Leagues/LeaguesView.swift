@@ -99,9 +99,9 @@ extension LeaguesView {
         ForEach(searchedLeagues
             .sorted { (first, second) -> Bool in
                 first.key < second.key
-            }, id: \.key) { key, value in
-            Section(header: Text(key)) {
-                ForEach(value) { league in
+            }, id: \.key) { country, leagueList in
+            Section(header: Text(country)) {
+                ForEach(leagueList) { league in
                     NavigationLink(destination: LeagueDetailView(league: league)
                         .onAppear(perform: {
                             if modelData.standingsDict[league.id] == nil {

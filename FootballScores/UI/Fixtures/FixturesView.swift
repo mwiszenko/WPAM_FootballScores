@@ -32,8 +32,8 @@ struct FixturesView: View {
 
                         ForEach(searchedFixtures.sorted { (first, second) -> Bool in
                             first.key.country < second.key.country
-                        }, id: \.key) { key, value in
-                            leagueSection(key: key, value: value)
+                        }, id: \.key) { league, fixtureList in
+                            leagueSection(key: league, value: fixtureList)
                         }
                     }
                     .navigationTitle("Fixtures")

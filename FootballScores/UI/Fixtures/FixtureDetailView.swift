@@ -77,8 +77,8 @@ extension FixtureDetailView {
     var eventScroller: some View {
         ForEach(events.sorted { (first, second) -> Bool in
             first.key < second.key
-        }, id: \.key) { _, value in
-            if !value.isEmpty {
+        }, id: \.key) { fixtureId, eventList in
+            if !eventList.isEmpty {
                 VStack {
                     Text("EVENTS")
                         .foregroundColor(.secondary)
@@ -96,7 +96,7 @@ extension FixtureDetailView {
 
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 10) {
-                                ForEach(value, id: \.self) { event in
+                                ForEach(eventList, id: \.self) { event in
                                     if fixture.homeTeam.id == event.teamId {
                                         homeEvent(event: event)
                                     } else if fixture.awayTeam.id == event.teamId {
@@ -153,15 +153,15 @@ extension FixtureDetailView {
         HStack {
             ForEach(statistics.sorted { (first, second) -> Bool in
                 first.key < second.key
-            }, id: \.key) { _, value in
-                if value.count == 2 {
+            }, id: \.key) { fixtureId, statisticsList in
+                if statisticsList.count == 2 {
                     List {
-                        ForEach(value[0].stats, id: \.self) { stat in
-                            if let index = value[1].stats.firstIndex(where: { $0.type == stat.type }) {
-                                Section(header: Text(stat.type)) {
+                        ForEach(statisticsList[0].stats, id: \.self) { statistic in
+                            if let index = statisticsList[1].stats.firstIndex(where: { $0.type == statistic.type }) {
+                                Section(header: Text(statistic.type)) {
                                     HStack {
                                         Spacer()
-                                        Text(stat.value ?? "0")
+                                        Text(statistic.value ?? "0")
                                         Spacer()
                                         Spacer()
                                         Spacer()

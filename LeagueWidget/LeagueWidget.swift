@@ -45,19 +45,20 @@ struct Provider: IntentTimelineProvider {
 
         let crippledColumns = [
             GridItem(.flexible()),
-            GridItem(.fixed(15)),
-            GridItem(.fixed(15)),
+            GridItem(.fixed(17)),
+            GridItem(.fixed(17)),
+            GridItem(.fixed(17)),
         ]
 
         let fullColumns = [
             GridItem(.flexible()),
-            GridItem(.fixed(15)),
-            GridItem(.fixed(15)),
-            GridItem(.fixed(15)),
-            GridItem(.fixed(15)),
-            GridItem(.fixed(15)),
-            GridItem(.fixed(15)),
-            GridItem(.fixed(15)),
+            GridItem(.fixed(17)),
+            GridItem(.fixed(17)),
+            GridItem(.fixed(17)),
+            GridItem(.fixed(17)),
+            GridItem(.fixed(17)),
+            GridItem(.fixed(17)),
+            GridItem(.fixed(17)),
         ]
 
         var entry: Provider.Entry
@@ -77,31 +78,36 @@ struct Provider: IntentTimelineProvider {
 
         var smallTable: some View {
             VStack {
-                ForEach(entry.standings) { matrix in
-                    Text(matrix.league.name)
-                    ForEach(matrix.table, id: \.self) { abc in
+                ForEach(entry.standings) { standingsList in
+                    Image(uiImage: UIImage(data: try! Data(contentsOf: URL(string: standingsList.league.logo)!))!)
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                    ForEach(standingsList.table, id: \.self) { table in
                         LazyVGrid(columns: crippledColumns, alignment: .leading) {
                             Text("TEAM")
                             Text("PL")
+                            Text("W")
                             Text("PT")
                         }
-                        ForEach(abc.prefix(3), id: \.self) { row in
+                        ForEach(table.prefix(3), id: \.self) { row in
                             LazyVGrid(columns: crippledColumns, alignment: .leading) {
                                 HStack {
                                     Text("3")
                                         .hidden()
                                         .overlay(Text("\(row.rank)"))
                                     Image(uiImage: UIImage(data: try! Data(contentsOf: URL(string: row.team.logo)!))!)
-                                        .imageScale(.small)
-                                    Text("\(row.team.name)")
-                                        .multilineTextAlignment(.leading)
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
+//                                    Text("\(row.team.name)")
+//                                        .multilineTextAlignment(.leading)
                                 }
                                 Text("\(row.all.played)")
+                                Text("\(row.all.win)")
                                 Text("\(row.points)")
                             }
                         }
                     }
-                    .font(.footnote)
+                    .font(.caption)
                 }
             }
             .padding()
@@ -109,9 +115,14 @@ struct Provider: IntentTimelineProvider {
 
         func fullTable(prefix: Int) -> some View {
             VStack {
-                ForEach(entry.standings) { matrix in
-                    Text(matrix.league.name)
-                    ForEach(matrix.table, id: \.self) { abc in
+                ForEach(entry.standings) { standingsList in
+                    HStack {
+                        Image(uiImage: UIImage(data: try! Data(contentsOf: URL(string: standingsList.league.logo)!))!)
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                        Text(standingsList.league.name.uppercased())
+                    }
+                    ForEach(standingsList.table, id: \.self) { table in
                         LazyVGrid(columns: fullColumns, alignment: .leading) {
                             Text("TEAM")
                             Text("PL")
@@ -122,14 +133,15 @@ struct Provider: IntentTimelineProvider {
                             Text("GA")
                             Text("PT")
                         }
-                        ForEach(abc.prefix(prefix), id: \.self) { row in
+                        ForEach(table.prefix(prefix), id: \.self) { row in
                             LazyVGrid(columns: fullColumns, alignment: .leading) {
                                 HStack {
                                     Text("20")
                                         .hidden()
                                         .overlay(Text("\(row.rank)"))
                                     Image(uiImage: UIImage(data: try! Data(contentsOf: URL(string: row.team.logo)!))!)
-                                        .imageScale(.small)
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
                                     Text("\(row.team.name)")
                                         .multilineTextAlignment(.leading)
                                 }
@@ -143,7 +155,7 @@ struct Provider: IntentTimelineProvider {
                             }
                         }
                     }
-                    .font(.footnote)
+                    .font(.caption)
                 }
             }
             .padding()
@@ -157,6 +169,8 @@ struct Provider: IntentTimelineProvider {
         var body: some WidgetConfiguration {
             IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
                 LeagueWidgetEntryView(entry: entry)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color(.secondarySystemBackground))
             }
             .configurationDisplayName("My Widget")
             .description("This is an example widget.")

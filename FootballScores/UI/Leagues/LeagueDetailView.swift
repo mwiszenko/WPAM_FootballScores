@@ -78,12 +78,12 @@ extension LeagueDetailView {
         ForEach(standings
             .sorted { (first, second) -> Bool in
                 first.key < second.key
-            }, id: \.key) { _, value in
+            }, id: \.key) { fixtureId, standingsList in
             typePicker
             
             List {
-                ForEach(value) { matrix in
-                    ForEach(matrix.table, id: \.self) { abc in
+                ForEach(standingsList) { standingsList in
+                    ForEach(standingsList.table, id: \.self) { table in
                         Section {
                             LazyVGrid(columns: columns, alignment: .leading) {
                                 Group {
@@ -99,7 +99,7 @@ extension LeagueDetailView {
                                 .fixedSize(horizontal: true, vertical: false)
                             }
                             .font(.footnote)
-                            ForEach(abc, id: \.self) { row in
+                            ForEach(table, id: \.self) { row in
                                 TableRowView(row: row, type: self.sliderValues[sliderValue])
                             }
                         }
