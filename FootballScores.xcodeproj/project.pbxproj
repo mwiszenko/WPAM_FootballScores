@@ -14,6 +14,7 @@
 		90120C7625A20FE1002F0972 /* Fixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E7C2A52586B8AC00E84F5B /* Fixture.swift */; };
 		90120C7B25A20FE3002F0972 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DDCAE1259E120B00945FAE /* Events.swift */; };
 		90120C8025A20FE6002F0972 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FAEB3E259E09120094D984 /* Statistics.swift */; };
+		9047850325A9C3F000BF8314 /* LeagueWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 90E1E6F425A20EA50096F55F /* LeagueWidget.intentdefinition */; };
 		90ADE8E0259A253D00796B47 /* leagues.json in Resources */ = {isa = PBXBuildFile; fileRef = 90ADE8DE259A253D00796B47 /* leagues.json */; };
 		90ADE8E1259A253D00796B47 /* fixtures.json in Resources */ = {isa = PBXBuildFile; fileRef = 90ADE8DF259A253D00796B47 /* fixtures.json */; };
 		90ADE8E6259A2A6C00796B47 /* RemoteImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90ADE8E5259A2A6C00796B47 /* RemoteImageView.swift */; };
@@ -541,6 +542,7 @@
 				90F2807D2576E35000EFE936 /* FootballScoresApp.swift in Sources */,
 				90FAEB32259CB8BE0094D984 /* TableRowView.swift in Sources */,
 				90DAAC3225922F76004CBC45 /* FixtureDetailView.swift in Sources */,
+				9047850325A9C3F000BF8314 /* LeagueWidget.intentdefinition in Sources */,
 				90ADE8EE259B3F2700796B47 /* Favourites.swift in Sources */,
 				90E7C2872586B46D00E84F5B /* AppView.swift in Sources */,
 				90ADE8E6259A2A6C00796B47 /* RemoteImageView.swift in Sources */,

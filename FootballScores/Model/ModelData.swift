@@ -19,7 +19,6 @@ final class ModelData: ObservableObject {
     @Published var leagues: [League] = []
     @Published var leaguesDict: [Country: [League]] = [:]
 
-//    @Published var standings: [Standings] = []
     @Published var standingsDict: [LeagueId: [Standings]] = [:]
 
     @Published var statisticsDict: [FixtureId: [Statistics]] = [:]
@@ -64,12 +63,6 @@ final class ModelData: ObservableObject {
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
-//            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
-//                                                                in: .userDomainMask).first {
-//                let pathWithFileName = documentDirectory.appendingPathComponent("events").appendingPathExtension("json")
-//                try! data.write(to: pathWithFileName)
-//                print(pathWithFileName)
-//            }
             let eventsResponse = try! JSONDecoder().decode(EventsResponse.self, from: data)
             DispatchQueue.main.async {
                 self.eventsDict.updateValue(eventsResponse.response, forKey: id)
@@ -87,12 +80,6 @@ final class ModelData: ObservableObject {
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
-//            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
-//                                                                in: .userDomainMask).first {
-//                let pathWithFileName = documentDirectory.appendingPathComponent("statistics").appendingPathExtension("json")
-//                try! data.write(to: pathWithFileName)
-//                print(pathWithFileName)
-//            }
             let statisticsResponse = try! JSONDecoder().decode(StatisticsResponse.self, from: data)
             DispatchQueue.main.async {
                 self.statisticsDict.updateValue(statisticsResponse.response, forKey: id)
@@ -110,11 +97,6 @@ final class ModelData: ObservableObject {
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
-//            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
-//                                                                in: .userDomainMask).first {
-//                let pathWithFileName = documentDirectory.appendingPathComponent("standings").appendingPathExtension("json")
-//                try! data.write(to: pathWithFileName)
-//            }
             let standingsResponse = try! JSONDecoder().decode(StandingsResponse.self, from: data)
             DispatchQueue.main.async {
                 self.standingsDict.updateValue(standingsResponse.response, forKey: id)
@@ -132,11 +114,6 @@ final class ModelData: ObservableObject {
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
-//            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
-//                                                                in: .userDomainMask).first {
-//                let pathWithFileName = documentDirectory.appendingPathComponent("leagues").appendingPathExtension("json")
-//                try! data.write(to: pathWithFileName)
-//            }
             let leaguesResponse = try! JSONDecoder().decode(LeaguesResponse.self, from: data)
             DispatchQueue.main.async {
                 self.leagues = leaguesResponse.response
@@ -155,11 +132,6 @@ final class ModelData: ObservableObject {
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
-//            if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
-//                                                                in: .userDomainMask).first {
-//                let pathWithFileName = documentDirectory.appendingPathComponent("fixtures").appendingPathExtension("json")
-//                try! data.write(to: pathWithFileName)
-//            }
             let fixturesResponse = try! JSONDecoder().decode(FixturesResponse.self, from: data)
             DispatchQueue.main.async {
                 self.fixtures = fixturesResponse.response
@@ -168,63 +140,17 @@ final class ModelData: ObservableObject {
         }.resume()
     }
 
-//    func loadData() {
-//        if let url = Bundle.main.url(forResource: "fixtures", withExtension: "json") {
-//            do {
-//                let data = try Data(contentsOf: url)
-//                let decoder = JSONDecoder()
-//                let fixturesResponse = try decoder.decode(FixturesResponse.self, from: data)
-//                self.fixtures = fixturesResponse.response
-//                self.fixturesDict = Dictionary(grouping: self.fixtures, by: \.league)
-//            } catch {
-//                print("error:\(error)")
-//            }
-//        }
-//
-//        if let url = Bundle.main.url(forResource: "leagues", withExtension: "json") {
-//            do {
-//                let data = try Data(contentsOf: url)
-//                let decoder = JSONDecoder()
-//                let leaguesResponse = try decoder.decode(LeaguesResponse.self, from: data)
-//                self.leagues = leaguesResponse.response
-//                self.leaguesDict = Dictionary(grouping: self.leagues, by: \.country)
-//            } catch {
-//                print("error:\(error)")
-//            }
-//        }
-//
-//        if let url = Bundle.main.url(forResource: "standings", withExtension: "json") {
-//            do {
-//                let data = try Data(contentsOf: url)
-//                let decoder = JSONDecoder()
-//                let standingsResponse = try decoder.decode(StandingsResponse.self, from: data)
-//                self.standings.append(contentsOf: standingsResponse.response)
-//                self.standingsDict = Dictionary(grouping: self.standings, by: \.id)
-//            } catch {
-//                print("error:\(error)")
-//            }
-//        }
-//
-//        if let url = Bundle.main.url(forResource: "statistics", withExtension: "json") {
-//            do {
-//                let data = try Data(contentsOf: url)
-//                let decoder = JSONDecoder()
-//                let statisticsResponse = try! decoder.decode(StatisticsResponse.self, from: data)
-//                self.statisticsDict.updateValue(statisticsResponse.response, forKey: 526699)
-//            } catch {
-//                print("error:\(error)")
-//            }
-//        }
-//
-//        if let url = Bundle.main.url(forResource: "events", withExtension: "json") {
-//            do {
-//                let data = try Data(contentsOf: url)
-//                let decoder = JSONDecoder()
-//                let eventsResponse = try! decoder.decode(EventsResponse.self, from: data)
-//                self.eventsDict.updateValue(eventsResponse.response, forKey: 526699)
-//            } catch {
-//                print("error:\(error)")
-//            }
-//        }
-//    }
+    static func loadData() -> [Standings] {
+        if let url = Bundle.main.url(forResource: "standings", withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                let standingsResponse = try decoder.decode(StandingsResponse.self, from: data)
+                return standingsResponse.response
+            } catch {
+                print("error:\(error)")
+            }
+        }
+        return []
+    }
 }
