@@ -29,6 +29,15 @@ struct FixtureDetailView: View {
             }
         }
         .background(Color(.systemGroupedBackground))
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: { modelData.loadFixtures() }) {
+                    Image(systemName: "arrow.clockwise")
+                        .imageScale(.large)
+                }
+                .foregroundColor(.accentColor)
+            }
+        }
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -77,7 +86,7 @@ extension FixtureDetailView {
     var eventScroller: some View {
         ForEach(events.sorted { (first, second) -> Bool in
             first.key < second.key
-        }, id: \.key) { fixtureId, eventList in
+        }, id: \.key) { _, eventList in
             if !eventList.isEmpty {
                 VStack {
                     Text("EVENTS")
@@ -150,30 +159,28 @@ extension FixtureDetailView {
     }
 
     var statisticsTable: some View {
-        HStack {
-            ForEach(statistics.sorted { (first, second) -> Bool in
-                first.key < second.key
-            }, id: \.key) { fixtureId, statisticsList in
-                if statisticsList.count == 2 {
-                    List {
-                        ForEach(statisticsList[0].stats, id: \.self) { statistic in
-                            if let index = statisticsList[1].stats.firstIndex(where: { $0.type == statistic.type }) {
-                                Section(header: Text(statistic.type)) {
-                                    HStack {
-                                        Spacer()
-                                        Text(statistic.value ?? "0")
-                                        Spacer()
-                                        Spacer()
-                                        Spacer()
-                                        Text(value[1].stats[index].value ?? "0")
-                                        Spacer()
-                                    }
+        ForEach(statistics.sorted { (first, second) -> Bool in
+            first.key < second.key
+        }, id: \.key) { key, statisticsList in
+            if statisticsList.count == 2 {
+                List {
+                    ForEach(statisticsList[0].stats, id: \.self) { statistic in
+                        if let index = statisticsList[1].stats.firstIndex(where: { $0.type == statistic.type }) {
+                            Section(header: Text(statistic.type)) {
+                                HStack {
+                                    Spacer()
+                                    Text(statistic.value ?? "0")
+                                    Spacer()
+                                    Spacer()
+                                    Spacer()
+                                    Text(statisticsList[1].stats[index].value ?? "0")
+                                    Spacer()
                                 }
                             }
                         }
                     }
-                    .listStyle(InsetGroupedListStyle())
                 }
+                .listStyle(InsetGroupedListStyle())
             }
         }
     }

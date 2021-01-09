@@ -24,22 +24,35 @@ struct FixturesView: View {
     }
 
     var body: some View {
-        VStack {
-            NavigationView {
+        NavigationView {
+            VStack {
                 if !modelData.fixtures.isEmpty {
                     List {
                         searchBar
 
                         ForEach(searchedFixtures.sorted { (first, second) -> Bool in
-                            first.key.country < second.key.country
+                            if first.key.country != second.key.country {
+                                return first.key.country < second.key.country
+                            } else {
+                                return first.key.name < second.key.name
+                            }
                         }, id: \.key) { league, fixtureList in
                             leagueSection(key: league, value: fixtureList)
                         }
                     }
-                    .navigationTitle("Fixtures")
                     .listStyle(InsetGroupedListStyle())
                 } else {
                     ProgressView("Loading")
+                }
+            }
+            .navigationTitle("Fixtures")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: { modelData.loadFixtures() }) {
+                        Image(systemName: "arrow.clockwise")
+                            .imageScale(.large)
+                    }
+                    .foregroundColor(.accentColor)
                 }
             }
         }

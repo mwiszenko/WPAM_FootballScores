@@ -32,21 +32,23 @@ struct LeaguesView: View {
 
     var body: some View {
         NavigationView {
-            if !modelData.leagues.isEmpty {
-                List {
-                    searchBar
+            VStack {
+                if !modelData.leagues.isEmpty {
+                    List {
+                        searchBar
                     
-                    if !favouriteLeagues.isEmpty && searchPhrase == "" {
-                        favouritesSection
+                        if !favouriteLeagues.isEmpty && searchPhrase == "" {
+                            favouritesSection
+                        }
+                    
+                        countriesSection
                     }
-                    
-                    countriesSection
+                    .listStyle(InsetGroupedListStyle())
+                } else {
+                    ProgressView("Loading")
                 }
-                .navigationTitle("Leagues")
-                .listStyle(InsetGroupedListStyle())
-            } else {
-                ProgressView("Loading")
             }
+            .navigationTitle("Leagues")
         }
     }
 }

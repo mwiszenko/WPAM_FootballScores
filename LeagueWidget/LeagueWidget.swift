@@ -120,7 +120,7 @@ struct Provider: IntentTimelineProvider {
                         Image(uiImage: UIImage(data: try! Data(contentsOf: URL(string: standingsList.league.logo)!))!)
                             .resizable()
                             .frame(width: 20, height: 20)
-                        Text(standingsList.league.name.uppercased())
+                        Text(standingsList.league.name)
                     }
                     ForEach(standingsList.table, id: \.self) { table in
                         LazyVGrid(columns: fullColumns, alignment: .leading) {
@@ -172,8 +172,8 @@ struct Provider: IntentTimelineProvider {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color(.secondarySystemBackground))
             }
-            .configurationDisplayName("My Widget")
-            .description("This is an example widget.")
+            .configurationDisplayName("League")
+            .description("This is a widget for displaying league table.")
         }
     }
 }

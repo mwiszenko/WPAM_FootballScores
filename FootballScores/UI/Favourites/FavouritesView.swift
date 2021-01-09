@@ -43,6 +43,15 @@ struct FavouritesView: View {
                 }
             }
             .navigationTitle("Favourites")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: { modelData.loadFixtures() }) {
+                        Image(systemName: "arrow.clockwise")
+                            .imageScale(.large)
+                    }
+                    .foregroundColor(.accentColor)
+                }
+            }
             .listStyle(InsetGroupedListStyle())
         }
     }

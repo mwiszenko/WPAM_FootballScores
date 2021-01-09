@@ -31,7 +31,7 @@ struct TableRowView: View {
         LazyVGrid(columns: columns, alignment: .leading) {
             Text("\(row.rank)")
             RemoteImage(url: row.team.logo)
-                .frame(width: 20, height: 20)
+                .aspectRatio(contentMode: .fit)
             Text(row.team.name)
             if type == "ALL" {
                 stats(row: row.all)
@@ -41,7 +41,7 @@ struct TableRowView: View {
                 stats(row: row.away)
             }
         }
-        .font(.callout)
+        .font(.caption)
     }
 }
 
