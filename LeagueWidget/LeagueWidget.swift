@@ -12,18 +12,20 @@ import WidgetKit
 struct Provider: IntentTimelineProvider {
     var data = ModelData()
 
+    let placeholderStandings: [Standings] = ModelData.getPlaceholderStandings()
+
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), standings: [], configuration: ConfigurationIntent())
+        return SimpleEntry(date: Date(), type: Types.all, standings: placeholderStandings, configuration: ConfigurationIntent())
     }
 
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), standings: [], configuration: configuration)
+        let entry = SimpleEntry(date: Date(), type: configuration.type, standings: placeholderStandings, configuration: configuration)
         completion(entry)
     }
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> ()) {
         var leagueIndex: Int
-        switch(configuration.league) {
+        switch configuration.league {
         case .premierLeague:
             leagueIndex = 39
         case .laLiga:
@@ -37,15 +39,12 @@ struct Provider: IntentTimelineProvider {
         case .ekstraklasa:
             leagueIndex = 106
         case .unknown:
-            leagueIndex = 45
+            leagueIndex = 39
         }
         data.fetchStandings(id: leagueIndex) { standings in
-            let entry = SimpleEntry(date: Date(), standings: standings, configuration: configuration)
-            let date = Calendar
-                .current.date(bySettingHour: 3, minute: 0, second: 0, of: Date()) ?? Date()
+            let entry = SimpleEntry(date: Date(), type: configuration.type, standings: standings, configuration: configuration)
             let expiryDate = Calendar
-                .current.date(byAdding: .day, value: 1, to: date) ?? Date()
-            print(expiryDate)
+                .current.date(byAdding: .hour, value: 12, to: Date()) ?? Date()
             let timeline = Timeline(entries: [entry], policy: .after(expiryDate))
             completion(timeline)
         }
@@ -54,6 +53,7 @@ struct Provider: IntentTimelineProvider {
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
+    let type: Types
     let standings: [Standings]
     let configuration: ConfigurationIntent
 }
@@ -88,7 +88,7 @@ struct LeagueWidgetEntryView: View {
         case .systemMedium:
             fullTable(prefix: 3)
         case .systemLarge:
-            fullTable(prefix: 8)
+            fullTable(prefix: 10)
         @unknown default:
             Text("Unsupported widget family")
         }
@@ -97,7 +97,7 @@ struct LeagueWidgetEntryView: View {
     var smallTable: some View {
         VStack {
             ForEach(entry.standings) { standingsList in
-                if let url = URL(string: standingsList.league.logo), let data = try! Data(contentsOf: url), let uiImg = UIImage(data: data) {
+                if let url = URL(string: standingsList.league.logo), let data = try? Data(contentsOf: url), let uiImg = UIImage(data: data) {
                     Image(uiImage: uiImg)
                         .resizable()
                         .frame(width: 20, height: 20)
@@ -118,7 +118,7 @@ struct LeagueWidgetEntryView: View {
                                 Text("3")
                                     .hidden()
                                     .overlay(Text("\(row.rank)"))
-                                if let url = URL(string: row.team.logo), let data = try! Data(contentsOf: url), let uiImg = UIImage(data: data) {
+                                if let url = URL(string: row.team.logo), let data = try? Data(contentsOf: url), let uiImg = UIImage(data: data) {
                                     Image(uiImage: uiImg)
                                         .resizable()
                                         .frame(width: 20, height: 20)
@@ -127,9 +127,16 @@ struct LeagueWidgetEntryView: View {
                                         .imageScale(.medium)
                                 }
                             }
-                            Text("\(row.all.played)")
-                            Text("\(row.all.win)")
-                            Text("\(row.points)")
+                            switch entry.type {
+                            case .all:
+                                smallTableRow(row: row.all)
+                            case .home:
+                                smallTableRow(row: row.home)
+                            case .away:
+                                smallTableRow(row: row.away)
+                            case .unknown:
+                                smallTableRow(row: row.all)
+                            }
                         }
                     }
                 }
@@ -143,7 +150,7 @@ struct LeagueWidgetEntryView: View {
         VStack {
             ForEach(entry.standings) { standingsList in
                 HStack {
-                    if let url = URL(string: standingsList.league.logo), let data = try! Data(contentsOf: url), let uiImg = UIImage(data: data) {
+                    if let url = URL(string: standingsList.league.logo), let data = try? Data(contentsOf: url), let uiImg = UIImage(data: data) {
                         Image(uiImage: uiImg)
                             .resizable()
                             .frame(width: 20, height: 20)
@@ -152,6 +159,7 @@ struct LeagueWidgetEntryView: View {
                             .imageScale(.large)
                     }
                     Text(standingsList.league.name)
+                        .lineLimit(1)
                 }
                 ForEach(standingsList.table, id: \.self) { table in
                     LazyVGrid(columns: fullColumns, alignment: .leading) {
@@ -170,7 +178,7 @@ struct LeagueWidgetEntryView: View {
                                 Text("20")
                                     .hidden()
                                     .overlay(Text("\(row.rank)"))
-                                if let url = URL(string: row.team.logo), let data = try! Data(contentsOf: url), let uiImg = UIImage(data: data) {
+                                if let url = URL(string: row.team.logo), let data = try? Data(contentsOf: url), let uiImg = UIImage(data: data) {
                                     Image(uiImage: uiImg)
                                         .resizable()
                                         .frame(width: 20, height: 20)
@@ -179,15 +187,18 @@ struct LeagueWidgetEntryView: View {
                                         .imageScale(.medium)
                                 }
                                 Text("\(row.team.name)")
-                                    .multilineTextAlignment(.leading)
+                                    .lineLimit(1)
                             }
-                            Text("\(row.all.played)")
-                            Text("\(row.all.win)")
-                            Text("\(row.all.draw)")
-                            Text("\(row.all.lose)")
-                            Text("\(row.all.goalsFor)")
-                            Text("\(row.all.goalsAgainst)")
-                            Text("\(row.points)")
+                            switch entry.type {
+                            case .all:
+                                fullTableRow(row: row.all)
+                            case .home:
+                                fullTableRow(row: row.home)
+                            case .away:
+                                fullTableRow(row: row.away)
+                            case .unknown:
+                                fullTableRow(row: row.all)
+                            }
                         }
                     }
                 }
@@ -195,6 +206,26 @@ struct LeagueWidgetEntryView: View {
             }
         }
         .padding()
+    }
+
+    func fullTableRow(row: StandingsStatistics) -> some View {
+        Group {
+            Text("\(row.played)")
+            Text("\(row.win)")
+            Text("\(row.draw)")
+            Text("\(row.lose)")
+            Text("\(row.goalsFor)")
+            Text("\(row.goalsAgainst)")
+            Text("\(row.win * 3 + row.draw)")
+        }
+    }
+
+    func smallTableRow(row: StandingsStatistics) -> some View {
+        Group {
+            Text("\(row.played)")
+            Text("\(row.win)")
+            Text("\(row.win * 3 + row.draw)")
+        }
     }
 }
 
@@ -208,7 +239,7 @@ struct LeagueWidget: Widget {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color(.secondarySystemBackground))
         }
-        .configurationDisplayName("Panda")
-        .description("This is a widget for Panda")
+        .configurationDisplayName("Standings")
+        .description("See standings from the seleceted league.")
     }
 }

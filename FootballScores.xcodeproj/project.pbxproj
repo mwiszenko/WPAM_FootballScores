@@ -26,7 +26,6 @@
 		90DAAC2D25922EB9004CBC45 /* FixtureRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DAAC2C25922EB9004CBC45 /* FixtureRowView.swift */; };
 		90DAAC3225922F76004CBC45 /* FixtureDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DAAC3125922F76004CBC45 /* FixtureDetailView.swift */; };
 		90DAAC542598CE86004CBC45 /* LeagueRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DAAC532598CE86004CBC45 /* LeagueRowView.swift */; };
-		90DDCADA259E107400945FAE /* statistics.json in Resources */ = {isa = PBXBuildFile; fileRef = 90DDCAD9259E107400945FAE /* statistics.json */; };
 		90DDCAE2259E120B00945FAE /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DDCAE1259E120B00945FAE /* Events.swift */; };
 		90DDCAE7259E18CE00945FAE /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 90DDCAE6259E18CE00945FAE /* events.json */; };
 		90E1E6EE25A20EA50096F55F /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E1E6ED25A20EA50096F55F /* WidgetKit.framework */; };
@@ -103,7 +102,6 @@
 		90DAAC2C25922EB9004CBC45 /* FixtureRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixtureRowView.swift; sourceTree = "<group>"; };
 		90DAAC3125922F76004CBC45 /* FixtureDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixtureDetailView.swift; sourceTree = "<group>"; };
 		90DAAC532598CE86004CBC45 /* LeagueRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueRowView.swift; sourceTree = "<group>"; };
-		90DDCAD9259E107400945FAE /* statistics.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = statistics.json; path = FootballScores/Resources/statistics.json; sourceTree = SOURCE_ROOT; };
 		90DDCAE1259E120B00945FAE /* Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
 		90DDCAE6259E18CE00945FAE /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = events.json; path = Assets.xcassets/events.json; sourceTree = "<group>"; };
 		90E1E6EB25A20EA50096F55F /* LeagueWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = LeagueWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -328,7 +326,6 @@
 		90F280AC2576E37D00EFE936 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				90DDCAD9259E107400945FAE /* statistics.json */,
 				90DDCAE6259E18CE00945FAE /* events.json */,
 				90ADE909259BE7E600796B47 /* standings.json */,
 				90ADE8DF259A253D00796B47 /* fixtures.json */,
@@ -488,7 +485,6 @@
 				90F280812576E35100EFE936 /* Assets.xcassets in Resources */,
 				90DDCAE7259E18CE00945FAE /* events.json in Resources */,
 				90ADE90A259BE7E600796B47 /* standings.json in Resources */,
-				90DDCADA259E107400945FAE /* statistics.json in Resources */,
 				90ADE8E1259A253D00796B47 /* fixtures.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
