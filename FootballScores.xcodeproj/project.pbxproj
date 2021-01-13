@@ -46,8 +46,6 @@
 		90F2807D2576E35000EFE936 /* FootballScoresApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F2807C2576E35000EFE936 /* FootballScoresApp.swift */; };
 		90F280812576E35100EFE936 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90F280802576E35100EFE936 /* Assets.xcassets */; };
 		90F280842576E35100EFE936 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90F280832576E35100EFE936 /* Preview Assets.xcassets */; };
-		90F2808F2576E35100EFE936 /* FootballScoresTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F2808E2576E35100EFE936 /* FootballScoresTests.swift */; };
-		90F2809A2576E35100EFE936 /* FootballScoresUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F280992576E35100EFE936 /* FootballScoresUITests.swift */; };
 		90FAEB32259CB8BE0094D984 /* TableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FAEB31259CB8BE0094D984 /* TableRowView.swift */; };
 		90FAEB3F259E09120094D984 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FAEB3E259E09120094D984 /* Statistics.swift */; };
 /* End PBXBuildFile section */
@@ -126,11 +124,7 @@
 		90F280832576E35100EFE936 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		90F280852576E35100EFE936 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		90F2808A2576E35100EFE936 /* FootballScoresTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FootballScoresTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		90F2808E2576E35100EFE936 /* FootballScoresTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootballScoresTests.swift; sourceTree = "<group>"; };
-		90F280902576E35100EFE936 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		90F280952576E35100EFE936 /* FootballScoresUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FootballScoresUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		90F280992576E35100EFE936 /* FootballScoresUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootballScoresUITests.swift; sourceTree = "<group>"; };
-		90F2809B2576E35100EFE936 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		90FAEB31259CB8BE0094D984 /* TableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableRowView.swift; sourceTree = "<group>"; };
 		90FAEB3E259E09120094D984 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -238,8 +232,6 @@
 			isa = PBXGroup;
 			children = (
 				90F2807B2576E35000EFE936 /* FootballScores */,
-				90F2808D2576E35100EFE936 /* FootballScoresTests */,
-				90F280982576E35100EFE936 /* FootballScoresUITests */,
 				90E1E6F125A20EA50096F55F /* LeagueWidget */,
 				90E1E6EC25A20EA50096F55F /* Frameworks */,
 				90F2807A2576E35000EFE936 /* Products */,
@@ -274,24 +266,6 @@
 				90F280832576E35100EFE936 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		90F2808D2576E35100EFE936 /* FootballScoresTests */ = {
-			isa = PBXGroup;
-			children = (
-				90F2808E2576E35100EFE936 /* FootballScoresTests.swift */,
-				90F280902576E35100EFE936 /* Info.plist */,
-			);
-			path = FootballScoresTests;
-			sourceTree = "<group>";
-		};
-		90F280982576E35100EFE936 /* FootballScoresUITests */ = {
-			isa = PBXGroup;
-			children = (
-				90F280992576E35100EFE936 /* FootballScoresUITests.swift */,
-				90F2809B2576E35100EFE936 /* Info.plist */,
-			);
-			path = FootballScoresUITests;
 			sourceTree = "<group>";
 		};
 		90F280AA2576E36900EFE936 /* Model */ = {
@@ -554,7 +528,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90F2808F2576E35100EFE936 /* FootballScoresTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,7 +535,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90F2809A2576E35100EFE936 /* FootballScoresUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
