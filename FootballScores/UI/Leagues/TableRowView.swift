@@ -45,6 +45,8 @@ struct TableRowView: View {
     }
 }
 
+// MARK: - Statistics
+
 extension TableRowView {
     func stats(row: StandingsStatistics) -> some View {
         Group {

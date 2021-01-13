@@ -60,7 +60,7 @@ private extension FixtureRowView {
                     .hidden()
                     .overlay(Text("\(fixture.homeGoals ?? 0) - \(fixture.awayGoals ?? 0)"))
             } else {
-                Text(fixture.date.addingTimeInterval(600), style: .time)
+                Text(fixture.date, style: .time)
             }
 
             if showElapsed.contains(fixture.status.short) {
