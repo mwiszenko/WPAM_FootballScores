@@ -27,7 +27,7 @@ final class ModelData: ObservableObject {
 
     let apiKey: String = "3e6a491054c4f9a0fd77f7bfc7540225"
     let apiHeaderField: String = "x-rapidapi-key"
-    let season:Int = 2020
+    let season: Int = 2021
     let date: String
 
     init() {
@@ -36,6 +36,7 @@ final class ModelData: ObservableObject {
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy-MM-dd"
         self.date = dateFormatter.string(from: todayDate)
+        self.placeholderLeagues()
     }
     
     func fetchStandings(id: Int, completion: @escaping (([Standings]) -> Void)) {
@@ -155,5 +156,16 @@ final class ModelData: ObservableObject {
             StandingsRow(rank: 9, points: 26, team: StandingsTeam(id: 41, name: "Southampton", logo: "https://media.api-sports.io/football/teams/41.png"), all: StandingsStatistics(played: 16, win: 7, draw: 5, lose: 4, goalsFor: 25, goalsAgainst: 19), home: StandingsStatistics(played: 8, win: 4, draw: 1, lose: 3, goalsFor: 13, goalsAgainst: 9), away: StandingsStatistics(played: 8, win: 3, draw: 4, lose: 1, goalsFor: 12, goalsAgainst: 10)),
             StandingsRow(rank: 10, points: 23, team: StandingsTeam(id: 48, name: "West Ham", logo: "https://media.api-sports.io/football/teams/48.png"), all: StandingsStatistics(played: 16, win: 6, draw: 5, lose: 5, goalsFor: 23, goalsAgainst: 21), home: StandingsStatistics(played: 8, win: 3, draw: 3, lose: 2, goalsFor: 12, goalsAgainst: 10), away: StandingsStatistics(played: 8, win: 3, draw: 2, lose: 3, goalsFor: 11, goalsAgainst: 11)),
         ]])]
+    }
+
+    func placeholderLeagues() {
+        guard let bundlePath = Bundle.main.path(forResource: "leagues",
+                                          ofType: "json") else { return }
+
+        guard let jsonData = try! String(contentsOfFile: bundlePath).data(using: .utf8) else { return }
+        
+        let leaguesResponse = try! JSONDecoder().decode(LeaguesResponse.self, from: jsonData)
+        self.leagues = leaguesResponse.response
+        self.leaguesDict = Dictionary(grouping: self.leagues, by: \.country)
     }
 }

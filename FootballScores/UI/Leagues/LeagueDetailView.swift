@@ -79,34 +79,37 @@ extension LeagueDetailView {
             .sorted { (first, second) -> Bool in
                 first.key < second.key
             }, id: \.key) { fixtureId, standingsList in
-            typePicker
-            
-            List {
-                ForEach(standingsList) { standingsList in
-                    ForEach(standingsList.table, id: \.self) { table in
-                        Section {
-                            LazyVGrid(columns: columns, alignment: .leading) {
-                                Group {
-                                    Text("TEAM")
-                                    Text("PL")
-                                    Text("W")
-                                    Text("D")
-                                    Text("L")
-                                    Text("GF")
-                                    Text("GA")
-                                    Text("PTS")
+            if !standingsList.isEmpty {
+                typePicker
+                List {
+                    ForEach(standingsList) { standingsList in
+                        ForEach(standingsList.table, id: \.self) { table in
+                            Section {
+                                LazyVGrid(columns: columns, alignment: .leading) {
+                                    Group {
+                                        Text("TEAM")
+                                        Text("PL")
+                                        Text("W")
+                                        Text("D")
+                                        Text("L")
+                                        Text("GF")
+                                        Text("GA")
+                                        Text("PTS")
+                                    }
+                                    .fixedSize(horizontal: true, vertical: false)
                                 }
-                                .fixedSize(horizontal: true, vertical: false)
-                            }
-                            .font(.footnote)
-                            ForEach(table, id: \.self) { row in
-                                TableRowView(row: row, type: self.sliderValues[sliderValue])
+                                .font(.footnote)
+                                ForEach(table, id: \.self) { row in
+                                    TableRowView(row: row, type: self.sliderValues[sliderValue])
+                                }
                             }
                         }
                     }
                 }
+                .listStyle(InsetGroupedListStyle())
+            } else {
+                Text("No data available")
             }
-            .listStyle(InsetGroupedListStyle())
         }
     }
     
@@ -118,5 +121,15 @@ extension LeagueDetailView {
         }
         .pickerStyle(SegmentedPickerStyle())
         .aspectRatio(contentMode: .fit)
+    }
+}
+
+struct LeagueDetailPreview : PreviewProvider {
+    static let modelData = ModelData()
+
+    static var previews: some View {
+        LeagueDetailView(league: modelData.leagues[1])
+            .environmentObject(modelData)
+            .environmentObject(Favourites())
     }
 }

@@ -44,7 +44,7 @@ struct Provider: IntentTimelineProvider {
         data.fetchStandings(id: leagueIndex) { standings in
             let entry = SimpleEntry(date: Date(), type: configuration.type, standings: standings, configuration: configuration)
             let expiryDate = Calendar
-                .current.date(byAdding: .hour, value: 12, to: Date()) ?? Date()
+                .current.date(byAdding: .hour, value: 24, to: Date()) ?? Date()
             let timeline = Timeline(entries: [entry], policy: .after(expiryDate))
             completion(timeline)
         }
@@ -63,20 +63,20 @@ struct LeagueWidgetEntryView: View {
 
     let crippledColumns = [
         GridItem(.flexible()),
-        GridItem(.fixed(17)),
-        GridItem(.fixed(17)),
-        GridItem(.fixed(17)),
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible()),
     ]
 
     let fullColumns = [
         GridItem(.flexible()),
-        GridItem(.fixed(16)),
-        GridItem(.fixed(16)),
-        GridItem(.fixed(16)),
-        GridItem(.fixed(16)),
-        GridItem(.fixed(16)),
-        GridItem(.fixed(17)),
-        GridItem(.fixed(16)),
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible()),
     ]
 
     var entry: Provider.Entry
@@ -111,9 +111,7 @@ struct LeagueWidgetEntryView: View {
                         Text("PL")
                         Text("W")
                         Text("PT")
-                    }
-                    ForEach(table.prefix(3), id: \.self) { row in
-                        LazyVGrid(columns: crippledColumns, alignment: .leading) {
+                        ForEach(table.prefix(3), id: \.self) { row in
                             HStack {
                                 Text("3")
                                     .hidden()
@@ -171,9 +169,7 @@ struct LeagueWidgetEntryView: View {
                         Text("GF")
                         Text("GA")
                         Text("PT")
-                    }
-                    ForEach(table.prefix(prefix), id: \.self) { row in
-                        LazyVGrid(columns: fullColumns, alignment: .leading) {
+                        ForEach(table.prefix(prefix), id: \.self) { row in
                             HStack {
                                 Text("20")
                                     .hidden()
