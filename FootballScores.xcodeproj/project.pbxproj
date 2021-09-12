@@ -15,6 +15,7 @@
 		90120C7B25A20FE3002F0972 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DDCAE1259E120B00945FAE /* Events.swift */; };
 		90120C8025A20FE6002F0972 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FAEB3E259E09120094D984 /* Statistics.swift */; };
 		9047850325A9C3F000BF8314 /* LeagueWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 90E1E6F425A20EA50096F55F /* LeagueWidget.intentdefinition */; };
+		90AC288B26EE1D5200D4198F /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AC288A26EE1D5200D4198F /* UserPreferences.swift */; };
 		90ADE8E0259A253D00796B47 /* leagues.json in Resources */ = {isa = PBXBuildFile; fileRef = 90ADE8DE259A253D00796B47 /* leagues.json */; };
 		90ADE8E1259A253D00796B47 /* fixtures.json in Resources */ = {isa = PBXBuildFile; fileRef = 90ADE8DF259A253D00796B47 /* fixtures.json */; };
 		90ADE8E6259A2A6C00796B47 /* RemoteImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90ADE8E5259A2A6C00796B47 /* RemoteImageView.swift */; };
@@ -89,6 +90,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		90AC288A26EE1D5200D4198F /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		90ADE8DE259A253D00796B47 /* leagues.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = leagues.json; path = Assets.xcassets/leagues.json; sourceTree = "<group>"; };
 		90ADE8DF259A253D00796B47 /* fixtures.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = fixtures.json; path = Assets.xcassets/fixtures.json; sourceTree = "<group>"; };
 		90ADE8E5259A2A6C00796B47 /* RemoteImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageView.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				90E7C2A52586B8AC00E84F5B /* Fixture.swift */,
 				90DAAC0D25922999004CBC45 /* ModelData.swift */,
 				90ADE8ED259B3F2700796B47 /* Favourites.swift */,
+				90AC288A26EE1D5200D4198F /* UserPreferences.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -521,6 +524,7 @@
 				90DAAC0E25922999004CBC45 /* ModelData.swift in Sources */,
 				90E7C2BA2586B94D00E84F5B /* FavouritesView.swift in Sources */,
 				90E7C2A62586B8AC00E84F5B /* Fixture.swift in Sources */,
+				90AC288B26EE1D5200D4198F /* UserPreferences.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @State var showAbout = false
-    @State private var wakeUp = Date()
+    @EnvironmentObject var userPreferences: UserPreferences
 
     var body: some View {
         NavigationView {
@@ -30,7 +30,7 @@ struct SettingsView: View {
 private extension SettingsView {
     var settingsSection: some View {
         Section {
-            DatePicker("Widget refresh time", selection: $wakeUp, displayedComponents: .hourAndMinute)
+            DatePicker("Widget refresh time", selection: $userPreferences.widgetRefreshTime, displayedComponents: .hourAndMinute)
         }
     }
     
@@ -119,9 +119,9 @@ private extension SettingsView {
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView()
-            .colorScheme(.dark)
-    }
-}
+//struct SettingsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SettingsView()
+//            .colorScheme(.dark)
+//    }
+//}
