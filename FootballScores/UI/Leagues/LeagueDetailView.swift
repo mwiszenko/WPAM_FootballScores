@@ -18,17 +18,6 @@ struct LeagueDetailView: View {
 
     var league: League
     
-    let columns = [
-        GridItem(.flexible()),
-        GridItem(.fixed(15)),
-        GridItem(.fixed(15)),
-        GridItem(.fixed(15)),
-        GridItem(.fixed(15)),
-        GridItem(.fixed(15)),
-        GridItem(.fixed(15)),
-        GridItem(.fixed(15)),
-    ]
-    
     @State private var sliderValue: Int = 0
     private let sliderValues = ["ALL", "HOME", "AWAY"]
 
@@ -85,23 +74,36 @@ extension LeagueDetailView {
                     ForEach(standingsList) { standingsList in
                         ForEach(standingsList.table, id: \.self) { table in
                             Section {
-                                LazyVGrid(columns: columns, alignment: .leading) {
-                                    Group {
-                                        Text("TEAM")
-                                        Text("PL")
-                                        Text("W")
-                                        Text("D")
-                                        Text("L")
-                                        Text("GF")
-                                        Text("GA")
-                                        Text("PTS")
-                                    }
-                                    .fixedSize(horizontal: true, vertical: false)
+                                HStack {
+                                    Text("TEAM")
+                                    Spacer()
+                                    Text("00")
+                                        .hidden()
+                                        .overlay(Text("PL"))
+                                    Text("00")
+                                        .hidden()
+                                        .overlay(Text("W"))
+                                    Text("00")
+                                        .hidden()
+                                        .overlay(Text("D"))
+                                    Text("00")
+                                        .hidden()
+                                        .overlay(Text("L"))
+                                    Text("GF")
+                                        .hidden()
+                                        .overlay(Text("GF"))
+                                    Text("GA")
+                                        .hidden()
+                                        .overlay(Text("GA"))
+                                    Text("PT")
+                                        .hidden()
+                                        .overlay(Text("PT"))
                                 }
                                 .font(.footnote)
                                 ForEach(table, id: \.self) { row in
                                     TableRowView(row: row, type: self.sliderValues[sliderValue])
                                 }
+                                .font(.footnote)
                             }
                         }
                     }
@@ -114,22 +116,12 @@ extension LeagueDetailView {
     }
     
     var typePicker: some View {
-        Picker("Abc", selection: $sliderValue) {
+        Picker("TableType", selection: $sliderValue) {
             ForEach(0 ..< sliderValues.count) { index in
                 Text(self.sliderValues[index]).tag(index)
             }
         }
         .pickerStyle(SegmentedPickerStyle())
         .aspectRatio(contentMode: .fit)
-    }
-}
-
-struct LeagueDetailPreview : PreviewProvider {
-    static let modelData = ModelData()
-
-    static var previews: some View {
-        LeagueDetailView(league: modelData.leagues[1])
-            .environmentObject(modelData)
-            .environmentObject(Favourites())
     }
 }

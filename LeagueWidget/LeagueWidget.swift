@@ -61,30 +61,13 @@ struct SimpleEntry: TimelineEntry {
 struct LeagueWidgetEntryView: View {
     @Environment(\.widgetFamily) var widgetFamily
 
-    let crippledColumns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-    ]
-
-    let fullColumns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-    ]
 
     var entry: Provider.Entry
 
     var body: some View {
         switch widgetFamily {
         case .systemSmall:
-            smallTable
+            smallTable(prefix: 3)
         case .systemMedium:
             fullTable(prefix: 3)
         case .systemLarge:
@@ -93,134 +76,193 @@ struct LeagueWidgetEntryView: View {
             Text("Unsupported widget family")
         }
     }
+}
 
-    var smallTable: some View {
+// MARK: - Full table
+
+extension LeagueWidgetEntryView {
+    func fullTable(prefix: Int) -> some View {
         VStack {
-            ForEach(entry.standings) { standingsList in
-                if let url = URL(string: standingsList.league.logo), let data = try? Data(contentsOf: url), let uiImg = UIImage(data: data) {
+            HStack {
+                if let url = URL(string: entry.standings[0].league.logo), let data = try? Data(contentsOf: url), let uiImg = UIImage(data: data) {
                     Image(uiImage: uiImg)
                         .resizable()
-                        .frame(width: 20, height: 20)
+                        .aspectRatio(contentMode: .fit)
                 } else {
                     Image(systemName: "multiply.circle")
                         .imageScale(.large)
                 }
-                ForEach(standingsList.table, id: \.self) { table in
-                    LazyVGrid(columns: crippledColumns, alignment: .leading) {
-                        Text("TEAM")
-                        Text("PL")
-                        Text("W")
-                        Text("PT")
-                        ForEach(table.prefix(3), id: \.self) { row in
-                            HStack {
-                                Text("3")
-                                    .hidden()
-                                    .overlay(Text("\(row.rank)"))
-                                if let url = URL(string: row.team.logo), let data = try? Data(contentsOf: url), let uiImg = UIImage(data: data) {
-                                    Image(uiImage: uiImg)
-                                        .resizable()
-                                        .frame(width: 20, height: 20)
-                                } else {
-                                    Image(systemName: "multiply.circle")
-                                        .imageScale(.medium)
-                                }
-                            }
-                            switch entry.type {
-                            case .all:
-                                smallTableRow(row: row.all)
-                            case .home:
-                                smallTableRow(row: row.home)
-                            case .away:
-                                smallTableRow(row: row.away)
-                            case .unknown:
-                                smallTableRow(row: row.all)
-                            }
-                        }
-                    }
-                }
-                .font(.caption)
+                Text(entry.standings[0].league.name)
+                    .lineLimit(1)
             }
+            HStack {
+                Text("TEAM")
+                Spacer()
+                Text("00")
+                    .hidden()
+                    .overlay(Text("PL"))
+                Text("00")
+                    .hidden()
+                    .overlay(Text("W"))
+                Text("00")
+                    .hidden()
+                    .overlay(Text("D"))
+                Text("00")
+                    .hidden()
+                    .overlay(Text("L"))
+                Text("GF")
+                    .hidden()
+                    .overlay(Text("GF"))
+                Text("GA")
+                    .hidden()
+                    .overlay(Text("GA"))
+                Text("PT")
+                    .hidden()
+                    .overlay(Text("PT"))
+            }
+            .font(.footnote)
+            ForEach(entry.standings[0].table[0].prefix(prefix), id: \.self) { row in
+                fullTableRow(row: row)
+            }
+            .font(.footnote)
         }
         .padding()
     }
+    
+    func fullTableRow(row: StandingsRow) -> some View {
+        HStack {
+            HStack {
+                Text("00")
+                    .hidden()
+                    .overlay(Text("\(row.rank)"))
+                if let url = URL(string: row.team.logo), let data = try? Data(contentsOf: url), let uiImg = UIImage(data: data) {
+                    Image(uiImage: uiImg)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                } else {
+                    Image(systemName: "multiply.circle")
+                        .imageScale(.medium)
+                }
+                Text("\(row.team.name)")
+                    .lineLimit(1)
+            }
+            Spacer()
+            switch entry.type {
+            case .all:
+                fullTableStats(row: row.all)
+            case .home:
+                fullTableStats(row: row.home)
+            case .away:
+                fullTableStats(row: row.away)
+            case .unknown:
+                fullTableStats(row: row.all)
+            }
+        }
+    }
 
-    func fullTable(prefix: Int) -> some View {
+
+    func fullTableStats(row: StandingsStatistics) -> some View {
+        Group {
+            Text("00")
+                .hidden()
+                .overlay(Text("\(row.played)"))
+            Text("00")
+                .hidden()
+                .overlay(Text("\(row.win)"))
+            Text("00")
+                .hidden()
+                .overlay(Text("\(row.draw)"))
+            Text("00")
+                .hidden()
+                .overlay(Text("\(row.lose)"))
+            Text("GF")
+                .hidden()
+                .overlay(Text("\(row.goalsFor)"))
+            Text("GA")
+                .hidden()
+                .overlay(Text("\(row.goalsAgainst)"))
+            Text("PT")
+                .hidden()
+                .overlay(Text("\(row.win * 3 + row.draw)"))
+        }
+    }
+}
+
+// MARK: - Full table
+
+extension LeagueWidgetEntryView {
+    func smallTable(prefix: Int) -> some View {
         VStack {
-            ForEach(entry.standings) { standingsList in
-                HStack {
-                    if let url = URL(string: standingsList.league.logo), let data = try? Data(contentsOf: url), let uiImg = UIImage(data: data) {
-                        Image(uiImage: uiImg)
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                    } else {
-                        Image(systemName: "multiply.circle")
-                            .imageScale(.large)
-                    }
-                    Text(standingsList.league.name)
-                        .lineLimit(1)
-                }
-                ForEach(standingsList.table, id: \.self) { table in
-                    LazyVGrid(columns: fullColumns, alignment: .leading) {
-                        Text("TEAM")
-                        Text("PL")
-                        Text("W")
-                        Text("D")
-                        Text("L")
-                        Text("GF")
-                        Text("GA")
-                        Text("PT")
-                        ForEach(table.prefix(prefix), id: \.self) { row in
-                            HStack {
-                                Text("20")
-                                    .hidden()
-                                    .overlay(Text("\(row.rank)"))
-                                if let url = URL(string: row.team.logo), let data = try? Data(contentsOf: url), let uiImg = UIImage(data: data) {
-                                    Image(uiImage: uiImg)
-                                        .resizable()
-                                        .frame(width: 20, height: 20)
-                                } else {
-                                    Image(systemName: "multiply.circle")
-                                        .imageScale(.medium)
-                                }
-                                Text("\(row.team.name)")
-                                    .lineLimit(1)
-                            }
-                            switch entry.type {
-                            case .all:
-                                fullTableRow(row: row.all)
-                            case .home:
-                                fullTableRow(row: row.home)
-                            case .away:
-                                fullTableRow(row: row.away)
-                            case .unknown:
-                                fullTableRow(row: row.all)
-                            }
-                        }
-                    }
-                }
-                .font(.caption)
+            if let url = URL(string: entry.standings[0].league.logo), let data = try? Data(contentsOf: url), let uiImg = UIImage(data: data) {
+                Image(uiImage: uiImg)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            } else {
+                Image(systemName: "multiply.circle")
+                    .imageScale(.large)
             }
+            HStack {
+                Text("TEAM")
+                Spacer()
+                Text("00")
+                    .hidden()
+                    .overlay(Text("PL"))
+                Text("00")
+                    .hidden()
+                    .overlay(Text("W"))
+                Text("PT")
+                    .hidden()
+                    .overlay(Text("PT"))
+            }
+            .font(.footnote)
+            ForEach(entry.standings[0].table[0].prefix(prefix), id: \.self) { row in
+                smallTableRow(row: row)
+            }
+            .font(.footnote)
         }
         .padding()
     }
 
-    func fullTableRow(row: StandingsStatistics) -> some View {
-        Group {
-            Text("\(row.played)")
-            Text("\(row.win)")
-            Text("\(row.draw)")
-            Text("\(row.lose)")
-            Text("\(row.goalsFor)")
-            Text("\(row.goalsAgainst)")
-            Text("\(row.win * 3 + row.draw)")
+    func smallTableRow(row: StandingsRow) -> some View {
+        HStack {
+            HStack {
+                Text("0")
+                    .hidden()
+                    .overlay(Text("\(row.rank)"))
+                if let url = URL(string: row.team.logo), let data = try? Data(contentsOf: url), let uiImg = UIImage(data: data) {
+                    Image(uiImage: uiImg)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                } else {
+                    Image(systemName: "multiply.circle")
+                        .imageScale(.medium)
+                }
+            }
+            Spacer()
+            switch entry.type {
+            case .all:
+                smallTableStats(row: row.all)
+            case .home:
+                smallTableStats(row: row.home)
+            case .away:
+                smallTableStats(row: row.away)
+            case .unknown:
+                smallTableStats(row: row.all)
+            }
         }
     }
 
-    func smallTableRow(row: StandingsStatistics) -> some View {
+    func smallTableStats(row: StandingsStatistics) -> some View {
         Group {
-            Text("\(row.played)")
-            Text("\(row.win)")
-            Text("\(row.win * 3 + row.draw)")
+            Text("00")
+                .hidden()
+                .overlay(Text("\(row.played)"))
+            Text("00")
+                .hidden()
+                .overlay(Text("\(row.win)"))
+            Text("PT")
+                .hidden()
+                .overlay(Text("\(row.win * 3 + row.draw)"))
         }
     }
 }
@@ -233,7 +275,7 @@ struct LeagueWidget: Widget {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
             LeagueWidgetEntryView(entry: entry)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color(.secondarySystemBackground))
+                .background(Color(.systemBackground))
         }
         .configurationDisplayName("Standings")
         .description("See standings from the seleceted league.")

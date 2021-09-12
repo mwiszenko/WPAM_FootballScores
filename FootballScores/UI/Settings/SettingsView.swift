@@ -10,9 +10,12 @@ import SwiftUI
 
 struct SettingsView: View {
     @State var showAbout = false
+    @State private var wakeUp = Date()
+
     var body: some View {
         NavigationView {
             Form {
+                settingsSection
                 aboutSection
                 feedbackSection
             }
@@ -25,6 +28,12 @@ struct SettingsView: View {
 }
 
 private extension SettingsView {
+    var settingsSection: some View {
+        Section {
+            DatePicker("Widget refresh time", selection: $wakeUp, displayedComponents: .hourAndMinute)
+        }
+    }
+    
     var feedbackSection: some View {
         Section(header: Text("Feedback")) {
             Button(action: {

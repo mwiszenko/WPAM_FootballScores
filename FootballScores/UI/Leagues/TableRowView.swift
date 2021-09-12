@@ -14,25 +14,17 @@ struct TableRowView: View {
     var row: StandingsRow
     var type: String
 
-    let columns = [
-        GridItem(.fixed(15)),
-        GridItem(.fixed(20)),
-        GridItem(.flexible()),
-        GridItem(.fixed(15)),
-        GridItem(.fixed(15)),
-        GridItem(.fixed(15)),
-        GridItem(.fixed(15)),
-        GridItem(.fixed(15)),
-        GridItem(.fixed(15)),
-        GridItem(.fixed(15)),
-    ]
-
     var body: some View {
-        LazyVGrid(columns: columns, alignment: .leading) {
-            Text("\(row.rank)")
-            RemoteImage(url: row.team.logo)
-                .aspectRatio(contentMode: .fit)
-            Text(row.team.name)
+        HStack{
+            HStack {
+                Text("20")
+                    .hidden()
+                    .overlay(Text("\(row.rank)"))
+                RemoteImage(url: row.team.logo)
+                    .frame(width: 20, height: 20)
+                Text("\(row.team.name)")
+            }
+            Spacer()
             if type == "ALL" {
                 stats(row: row.all)
             } else if type == "HOME" {
@@ -41,7 +33,6 @@ struct TableRowView: View {
                 stats(row: row.away)
             }
         }
-        .font(.caption)
     }
 }
 
@@ -50,14 +41,27 @@ struct TableRowView: View {
 extension TableRowView {
     func stats(row: StandingsStatistics) -> some View {
         Group {
-            Text("\(row.played)")
-            Text("\(row.win)")
-            Text("\(row.draw)")
-            Text("\(row.lose)")
-            Text("\(row.goalsFor)")
-            Text("\(row.goalsAgainst)")
-            Text("\(row.win * 3 + row.draw)")
+            Text("00")
+                .hidden()
+                .overlay(Text("\(row.played)"))
+            Text("00")
+                .hidden()
+                .overlay(Text("\(row.win)"))
+            Text("00")
+                .hidden()
+                .overlay(Text("\(row.draw)"))
+            Text("00")
+                .hidden()
+                .overlay(Text("\(row.lose)"))
+            Text("GF")
+                .hidden()
+                .overlay(Text("\(row.goalsFor)"))
+            Text("GA")
+                .hidden()
+                .overlay(Text("\(row.goalsAgainst)"))
+            Text("PT")
+                .hidden()
+                .overlay(Text("\(row.win * 3 + row.draw)"))
         }
-        .fixedSize(horizontal: true, vertical: false)
     }
 }
