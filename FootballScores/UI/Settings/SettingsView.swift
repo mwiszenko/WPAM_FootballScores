@@ -15,9 +15,10 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             Form {
-                settingsSection
-                aboutSection
+                widgetPreferencesSection
+                apiSettingsSection
                 feedbackSection
+                aboutSection
             }
             .navigationTitle("Settings")
             .fullScreenCover(isPresented: $showAbout) {
@@ -28,9 +29,15 @@ struct SettingsView: View {
 }
 
 private extension SettingsView {
-    var settingsSection: some View {
-        Section {
-            DatePicker("Widget refresh time", selection: $userPreferences.widgetRefreshTime, displayedComponents: .hourAndMinute)
+    var widgetPreferencesSection: some View {
+        Section(header: Text("Widget preferences")) {
+            DatePicker("Refresh time", selection: $userPreferences.widgetRefreshTime, displayedComponents: .hourAndMinute)
+        }
+    }
+    
+    var apiSettingsSection: some View {
+        Section(header: Text("Api key")) {
+            TextField("Enter api key", text: $userPreferences.apiKey)
         }
     }
     
@@ -119,9 +126,12 @@ private extension SettingsView {
     }
 }
 
-//struct SettingsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SettingsView()
-//            .colorScheme(.dark)
-//    }
-//}
+struct SettingsView_Previews: PreviewProvider {
+    static let userPreferences = UserPreferences()
+
+    static var previews: some View {
+        SettingsView()
+            .colorScheme(.dark)
+            .environmentObject(userPreferences)
+    }
+}
