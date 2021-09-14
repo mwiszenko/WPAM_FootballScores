@@ -24,6 +24,8 @@ final class ModelData: ObservableObject {
     @Published var statisticsDict: [FixtureId: [Statistics]] = [:]
 
     @Published var eventsDict: [FixtureId: [Event]] = [:]
+    
+    @Published var requestsStatus: Status = Status(usedRequests: 0, maxRequests: 100)
 
     let apiKey: String = "3e6a491054c4f9a0fd77f7bfc7540225"
     let apiHeaderField: String = "x-rapidapi-key"
@@ -37,6 +39,23 @@ final class ModelData: ObservableObject {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         self.date = dateFormatter.string(from: todayDate)
         self.placeholderLeagues()
+    }
+    
+    func fetchStatus() {
+        guard let url = URL(string: "https://v3.football.api-sports.io/status") else {
+            print("Your API end point is Invalid")
+            return
+        }
+        var request = URLRequest(url: url)
+        request.addValue(apiKey, forHTTPHeaderField: apiHeaderField)
+
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data else { return }
+            let statusResponse = try! JSONDecoder().decode(StatusResponse.self, from: data)
+            DispatchQueue.main.async {
+                self.requestsStatus = statusResponse.response
+            }
+        }.resume()
     }
     
     func fetchStandings(id: Int, completion: @escaping (([Standings]) -> Void)) {

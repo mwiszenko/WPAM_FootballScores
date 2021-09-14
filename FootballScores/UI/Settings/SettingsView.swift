@@ -11,6 +11,7 @@ import SwiftUI
 struct SettingsView: View {
     @State var showAbout = false
     @EnvironmentObject var userPreferences: UserPreferences
+    @EnvironmentObject var modelData: ModelData
 
     var body: some View {
         NavigationView {
@@ -38,6 +39,12 @@ private extension SettingsView {
     var apiSettingsSection: some View {
         Section(header: Text("Api key")) {
             TextField("Enter api key", text: $userPreferences.apiKey)
+            Text("\(modelData.requestsStatus.usedRequests) / \(modelData.requestsStatus.maxRequests)")
+            Button(action: {
+                modelData.fetchStatus()
+            }, label: {
+                Text("Refresh")
+            })
         }
     }
     
