@@ -118,14 +118,3 @@ extension LeaguesView {
         }
     }
 }
-
-struct LeaguesView_Previews: PreviewProvider {
-    static let modelData = ModelData()
-    
-    static var previews: some View {
-        LeaguesView()
-            .colorScheme(.dark)
-            .environmentObject(modelData)
-            .environmentObject(Favourites())
-    }
-}

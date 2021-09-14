@@ -132,13 +132,3 @@ private extension SettingsView {
         }
     }
 }
-
-struct SettingsView_Previews: PreviewProvider {
-    static let userPreferences = UserPreferences()
-
-    static var previews: some View {
-        SettingsView()
-            .colorScheme(.dark)
-            .environmentObject(userPreferences)
-    }
-}
