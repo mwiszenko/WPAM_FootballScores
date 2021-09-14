@@ -14,7 +14,7 @@ final class UserPreferences: ObservableObject {
         }
     }
     
-    @Published var apiKey: String = UserDefaults.standard.object(forKey: "ApiKey") as? String ?? "" {
+    @Published public var apiKey: String = UserDefaults.standard.object(forKey: "ApiKey") as? String ?? "" {
         didSet {
             UserDefaults.standard.set(self.apiKey, forKey: "ApiKey")
         }
