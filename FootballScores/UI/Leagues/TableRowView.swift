@@ -18,19 +18,19 @@ struct TableRowView: View {
         HStack{
             HStack {
                 Text("20")
-//                    .hidden()
-//                    .overlay(Text("\(row.rank)"))
-//                RemoteImage(url: row.team.logo)
-//                    .frame(width: 20, height: 20)
-//                Text("\(row.team.name)")
-//            }
-//            Spacer()
-//            if type == "ALL" {
-//                stats(row: row.all)
-//            } else if type == "HOME" {
-//                stats(row: row.home)
-//            } else if type == "AWAY" {
-//                stats(row: row.away)
+                    .hidden()
+                    .overlay(Text("\(row.rank)"))
+                RemoteImage(url: row.team.logo)
+                    .frame(width: 20, height: 20)
+                Text("\(row.team.name)")
+            }
+            Spacer()
+            if type == "ALL" {
+                stats(row: row.all)
+            } else if type == "HOME" {
+                stats(row: row.home)
+            } else if type == "AWAY" {
+                stats(row: row.away)
             }
         }
     }

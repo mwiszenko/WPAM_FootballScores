@@ -52,8 +52,8 @@ struct StandingsRow: Hashable, Decodable {
     let points: Int
     let team: StandingsTeam
     let all: StandingsStatistics
-    let home: StandingsStatistics?
-    let away: StandingsStatistics?
+    let home: StandingsStatistics
+    let away: StandingsStatistics
 }
 
 struct StandingsTeam: Hashable, Decodable {

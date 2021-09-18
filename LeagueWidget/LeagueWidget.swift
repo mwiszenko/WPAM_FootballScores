@@ -165,9 +165,9 @@ extension LeagueWidgetEntryView {
             case .all:
                 fullTableStats(row: row.all)
             case .home:
-                fullTableStats(row: row.home ?? row.all)
+                fullTableStats(row: row.home)
             case .away:
-                fullTableStats(row: row.away ?? row.all)
+                fullTableStats(row: row.away)
             case .unknown:
                 fullTableStats(row: row.all)
             }
@@ -257,9 +257,9 @@ extension LeagueWidgetEntryView {
             case .all:
                 smallTableStats(row: row.all)
             case .home:
-                smallTableStats(row: row.home ?? row.all)
+                smallTableStats(row: row.home)
             case .away:
-                smallTableStats(row: row.away ?? row.all)
+                smallTableStats(row: row.away)
             case .unknown:
                 smallTableStats(row: row.all)
             }
