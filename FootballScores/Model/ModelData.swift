@@ -27,8 +27,6 @@ final class ModelData: ObservableObject {
     
     @Published var requestsStatus: Status = Status(usedRequests: 0, maxRequests: 100)
     
-    let userPreferences = UserPreferences()
-
     let apiHeaderField: String = "x-rapidapi-key"
     let season: Int = 2021
     let date: String
@@ -47,7 +45,7 @@ final class ModelData: ObservableObject {
             return
         }
         var request = URLRequest(url: url)
-        request.addValue(userPreferences.apiKey, forHTTPHeaderField: apiHeaderField)
+        request.addValue(UserPreferences().apiKey, forHTTPHeaderField: apiHeaderField)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -64,7 +62,7 @@ final class ModelData: ObservableObject {
             return
         }
         var request = URLRequest(url: url)
-        request.addValue(userPreferences.apiKey, forHTTPHeaderField: apiHeaderField)
+        request.addValue(UserPreferences().apiKey, forHTTPHeaderField: apiHeaderField)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -81,7 +79,7 @@ final class ModelData: ObservableObject {
             return
         }
         var request = URLRequest(url: url)
-        request.addValue(userPreferences.apiKey, forHTTPHeaderField: apiHeaderField)
+        request.addValue(UserPreferences().apiKey, forHTTPHeaderField: apiHeaderField)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -98,7 +96,7 @@ final class ModelData: ObservableObject {
             return
         }
         var request = URLRequest(url: url)
-        request.addValue(userPreferences.apiKey, forHTTPHeaderField: apiHeaderField)
+        request.addValue(UserPreferences().apiKey, forHTTPHeaderField: apiHeaderField)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -115,7 +113,7 @@ final class ModelData: ObservableObject {
             return
         }
         var request = URLRequest(url: url)
-        request.addValue(userPreferences.apiKey, forHTTPHeaderField: apiHeaderField)
+        request.addValue(UserPreferences().apiKey, forHTTPHeaderField: apiHeaderField)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -132,7 +130,7 @@ final class ModelData: ObservableObject {
             return
         }
         var request = URLRequest(url: url)
-        request.addValue(userPreferences.apiKey, forHTTPHeaderField: apiHeaderField)
+        request.addValue(UserPreferences().apiKey, forHTTPHeaderField: apiHeaderField)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -150,7 +148,7 @@ final class ModelData: ObservableObject {
             return
         }
         var request = URLRequest(url: url)
-        request.addValue(userPreferences.apiKey, forHTTPHeaderField: apiHeaderField)
+        request.addValue(UserPreferences().apiKey, forHTTPHeaderField: apiHeaderField)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }

@@ -40,11 +40,20 @@ private extension SettingsView {
         Section(header: Text("Api key")) {
             TextField("Enter api key", text: $userPreferences.apiKey)
             Text("\(modelData.requestsStatus.usedRequests) / \(modelData.requestsStatus.maxRequests)")
-            Button(action: {
-                modelData.fetchStatus()
-            }, label: {
-                Text("Refresh")
-            })
+//            if $userPreferences.validated {
+                Button(action: {
+                    modelData.fetchStatus()
+                }, label: {
+                    Text("Refresh")
+//                        .font(.red)
+                })
+//            } else {
+//                Button(action: {
+//                    modelData.validate()
+//                }, label: {
+//                    Text("Validate")
+//                })
+//            }
         }
     }
     

@@ -22,7 +22,7 @@ struct FootballScoresApp: App {
                 .onAppear(perform: {
                     modelData.loadLeagues()
                     modelData.loadFixtures()
-                    modelData.fetchStatus()
+//                    modelData.fetchStatus()
                 })
         }
     }

@@ -8,15 +8,18 @@
 import Foundation
 
 final class UserPreferences: ObservableObject {
-    @Published var widgetRefreshTime: Date = UserDefaults.standard.object(forKey: "WidgetRefreshTime") as? Date ?? Calendar.current.startOfDay(for: Date()) {
+    static let suiteName = "group.com.mwiszenko.FootballScores"
+    
+    @Published var widgetRefreshTime: Date =
+        UserDefaults(suiteName: "group.com.mwiszenko.FootballScores")!.object(forKey: "WidgetRefreshTime") as? Date ?? Calendar.current.startOfDay(for: Date()) {
         didSet {
-            UserDefaults.standard.set(self.widgetRefreshTime, forKey: "WidgetRefreshTime")
+            UserDefaults(suiteName: "group.com.mwiszenko.FootballScores")!.set(self.widgetRefreshTime, forKey: "WidgetRefreshTime")
         }
     }
     
-    @Published public var apiKey: String = UserDefaults.standard.object(forKey: "ApiKey") as? String ?? "" {
+    @Published public var apiKey: String = UserDefaults(suiteName: "group.com.mwiszenko.FootballScores")!.object(forKey: "ApiKey") as? String ?? "" {
         didSet {
-            UserDefaults.standard.set(self.apiKey, forKey: "ApiKey")
+            UserDefaults(suiteName: "group.com.mwiszenko.FootballScores")!.set(self.apiKey, forKey: "ApiKey")
         }
     }
 }

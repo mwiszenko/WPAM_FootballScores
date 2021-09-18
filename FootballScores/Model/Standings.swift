@@ -52,8 +52,8 @@ struct StandingsRow: Hashable, Decodable {
     let points: Int
     let team: StandingsTeam
     let all: StandingsStatistics
-    let home: StandingsStatistics
-    let away: StandingsStatistics
+    let home: StandingsStatistics?
+    let away: StandingsStatistics?
 }
 
 struct StandingsTeam: Hashable, Decodable {
@@ -63,12 +63,12 @@ struct StandingsTeam: Hashable, Decodable {
 }
 
 struct StandingsStatistics: Hashable {
-    let played: Int
-    let win: Int
-    let draw: Int
-    let lose: Int
-    let goalsFor: Int
-    let goalsAgainst: Int
+    let played: Int?
+    let win: Int?
+    let draw: Int?
+    let lose: Int?
+    let goalsFor: Int?
+    let goalsAgainst: Int?
 
     enum CodingKeys: String, CodingKey {
         case played
@@ -88,14 +88,14 @@ extension StandingsStatistics: Decodable {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
 
-        played = try values.decode(Int.self, forKey: .played)
-        win = try values.decode(Int.self, forKey: .win)
-        draw = try values.decode(Int.self, forKey: .draw)
-        lose = try values.decode(Int.self, forKey: .lose)
+        played = try values.decode(Int?.self, forKey: .played)
+        win = try values.decode(Int?.self, forKey: .win)
+        draw = try values.decode(Int?.self, forKey: .draw)
+        lose = try values.decode(Int?.self, forKey: .lose)
 
         let goals = try values.nestedContainer(keyedBy: GoalsKeys.self, forKey: .goals)
 
-        goalsFor = try goals.decode(Int.self, forKey: .goalsFor)
-        goalsAgainst = try goals.decode(Int.self, forKey: .goalsAgainst)
+        goalsFor = try goals.decode(Int?.self, forKey: .goalsFor)
+        goalsAgainst = try goals.decode(Int?.self, forKey: .goalsAgainst)
     }
 }

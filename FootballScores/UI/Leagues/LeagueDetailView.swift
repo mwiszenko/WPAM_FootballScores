@@ -19,7 +19,7 @@ struct LeagueDetailView: View {
     var league: League
     
     @State private var sliderValue: Int = 0
-    private let sliderValues = ["ALL", "HOME", "AWAY"]
+    private let sliderValues: [String] = ["ALL", "HOME", "AWAY"]
 
     var body: some View {
         VStack {

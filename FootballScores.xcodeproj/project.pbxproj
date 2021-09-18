@@ -94,6 +94,8 @@
 
 /* Begin PBXFileReference section */
 		90755B8626F1389A007022B9 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		90755B8B26F26EF5007022B9 /* LeagueWidgetExtension.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = LeagueWidgetExtension.entitlements; sourceTree = "<group>"; };
+		90755B8C26F26F01007022B9 /* FootballScores.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = FootballScores.entitlements; sourceTree = "<group>"; };
 		90AC288A26EE1D5200D4198F /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		90ADE8DE259A253D00796B47 /* leagues.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = leagues.json; path = Assets.xcassets/leagues.json; sourceTree = "<group>"; };
 		90ADE8DF259A253D00796B47 /* fixtures.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = fixtures.json; path = Assets.xcassets/fixtures.json; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 		90E1E6F125A20EA50096F55F /* LeagueWidget */ = {
 			isa = PBXGroup;
 			children = (
+				90755B8B26F26EF5007022B9 /* LeagueWidgetExtension.entitlements */,
 				90E1E6F225A20EA50096F55F /* LeagueWidget.swift */,
 				90E1E6F425A20EA50096F55F /* LeagueWidget.intentdefinition */,
 				90E1E6F525A20EA90096F55F /* Assets.xcassets */,
@@ -258,6 +261,7 @@
 		90F2807B2576E35000EFE936 /* FootballScores */ = {
 			isa = PBXGroup;
 			children = (
+				90755B8C26F26F01007022B9 /* FootballScores.entitlements */,
 				90F280AB2576E37100EFE936 /* UI */,
 				90F280AA2576E36900EFE936 /* Model */,
 				90F280AC2576E37D00EFE936 /* Resources */,
@@ -576,6 +580,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = LeagueWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2PC5P89XNC;
 				INFOPLIST_FILE = LeagueWidget/Info.plist;
@@ -597,6 +602,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = LeagueWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2PC5P89XNC;
 				INFOPLIST_FILE = LeagueWidget/Info.plist;
@@ -735,6 +741,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FootballScores/FootballScores.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"FootballScores/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 2PC5P89XNC;
@@ -758,6 +765,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FootballScores/FootballScores.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"FootballScores/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 2PC5P89XNC;

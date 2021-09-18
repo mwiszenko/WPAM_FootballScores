@@ -12,7 +12,6 @@ import WidgetKit
 
 struct Provider: IntentTimelineProvider {
     var data = ModelData()
-    var preferences = UserPreferences()
 
     let placeholderStandings: [Standings] = ModelData.getPlaceholderStandings()
 
@@ -46,14 +45,17 @@ struct Provider: IntentTimelineProvider {
         data.fetchStandings(id: leagueIndex) { standings in
             let entry = SimpleEntry(date: Date(), type: configuration.type, standings: standings, configuration: configuration)
             let calendar = Calendar.current
+            
+            let date = UserDefaults(suiteName: "group.com.mwiszenko.FootballScores")!.object(forKey: "WidgetRefreshTime") as? Date ?? Calendar.current.startOfDay(for: Date())
 
-            let components = calendar.dateComponents([.hour, .minute], from: preferences.widgetRefreshTime)
-            
+
+            let components = calendar.dateComponents([.hour, .minute], from: date)
+
             var expiryDate = calendar.startOfDay(for: Date())
-            
+
             expiryDate = calendar.date(byAdding: .minute, value: components.minute ?? 0, to: expiryDate) ?? Date()
             expiryDate = calendar.date(byAdding: .hour, value: components.hour ?? 0, to: expiryDate) ?? Date()
-            
+
             if Date() >= expiryDate {
                 expiryDate = calendar.date(byAdding: .day, value: 1, to: expiryDate) ?? Date()
             }
@@ -102,10 +104,9 @@ extension LeagueWidgetEntryView {
                         .aspectRatio(contentMode: .fit)
                 } else {
                     Image(systemName: "multiply.circle")
-                        .imageScale(.large)
+                        .aspectRatio(contentMode: .fit)
                 }
-//                Text(entry.standings[0].league.name)
-                Text(entry.date, style: .time)
+                Text(entry.standings[0].league.name)
                     .lineLimit(1)
             }
             HStack {
@@ -154,7 +155,7 @@ extension LeagueWidgetEntryView {
                         .aspectRatio(contentMode: .fit)
                 } else {
                     Image(systemName: "multiply.circle")
-                        .imageScale(.medium)
+                        .aspectRatio(contentMode: .fit)
                 }
                 Text("\(row.team.name)")
                     .lineLimit(1)
@@ -164,9 +165,9 @@ extension LeagueWidgetEntryView {
             case .all:
                 fullTableStats(row: row.all)
             case .home:
-                fullTableStats(row: row.home)
+                fullTableStats(row: row.home ?? row.all)
             case .away:
-                fullTableStats(row: row.away)
+                fullTableStats(row: row.away ?? row.all)
             case .unknown:
                 fullTableStats(row: row.all)
             }
@@ -178,25 +179,25 @@ extension LeagueWidgetEntryView {
         Group {
             Text("00")
                 .hidden()
-                .overlay(Text("\(row.played)"))
+                .overlay(Text("\(row.played ?? 0)"))
             Text("00")
                 .hidden()
-                .overlay(Text("\(row.win)"))
+                .overlay(Text("\(row.win ?? 0)"))
             Text("00")
                 .hidden()
-                .overlay(Text("\(row.draw)"))
+                .overlay(Text("\(row.draw ?? 0)"))
             Text("00")
                 .hidden()
-                .overlay(Text("\(row.lose)"))
+                .overlay(Text("\(row.lose ?? 0)"))
             Text("GF")
                 .hidden()
-                .overlay(Text("\(row.goalsFor)"))
+                .overlay(Text("\(row.goalsFor ?? 0)"))
             Text("GA")
                 .hidden()
-                .overlay(Text("\(row.goalsAgainst)"))
+                .overlay(Text("\(row.goalsAgainst ?? 0)"))
             Text("PT")
                 .hidden()
-                .overlay(Text("\(row.win * 3 + row.draw)"))
+                .overlay(Text("\(3 * (row.win ?? 0) + (row.draw ?? 0))"))
         }
     }
 }
@@ -212,7 +213,7 @@ extension LeagueWidgetEntryView {
                     .aspectRatio(contentMode: .fit)
             } else {
                 Image(systemName: "multiply.circle")
-                    .imageScale(.large)
+                    .aspectRatio(contentMode: .fit)
             }
             HStack {
                 Text("TEAM")
@@ -248,7 +249,7 @@ extension LeagueWidgetEntryView {
                         .aspectRatio(contentMode: .fit)
                 } else {
                     Image(systemName: "multiply.circle")
-                        .imageScale(.medium)
+                        .aspectRatio(contentMode: .fit)
                 }
             }
             Spacer()
@@ -256,9 +257,9 @@ extension LeagueWidgetEntryView {
             case .all:
                 smallTableStats(row: row.all)
             case .home:
-                smallTableStats(row: row.home)
+                smallTableStats(row: row.home ?? row.all)
             case .away:
-                smallTableStats(row: row.away)
+                smallTableStats(row: row.away ?? row.all)
             case .unknown:
                 smallTableStats(row: row.all)
             }
@@ -269,13 +270,13 @@ extension LeagueWidgetEntryView {
         Group {
             Text("00")
                 .hidden()
-                .overlay(Text("\(row.played)"))
+                .overlay(Text("\(row.played ?? 0)"))
             Text("00")
                 .hidden()
-                .overlay(Text("\(row.win)"))
+                .overlay(Text("\(row.win ?? 0)"))
             Text("PT")
                 .hidden()
-                .overlay(Text("\(row.win * 3 + row.draw)"))
+                .overlay(Text("\(3 * (row.win ?? 0) + (row.draw ?? 0))"))
         }
     }
 }
